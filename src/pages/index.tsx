@@ -6,13 +6,13 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-center">
+      <h1 className="text-3xl font-bold underline text-center text-white">
         Welcome to MUPLAY
       </h1> 
 
 
 
-      <div className='text-center mt-20'>
+      <div className='text-center mt-20 text-white'>
         <Link href='/home'>/HOME</Link>
         <br/><br/>
         {/* <Link href='/'>/MOVIES</Link>

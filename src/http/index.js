@@ -1,14 +1,14 @@
 import axios from "axios";
 
-let headers = {
+// let headers = {
 
-}
+// }
 
 const API = axios.create({
     // baseURL : process.env.REACT_APP_BASEURL,
     // baseURL: 'https://api.shree.network/api',
 
-    baseURL: 'https://cors-anywhere-969l.onrender.com/https://api.shree.network/api',
+    baseURL: 'https://cors-anywhere-969l.onrender.com/https://api.zezosoft.com/api',
     // withCredentials: true,
     headers: {
         'Authorization': 'BearerToken eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmNzMxNWM5YjRmZDJjOGVhZGNjYzUiLCJyb2xlIjoidXNlciIsImlhdCI6MTY3NTMzMDkyOSwiZXhwIjoxNzA2ODg4NTI5LCJpc3MiOiJ6ZXpvLmluIn0.ZqHHkje24z1yMRxV14Tpd8hq7fRx5VuIZxiutJHsc8s',

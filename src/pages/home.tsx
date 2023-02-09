@@ -1,6 +1,13 @@
-import Hero from '@/components/Home/Hero'
+import Hero from '../Components/Home/Hero'
+import MoviesAndTrailers from '@/Components/Home/MoviesAndTrailers'
+import WatchTheLatest from '@/Components/Home/WatchTheLatest'
 import React, { useEffect, useState } from 'react'
 import { getTrending } from '../http/index'
+import ReviewOfWeek from '@/Components/Home/ReviewOfWeek'
+import TopTen from '@/Components/Home/TopTen'
+import ToBeReleased from '@/Components/Home/ToBeReleased'
+import MoviesForKids from '@/Components/Home/MoviesForKids'
+import Genres from '@/Components/Home/Genres'
 
 
 
@@ -10,14 +17,15 @@ function home() {
     const [trending, setTrending] = useState([])
     const [bgHero, setBgHero] = useState('')
     const [heroContent, setHeroContent] = useState([])
-    // console.log(heroContent)
+    // console.log(bgHero)
 
     async function getAllTrends() {
         // console.log('Getting all movies');
         try {
             const response = await getTrending();
-            setBgHero(response.data.data[0].thumbnail)
+            // console.log(response)
             setHeroContent(response.data.data[0])
+            setBgHero(response.data.data[0].thumbnail)
             setTrending(response.data.data)
         } catch (error) {
             console.log(error)
@@ -33,18 +41,37 @@ function home() {
 
     return (
         <div>
-            <div className="bg-cover bg-center h-screen" style={{ backgroundImage: `url(${bgHero})` }}>
-                <div className='h-full w-full bg-gradient-to-t to-transparent via-transparent from-[#000] '>
-                    <div className='absolute h-full w-1/2 bg-gradient-to-r from-[#000] via-[#000] to-transparent'>
-                    </div>
-                    <div className='px-5 lg:px-10 absolute pt-[128px]'>
-                        <Hero trending={trending} name={heroContent.name} description={heroContent.description} slug={heroContent.slug}/>
-                    </div>
+            <div className=''>
+                <Hero data={trending}/>
+            </div>
+
+            <div className='px-5 mb-[93px]'>
+                <MoviesAndTrailers data={trending} />
+            </div>
+            <div className='px-5 mb-[83px]'>
+                <WatchTheLatest data={trending} />
+            </div>
+
+            <div className="bg-cover bg-center h-[690px]" style={{ backgroundImage: `url(${bgHero})` }}>
+                <div className='h-full w-full absolute bg-gradient-to-l to-[#101010] via-transparent from-[#101010] '></div>
+                <div className='px-5 lg:px-10 pt-[112px]'>
+                    <ReviewOfWeek data={trending} />
                 </div>
             </div>
-            <div>
-                
+
+            <div className='px-5 lg:px-10 pt-[78px]'>
+                <TopTen data={trending} />
             </div>
+            <div className='px-5 lg:px-10 mt-[83px]'>
+                <ToBeReleased data={trending}/>
+            </div>
+            <div className='px-5 lg:px-10 mt-[98px]'>
+                <MoviesForKids data={trending}/>
+            </div>
+            <div className='px-5 lg:px-10 mt-[95px] mb-[104px]'>
+                <Genres/>
+            </div>
+
         </div>
     )
 }
