@@ -34,7 +34,7 @@ export const verifyOTP = (data) => API.post("/auth/verify-otp", data);
 
 
 // Search Endpoints 
-export const search = (data) => API.get(`search?query=${data}`);
+export const searching = (data) => API.get(`search?query=${data}`);
 
 
 // content endpoints

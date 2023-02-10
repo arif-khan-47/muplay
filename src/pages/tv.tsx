@@ -6,11 +6,10 @@ import LandscapeSlider from '../Components/TV/LandscapeSlider'
 import RectangleSlider from '../Components/TV/RectangleSlider'
 
 
-function tv() {
+function Tv() {
 
     const [trending, setTrending] = useState([])
-    const [bgHero, setBgHero] = useState('')
-    const [heroContent, setHeroContent] = useState([])
+
     console.log(trending)
 
     async function getAllTrends() {
@@ -18,8 +17,7 @@ function tv() {
         try {
             const response = await getTrending();
             // console.log(response)
-            setHeroContent(response.data.data[0])
-            setBgHero(response.data.data[0].thumbnail)
+
             setTrending(response.data.data)
         } catch (error) {
             console.log(error)
@@ -55,4 +53,4 @@ function tv() {
     )
 }
 
-export default tv
+export default Tv

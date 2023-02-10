@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function login() {
+function Login() {
     const bgimg = 'https://res.cloudinary.com/dgyudczza/image/upload/v1676010304/muplay/Wireframe_-_9_zuzson.png';
 
     const [isSubmitted, setIsSubmitted] = useState(false)
@@ -73,4 +73,4 @@ function login() {
     )
 }
 
-export default login
+export default Login

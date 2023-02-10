@@ -12,7 +12,7 @@ import Genres from '@/Components/Home/Genres'
 
 
 
-function home() {
+function Home() {
 
     const [trending, setTrending] = useState([])
     const [bgHero, setBgHero] = useState('')
@@ -76,4 +76,4 @@ function home() {
     )
 }
 
-export default home
+export default Home

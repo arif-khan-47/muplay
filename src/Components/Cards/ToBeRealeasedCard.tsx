@@ -22,7 +22,7 @@ function ToBeRealeasedCard({ name, img, duration, genres, createdAt, description
                         <div className='text-[17.77px] mb-[12px] mt-[13px]'>{name.length > 20 ? name.substring(0, 20) + '...' : name}</div>
 
                     {genres?.map((item: any, index: any) => (
-                        <div className='bg-[#FF2A00] w-fit mb-[12px] text-[8.66px] rounded-full py-[3px] px-[10px]'>
+                        <div key={index} className='bg-[#FF2A00] w-fit mb-[12px] text-[8.66px] rounded-full py-[3px] px-[10px]'>
                             {item.name}
                         </div>
                     ))}

@@ -31,7 +31,7 @@ function TopTenCard({ name, img, duration, genres, createdAt, description, ratin
                     </div>
 
                     {genres?.map((item: any, index: any) => (
-                        <div className='bg-[#FF2A00] w-fit mb-[8px] text-[8.72px] rounded-full py-[3px] px-[10px]'>
+                        <div key={index} className='bg-[#FF2A00] w-fit mb-[8px] text-[8.72px] rounded-full py-[3px] px-[10px]'>
                             {item.name}
                         </div>
                     ))}

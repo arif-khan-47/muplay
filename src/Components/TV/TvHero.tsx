@@ -47,7 +47,7 @@ function TvHero({ data }: any) {
                                             <div className='col-span-1 text-white mt-[98px]'>
                                                 <p className='font-semibold leading-tight text-[40.71px] uppercase mb-[16px]'>{item.name}</p>
                                                 {item.genres?.map((item: any, index: any) => (
-                                                    <div className='bg-[#1D1D1D] border-[#CCCCCCB5] border w-fit text-[9.23px] rounded-full py-[3.5px] px-[11px] mb-[42.58px]'>
+                                                    <div key={index} className='bg-[#1D1D1D] border-[#CCCCCCB5] border w-fit text-[9.23px] rounded-full py-[3.5px] px-[11px] mb-[42.58px]'>
                                                         {item.name}
                                                     </div>
                                                 ))}

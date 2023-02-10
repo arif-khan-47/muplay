@@ -19,15 +19,10 @@ export default function Home() {
         <br/><br/>
         <Link href='/login'>/LOGIN</Link>
         <br/><br/>    
-        {/*
-        <Link href='/'>/SIGNIN</Link>
-        <br/><br/> 
-        <Link href='/'>/TV</Link>
+        <Link href='/search'>/SEARCH</Link>
         <br/><br/>  
-        <Link href='/'>/SEARCH</Link>
-        <br/><br/>  
-        <Link href='/'>/Subscription</Link>
-        <br/><br/>        */}
+        <Link href='/subscription'>/Subscription</Link>
+        <br/><br/>        
       </div>
     </>
   )

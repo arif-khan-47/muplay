@@ -9,7 +9,7 @@ function LandscapeWithTitle({ name, thumbnail, duration, genres }: any) {
                     <div className='flex'>
                     <p className='mr-[12px]'>{Math.floor(duration / 3600)}hr {Math.floor((duration % 3600) / 60)}Min</p>
                     {genres?.map((item:any , index:any) => (
-                    <div className='bg-[#FF2A00] rounded-full py-[3px] px-[12px]'>
+                    <div key={index} className='bg-[#FF2A00] rounded-full py-[3px] px-[12px]'>
                         {item.name}
                     </div>
                     ))}

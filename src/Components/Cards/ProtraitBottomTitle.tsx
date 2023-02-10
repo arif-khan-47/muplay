@@ -9,7 +9,7 @@ function ProtraitBottomTitle({ name, img, duration, genres }: any) {
                     <div className='flex'>
                     <p className='mr-[12px] text-[9.19px] my-auto'>{Math.floor(duration / 3600)}hr {Math.floor((duration % 3600) / 60)}Min</p>
                     {genres?.map((item:any , index:any) => (
-                    <div className='bg-[#FF2A00]  text-[9.19px] rounded-full py-[3px] px-[12px]'>
+                    <div key={index} className='bg-[#FF2A00]  text-[9.19px] rounded-full py-[3px] px-[12px]'>
                         {item.name}
                     </div>
                     ))}
