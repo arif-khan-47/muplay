@@ -17,9 +17,9 @@ export default function Home() {
         <br/><br/>
          <Link href='/tv'>/TV</Link>
         <br/><br/>
-        {/*
-        <Link href='/'>/LOGIN</Link>
+        <Link href='/login'>/LOGIN</Link>
         <br/><br/>    
+        {/*
         <Link href='/'>/SIGNIN</Link>
         <br/><br/> 
         <Link href='/'>/TV</Link>
