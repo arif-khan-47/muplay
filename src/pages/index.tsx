@@ -15,8 +15,9 @@ export default function Home() {
       <div className='text-center mt-20 text-white'>
         <Link href='/home'>/HOME</Link>
         <br/><br/>
-        {/* <Link href='/'>/MOVIES</Link>
+         <Link href='/tv'>/TV</Link>
         <br/><br/>
+        {/*
         <Link href='/'>/LOGIN</Link>
         <br/><br/>    
         <Link href='/'>/SIGNIN</Link>
