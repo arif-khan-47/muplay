@@ -40,7 +40,7 @@ function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description,
                     <div className='absolute bottom-0 left-0 pl-[20px] pb-[5px]'>
                     {/* <Link href={`/${item.type}/${item.slug}`}> */}
                     <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
-                        <div className='text-[9.98px] py-[12.5px] border px-[28px] rounded-xl'>
+                        <div className='text-[9.98px] py-[12.5px] border px-[28px] cursor-pointer rounded-xl'>
                             WATCH NOW
                         </div>
                         </div>
