@@ -24,6 +24,7 @@ function Hero({ data }: any) {
         modules={[Navigation, Autoplay]}
         className="mySwiper">
         {
+          data && data.length > 0?
           data && data.length > 0 && data.map((item: any, index: any) => (
 
             <SwiperSlide key={index}>
@@ -49,6 +50,9 @@ function Hero({ data }: any) {
               </div>
             </SwiperSlide>
           ))
+          :
+          <div className="bg-cover bg-center h-screen bg-gray-800"></div>
+
         }
       </Swiper>
     </>

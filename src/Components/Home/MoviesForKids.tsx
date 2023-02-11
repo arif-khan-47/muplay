@@ -12,6 +12,13 @@ import { Navigation, Autoplay } from "swiper";
 import ProtraitBottomTitle from "../Cards/ProtraitBottomTitle";
 import Link from "next/link";
 
+const SlidePerWebView = 4;
+const LoadingWebElement:any = [];
+
+for (let i = 0; i < SlidePerWebView; i++) {
+    LoadingWebElement.push(i);
+}
+
 function MoviesForKids({ data }: any) {
     console.log('checking that data',data)
     return (
@@ -52,6 +59,7 @@ function MoviesForKids({ data }: any) {
                         }
                     >
                         {
+                            data && data.length > 0 ?
                             data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
                                     <Link href={`/${item.type}/${item.slug}`}>
@@ -59,6 +67,12 @@ function MoviesForKids({ data }: any) {
                                             <ProtraitBottomTitle className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} />
                                         </div>
                                     </Link>
+                                </SwiperSlide>
+                            ))
+                            :
+                            LoadingWebElement.map((item:any, index:any) => (
+                                <SwiperSlide key={index}>
+                                <div className='h-[264.36px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                 </SwiperSlide>
                             ))
                         }

@@ -25,6 +25,7 @@ function TvHero({ data }: any) {
                 modules={[Navigation, Autoplay]}
                 className="mySwiper">
                 {
+                    data && data.length > 0?
                     data && data.length > 0 && data.map((item: any, index: any) => (
 
                         <SwiperSlide key={index}>
@@ -76,6 +77,8 @@ function TvHero({ data }: any) {
                             </div>
                         </SwiperSlide>
                     ))
+                    :
+                    <div className='h-screen w-full bg-gray-800 animate-pulse'></div>
                 }
             </Swiper>
         </div>

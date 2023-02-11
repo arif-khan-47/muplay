@@ -13,6 +13,12 @@ import LandscapeWithTitle from "../Cards/LandscapeWithTitle";
 import Link from "next/link";
 
 
+const SlidePerWebView = 4;
+const LoadingWebElement:any = [];
+
+for (let i = 0; i < SlidePerWebView; i++) {
+    LoadingWebElement.push(i);
+}
 
 function MoviesAndTrailers({ data }: any) {
     // console.log(data);
@@ -43,7 +49,7 @@ function MoviesAndTrailers({ data }: any) {
                                     spaceBetween: 0,
                                 },
                                 1024: {
-                                    slidesPerView: 4,
+                                    slidesPerView: SlidePerWebView,
                                     spaceBetween: 8,
                                 }
 
@@ -52,6 +58,7 @@ function MoviesAndTrailers({ data }: any) {
                         }
                     >
                         {
+                            data && data.length > 0?
                             data && data.length > 0 && data?.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
                                     <Link href={`/${item.type}/${item.slug}`}>
@@ -59,6 +66,12 @@ function MoviesAndTrailers({ data }: any) {
                                         <LandscapeWithTitle className='my-auto' name={item?.name} thumbnail={item.thumbnail} duration={item.duration} genres={item?.genres} />
                                     </div>
                                     </Link>
+                                </SwiperSlide>
+                            ))
+                            :
+                            LoadingWebElement.map((item:any, index:any) => (
+                                <SwiperSlide key={index}>
+                                <div className='h-[184px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                 </SwiperSlide>
                             ))
                         }

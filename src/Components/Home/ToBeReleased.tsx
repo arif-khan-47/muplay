@@ -12,6 +12,13 @@ import { Navigation, Autoplay } from "swiper";
 import ToBeReleasedCard from "../Cards/ToBeRealeasedCard";
 import Link from "next/link";
 
+const SlidePerWebView = 3;
+const LoadingWebElement:any = [];
+
+for (let i = 0; i < SlidePerWebView; i++) {
+    LoadingWebElement.push(i);
+}
+
 function ToBeReleased({ data }: any) {
     // console.log(data)
     return (
@@ -46,7 +53,7 @@ function ToBeReleased({ data }: any) {
                                     spaceBetween: 0,
                                 },
                                 1024: {
-                                    slidesPerView: 3,
+                                    slidesPerView: SlidePerWebView,
                                     spaceBetween: 0,
                                 }
 
@@ -55,6 +62,7 @@ function ToBeReleased({ data }: any) {
                         }
                     >
                         {
+                            data && data.length > 0?
                             data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
                                     <Link href={`/${item.type}/${item.slug}`}>
@@ -62,6 +70,12 @@ function ToBeReleased({ data }: any) {
                                         <ToBeReleasedCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index} thumbnail={item.thumbnail}/>
                                     </div>
                                     </Link>
+                                </SwiperSlide>
+                            ))
+                            :
+                            LoadingWebElement.map((item:any, index:any) => (
+                                <SwiperSlide key={index}>
+                                <div className='h-[300px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                 </SwiperSlide>
                             ))
                         }

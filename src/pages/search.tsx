@@ -69,8 +69,13 @@ function Search() {
     };
 
 
-    const divs = [1, 2, 3, 4, 5, 6];
+    const NumberOfDiv = 6;
 
+    const divs: any = [];
+
+    for (let i = 0; i < NumberOfDiv; i++) {
+        divs.push(i);
+    }
 
 
     return (
@@ -171,7 +176,7 @@ function Search() {
                                 :
                                 // <div className='text-white text-4xl text-center'>Searching...</div>
                                 <>
-                                    {divs.map((item, index) => (
+                                    {divs.map((item:any, index:any) => (
                                         <div key={index} className='col-span-1 h-[130px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                     ))}
                                 </>

@@ -12,6 +12,16 @@ import { Navigation, Autoplay } from "swiper";
 import ReviewOfWeekCard from "../Cards/ReviewOfWeekCard";
 import Link from "next/link";
 
+const SlidePerWebView = 2;
+const LoadingWebElement:any = [];
+
+for (let i = 0; i < SlidePerWebView; i++) {
+    LoadingWebElement.push(i);
+}
+
+
+
+
 function ReviewOfWeek({ data }: any) {
     // console.log(data)
   return (
@@ -45,7 +55,7 @@ function ReviewOfWeek({ data }: any) {
                                     spaceBetween: 0,
                                 },
                                 1024: {
-                                    slidesPerView: 2,
+                                    slidesPerView: SlidePerWebView,
                                     spaceBetween: 30,
                                 }
 
@@ -54,12 +64,19 @@ function ReviewOfWeek({ data }: any) {
                         }
                     >
                         {
+                            data && data.length>0?
                            data && data.length>0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
                                     <div className=" rounded-2xl">
                                         <ReviewOfWeekCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} item={item}/>
                        
                                     </div>
+                                </SwiperSlide>
+                            ))
+                            :
+                            LoadingWebElement.map((item:any, index:any) => (
+                                <SwiperSlide key={index}>
+                                <div className='h-[300px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                 </SwiperSlide>
                             ))
                         }

@@ -11,6 +11,15 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import Link from "next/link";
 
+
+
+const SlidePerWebView = 6;
+const LoadingWebElement:any = [];
+
+for (let i = 0; i < SlidePerWebView; i++) {
+    LoadingWebElement.push(i);
+}
+
 function RectangleSlider({ data, title }: any) {
     // console.log(data)
   return (
@@ -42,7 +51,7 @@ function RectangleSlider({ data, title }: any) {
                                     spaceBetween: 0,
                                 },
                                 1024: {
-                                    slidesPerView: 6,
+                                    slidesPerView: SlidePerWebView,
                                     spaceBetween: 10,
                                 }
 
@@ -50,8 +59,9 @@ function RectangleSlider({ data, title }: any) {
                             }
                         }
                     >
-                        {
-                            data.map((item: any, index: any) => (
+                       {
+                            data && data.length > 0 ?
+                                data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
                                     <Link href={`/${item.type}/${item.slug}`}>
                                     <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
@@ -59,6 +69,12 @@ function RectangleSlider({ data, title }: any) {
                                         <div className="bg-cover bg-center h-[160px] w-full rounded-xl" style={{ backgroundImage: `url(${item.thumbnail})` }}></div>
                                     </div>
                                     </Link>
+                                </SwiperSlide>
+                            ))
+                            :
+                            LoadingWebElement.map((item:any, index:any) => (
+                                <SwiperSlide key={index}>
+                                <div key={index} className='h-[160px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                 </SwiperSlide>
                             ))
                         }
