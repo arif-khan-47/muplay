@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import ProtraitBottomTitle from "../Cards/ProtraitBottomTitle";
+import Link from "next/link";
 
 function WatchTheLatest({ data }: any) {
     // console.log(data)
@@ -66,9 +67,11 @@ function WatchTheLatest({ data }: any) {
                         {
                             data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
+                                    <Link href={`/${item.type}/${item.slug}`}>
                                     <div className="hover:scale-105 mt-[46.31px] rounded-2xl hover:duration-200 cursor-pointer">
                                         <ProtraitBottomTitle className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres}/>
                                     </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }

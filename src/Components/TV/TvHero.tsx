@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import Image from "next/image";
+import Link from "next/link";
 
 function TvHero({ data }: any) {
     return (
@@ -39,7 +40,7 @@ function TvHero({ data }: any) {
                                                         className='h-fit w-fit rounded-xl'
                                                         layout='fill'
                                                         objectFit={'cover'}
-                                                        alt='digital marketing agency in andheri'
+                                                        alt={item.slug}
                                                     />
 
                                                 </div>
@@ -63,10 +64,12 @@ function TvHero({ data }: any) {
                                                 </div>
                                             </div>
                                             <div className="col-span-1 flex h-full">
+                                            <Link className="m-auto" href={`/${item.type}/${item.slug}`}>
                                                     <svg className="m-auto cursor-pointer w-[85px] fill-none" viewBox="0 0 85 85">
                                                         <circle cx="42.043" cy="42.043" r="42.043" fill="#fff" fillOpacity="0.54"></circle> <circle cx="42.043" cy="42.043" r="32.233" fill="#282827" fillOpacity="0.76"></circle>
                                                         <path fill="#fff" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.491" d="M36.126 30.831l17.44 11.212-17.44 11.212V30.83z"></path>
                                                     </svg>
+                                                    </Link>
                                             </div>
                                         </div>
                                     </div>

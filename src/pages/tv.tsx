@@ -10,7 +10,7 @@ function Tv() {
 
     const [trending, setTrending] = useState([])
 
-    console.log(trending)
+    // console.log(trending)
 
     async function getAllTrends() {
         // console.log('Getting all movies');

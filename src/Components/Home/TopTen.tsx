@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import TopTenCard from "../Cards/TopTenCard";
+import Link from "next/link";
 
 function TopTen({ data }: any) {
     // console.log(data)
@@ -17,7 +18,7 @@ function TopTen({ data }: any) {
         <div>
             <div className='grid grid-cols-1 mx-[55px]'>
                 <div className='col-span-1 mb-[11.1px] text-white text-[37.5px] font-bold z-10'>
-                Top 10 Movies
+                    Top 10 Movies
                     <div className="text-[16.34px] text-[#CCCCCCE5]">Watch the top 10 movies ot this month</div>
                 </div>
             </div>
@@ -56,9 +57,11 @@ function TopTen({ data }: any) {
                         {
                             data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
-                                    <div className="hover:scale-105 hover:border-2 hover:border-[#FF2A00] my-10 mx-2 rounded-2xl hover:duration-200 cursor-pointer">
-                                        <TopTenCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index}/>
-                                    </div>
+                                    <Link href={`/${item.type}/${item.slug}`}>
+                                        <div className="hover:scale-105 hover:border-2 hover:border-[#FF2A00] my-10 mx-2 rounded-2xl hover:duration-200 cursor-pointer">
+                                            <TopTenCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index} />
+                                        </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }

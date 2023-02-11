@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import LandscapeWithTitle from "../Cards/LandscapeWithTitle";
+import Link from "next/link";
 
 
 
@@ -53,9 +54,11 @@ function MoviesAndTrailers({ data }: any) {
                         {
                             data && data.length > 0 && data?.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
+                                    <Link href={`/${item.type}/${item.slug}`}>
                                     <div className="hover:border-4 rounded-2xl hover:border-[#FF2A00] hover:duration-200 cursor-pointer">
                                         <LandscapeWithTitle className='my-auto' name={item?.name} thumbnail={item.thumbnail} duration={item.duration} genres={item?.genres} />
                                     </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }

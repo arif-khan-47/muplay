@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation, Autoplay } from "swiper";
+import Link from "next/link";
 
 function Hero({ data }: any) {
   return (
@@ -36,7 +37,9 @@ function Hero({ data }: any) {
                         <p className='font-semibold leading-tight text-[58.24px] uppercase mb-[18.24px]'>{item.name}</p>
                         <p className='text-[18.89px] mb-[45.91px]'>{item.description.length > 220 ? item.description.substring(0, 220) + '...' : item.description}</p>
                         <div className='flex'>
+                          <Link href={`/${item.type}/${item.slug}`}>
                           <button className='bg-[#FF2A00] py-[23.5px] px-[46.5px] rounded-xl mr-[17.44px]'>WATCH NOW</button>
+                          </Link>
                           <button className='bg-[#1D1D1D] border py-[23.5px] px-[46.5px] rounded-xl'>FAVORITE</button>
                         </div>
                       </div>

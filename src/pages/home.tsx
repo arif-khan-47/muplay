@@ -23,7 +23,7 @@ function Home() {
         // console.log('Getting all movies');
         try {
             const response = await getTrending();
-            // console.log(response)
+            // console.log(response.data.data)
             setHeroContent(response.data.data[0])
             setBgHero(response.data.data[0].thumbnail)
             setTrending(response.data.data)

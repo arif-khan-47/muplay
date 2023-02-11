@@ -1,10 +1,8 @@
-import Link from 'next/link'
 import React from 'react'
 
 function ProtraitBottomTitle({ name, img, duration, genres }: any) {
     return (
         <>
-        <Link href={`/movie/`}>
             <div className="bg-cover bg-center h-[264.36px] w-full rounded-xl" style={{ backgroundImage: `url(${img})` }}></div>
                 <div className='mt-[15px] text-white'>
                     <p className='mb-[10px] font-semibold'>{name}</p>
@@ -17,7 +15,6 @@ function ProtraitBottomTitle({ name, img, duration, genres }: any) {
                     ))}
                     </div>
                 </div>
-                    </Link>
         </>
     )
 }

@@ -13,7 +13,7 @@ function TopTenCard({ name, img, duration, genres, createdAt, description, ratin
                             className='h-fit w-fit rounded-xl'
                             layout='fill'
                             objectFit={'cover'}
-                            alt='digital marketing agency in andheri'
+                            alt={name}
                         />
 
                     </div>

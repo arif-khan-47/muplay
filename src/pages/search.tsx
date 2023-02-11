@@ -39,7 +39,7 @@ function Search() {
         // console.log('Getting all movies');
         try {
             const response = await searching(searchInput);
-            console.log(response.data.data);
+            // console.log(response.data.data);
             setData(response.data.data)
         } catch (error) {
             // return 'Data not found';
@@ -69,15 +69,15 @@ function Search() {
     };
 
 
-
+    const divs = [1, 2, 3, 4, 5, 6];
 
 
 
     return (
         <>
             <div className='mt-[78px] mb-[60px]'>
-                    <svg onClick={() => { router.back() }} className='absolute w-[23px] top-[101.11px] right-[5%] fill-none cursor-pointer' viewBox="0 0 23 23">
-                        <path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.21" d="M21.08 2.109L1.822 21.366M1.822 2.109L21.08 21.366"></path></svg>
+                <svg onClick={() => { router.back() }} className='absolute w-[23px] top-[101.11px] right-[5%] fill-none cursor-pointer' viewBox="0 0 23 23">
+                    <path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.21" d="M21.08 2.109L1.822 21.366M1.822 2.109L21.08 21.366"></path></svg>
 
                 <div className='mx-auto w-[70%]'>
                     <div className='bg-[#202020] h-[67.02px] flex justify-between rounded-xl'>
@@ -135,17 +135,18 @@ function Search() {
 
                         <div className='grid grid-cols-6 gap-3'>
                             {
-                                trending.map((item:any, index) => (
-                                    <div key={index} className='h-[130px] w-full relative'>
-                                        <Image
-                                            src={item.thumbnail}
-                                            className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
-                                            layout='fill'
-                                            objectFit={'cover'}
-                                            alt='digital marketing agency in andheri'
-                                        />
-
-                                    </div>
+                                trending.map((item: any, index) => (
+                                    <Link href={`/${item.type}/${item.slug}`}>
+                                        <div key={index} className='h-[130px] w-full relative'>
+                                            <Image
+                                                src={item.thumbnail}
+                                                className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
+                                                layout='fill'
+                                                objectFit={'cover'}
+                                                alt={item.slug}
+                                            />
+                                        </div>
+                                    </Link>
                                 ))
                             }
                         </div>
@@ -153,18 +154,27 @@ function Search() {
                     :
                     <div className='grid grid-cols-6 gap-3'>
                         {
-                            data && data.length > 0 && data.map((item:any, index) => (
-                                <div key={index} className='h-[130px] w-full relative'>
-                                    <Image
-                                        src={item.thumbnail}
-                                        className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
-                                        layout='fill'
-                                        objectFit={'cover'}
-                                        alt='digital marketing agency in andheri'
-                                    />
-
-                                </div>
-                            ))
+                            data && data.length > 0 ?
+                                data && data.length > 0 && data.map((item: any, index) => (
+                                    <Link href={`/${item.type}/${item.slug}`}>
+                                        <div key={index} className='h-[130px] w-full relative'>
+                                            <Image
+                                                src={item.thumbnail}
+                                                className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
+                                                layout='fill'
+                                                objectFit={'cover'}
+                                                alt={item.slug}
+                                            />
+                                        </div>
+                                    </Link>
+                                ))
+                                :
+                                // <div className='text-white text-4xl text-center'>Searching...</div>
+                                <>
+                                    {divs.map((item, index) => (
+                                        <div key={index} className='col-span-1 h-[130px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
+                                    ))}
+                                </>
                         }
                     </div>
                 }

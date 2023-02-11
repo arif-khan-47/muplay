@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import ToBeReleasedCard from "../Cards/ToBeRealeasedCard";
+import Link from "next/link";
 
 function ToBeReleased({ data }: any) {
     // console.log(data)
@@ -56,9 +57,11 @@ function ToBeReleased({ data }: any) {
                         {
                             data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
+                                    <Link href={`/${item.type}/${item.slug}`}>
                                     <div className="hover:scale-105 hover:border-2 hover:border-[#FF2A00] my-10 mx-2 rounded-2xl hover:duration-200 cursor-pointer">
                                         <ToBeReleasedCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index} thumbnail={item.thumbnail}/>
                                     </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }

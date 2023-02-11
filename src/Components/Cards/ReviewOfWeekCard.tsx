@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import moment from "moment";
 import React from 'react'
+import Link from 'next/link';
 
-function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description, rating }: any) {
+function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description, rating, item }: any) {
     return (
         <>
             <div className='grid grid-cols-6 bg-[#131313] py-[20px] px-[15px] rounded-xl'>
@@ -13,7 +14,7 @@ function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description,
                             className='h-fit w-fit rounded-xl border-2 border-[#FF2A00]'
                             layout='fill'
                             objectFit={'cover'}
-                            alt='digital marketing agency in andheri'
+                            alt={name}
                         />
 
                     </div>
@@ -27,7 +28,7 @@ function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description,
                                 className='h-fit w-fit'
                                 layout='fill'
                                 objectFit={'cover'}
-                                alt='digital marketing agency in andheri'
+                                alt={name}
                             />
 
                         </div>
@@ -36,10 +37,11 @@ function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description,
                     <p className='text-[10px] text-[#CCCCCCE5]'>{moment(createdAt).format("D.MM.YY")}</p>
                     <p className='text-[10.24px]'>{description.length > 500 ? description.substring(0, 500) + '...' : description}</p>
                     <div className='absolute bottom-0 left-0 pl-[20px] pb-[5px]'>
-
+                    <Link href={`/${item.type}/${item.slug}`}>
                         <div className='text-[9.98px] py-[12.5px] border px-[28px] rounded-xl'>
                             WATCH NOW
                         </div>
+                            </Link>
                     </div>
                     <div className='absolute bottom-0 right-0 pr-[20px] pb-[5px]'>
 

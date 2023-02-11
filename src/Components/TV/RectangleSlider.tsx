@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation, Autoplay } from "swiper";
-import RectangleCard from "../Cards/RectangleCard";
+import Link from "next/link";
 
 function RectangleSlider({ data, title }: any) {
     // console.log(data)
@@ -53,9 +53,12 @@ function RectangleSlider({ data, title }: any) {
                         {
                             data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
+                                    <Link href={`/${item.type}/${item.slug}`}>
                                     <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
-                                        <RectangleCard className='my-auto' name={item.name} thumbnail={item.thumbnail} duration={item.duration} genres={item.genres}/>
+                                        {/* <RectangleCard className='my-auto' name={item.name} thumbnail={item.thumbnail} duration={item.duration} genres={item.genres}/> */}
+                                        <div className="bg-cover bg-center h-[160px] w-full rounded-xl" style={{ backgroundImage: `url(${item.thumbnail})` }}></div>
                                     </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }

@@ -13,7 +13,7 @@ function ToBeRealeasedCard({ name, img, duration, genres, createdAt, description
                             className='h-fit w-fit rounded-xl'
                             layout='fill'
                             objectFit={'cover'}
-                            alt='digital marketing agency in andheri'
+                            alt={name}
                         />
 
                     </div>

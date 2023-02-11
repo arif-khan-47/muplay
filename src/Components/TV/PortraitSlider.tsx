@@ -9,16 +9,16 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation, Autoplay } from "swiper";
-import ProtraitCard from "../Cards/ProtraitCard";
+import Link from "next/link";
 
 function PortraitSlider({ data, title }: any) {
     // console.log(data)
-  return (
-    <div className="px-10">
-        <div className='text-white text-[37.36px] mb-[39px] font-bold capitalize'>
-        {title}
-        </div>
-      <div className="">
+    return (
+        <div className="px-10">
+            <div className='text-white text-[37.36px] mb-[39px] font-bold capitalize'>
+                {title}
+            </div>
+            <div className="">
                 {/* <div className="absolute inset-0 flex items-center"><svg id="wlprev" className="w-[49px] fill-none cursor-pointer" viewBox="0 0 49 49"><circle cx="24.303" cy="24.915" r="24" fill="#CCC" fillOpacity="0.15"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M27.38 33.53l-7.384-7.385 7.384-7.384"></path></svg>
                 </div> */}
                 <div className="">
@@ -53,9 +53,11 @@ function PortraitSlider({ data, title }: any) {
                         {
                             data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
+                                    <Link href={`/${item.type}/${item.slug}`}>
                                     <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
-                                        <ProtraitCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres}/>
+                                        <div className="bg-cover bg-center h-[298.07px] w-full rounded-xl" style={{ backgroundImage: `url(${item.poster})`}}></div>
                                     </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))
                         }
@@ -64,8 +66,8 @@ function PortraitSlider({ data, title }: any) {
                 {/* <div className="absolute inset-y-0 flex items-center right-0"><svg id="wlnext" className="w-[49px] fill-none cursor-pointer" viewBox="0 0 49 49"> <circle cx="24" cy="24" r="24" fill="#CCC" fillOpacity="0.15" transform="matrix(-1 0 0 1 48.303 .915)"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M21.226 33.53l7.385-7.385-7.385-7.384"></path></svg>
                 </div> */}
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default PortraitSlider

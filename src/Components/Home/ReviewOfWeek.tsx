@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import ReviewOfWeekCard from "../Cards/ReviewOfWeekCard";
+import Link from "next/link";
 
 function ReviewOfWeek({ data }: any) {
     // console.log(data)
@@ -55,8 +56,9 @@ function ReviewOfWeek({ data }: any) {
                         {
                            data && data.length>0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
-                                    <div className=" rounded-2xl cursor-pointer">
-                                        <ReviewOfWeekCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating}/>
+                                    <div className=" rounded-2xl">
+                                        <ReviewOfWeekCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} item={item}/>
+                       
                                     </div>
                                 </SwiperSlide>
                             ))
