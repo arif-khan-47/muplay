@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 import Link from "next/link";
+import Router from "next/router";
 
 
 const SlidePerWebView = 4;
@@ -63,9 +64,11 @@ function LandscapeSlider({ data, title }: any) {
                                 data && data.length > 0 && data.map((item: any, index: any) => (
                                     <SwiperSlide key={index}>
                                         <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
-                                            <Link href={`/${item.type}/${item.slug}`}>
+                                            {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                                            <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
                                                 <div className="bg-cover bg-center h-[211px] w-full rounded-xl" style={{ backgroundImage: `url(${item.thumbnail})` }}></div>
-                                            </Link>
+                                            {/* </Link> */}
+                                            </div>
                                         </div>
                                     </SwiperSlide>
                                 ))

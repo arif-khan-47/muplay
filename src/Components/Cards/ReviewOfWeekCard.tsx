@@ -2,6 +2,7 @@ import Image from 'next/image'
 import moment from "moment";
 import React from 'react'
 import Link from 'next/link';
+import Router from 'next/router';
 
 function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description, rating, item }: any) {
     return (
@@ -37,11 +38,13 @@ function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description,
                     <p className='text-[10px] text-[#CCCCCCE5]'>{moment(createdAt).format("D.MM.YY")}</p>
                     <p className='text-[10.24px]'>{description.length > 500 ? description.substring(0, 500) + '...' : description}</p>
                     <div className='absolute bottom-0 left-0 pl-[20px] pb-[5px]'>
-                    <Link href={`/${item.type}/${item.slug}`}>
+                    {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
                         <div className='text-[9.98px] py-[12.5px] border px-[28px] rounded-xl'>
                             WATCH NOW
                         </div>
-                            </Link>
+                        </div>
+                            {/* </Link> */}
                     </div>
                     <div className='absolute bottom-0 right-0 pr-[20px] pb-[5px]'>
 

@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import TopTenCard from "../Cards/TopTenCard";
 import Link from "next/link";
+import Router from "next/router";
 
 function TopTen({ data }: any) {
     // console.log(data)
@@ -57,11 +58,13 @@ function TopTen({ data }: any) {
                         {
                             data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
-                                    <Link href={`/${item.type}/${item.slug}`}>
+                                    {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
                                         <div className="hover:scale-105 hover:border-2 hover:border-[#FF2A00] my-10 mx-2 rounded-2xl hover:duration-200 cursor-pointer">
                                             <TopTenCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index} />
                                         </div>
-                                    </Link>
+                                    {/* </Link> */}
+                                    </div>
                                 </SwiperSlide>
                             ))
                         }

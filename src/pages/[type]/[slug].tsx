@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { NextPage, NextPageContext } from 'next';
+import SeasonTabs from '@/Components/Tabs/SeasonTabs'
 
 
 
@@ -72,8 +73,8 @@ const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
       <div className='text-white'>
         {
           playButtonClicked ?
-            <div className="bg-cover bg-center h-screen bg-red-700 flex">
-              <svg onClick={()=>setPlayButtonClicked(false)} className='w-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
+            <div className="bg-cover bg-center h-screen bg-[#FF2A00] flex">
+              <svg onClick={() => setPlayButtonClicked(false)} className='w-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
                 <path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path>
               </svg>
               <span className='m-auto text-3xl'>
@@ -113,13 +114,13 @@ const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
 
                     <div className='flex'>
                       <div className='text-white my-auto mr-[20px] text-[24.71px] font-bold'>€ 4,99</div>
-                      <button className='bg-[#FF2A00] py-[18px] px-[30px] border text-[16.71px] rounded-lg mr-[24px] uppercase'>Rent Movie</button>
+                      <button className='bg-[#FF2A00] py-[18px] px-[30px] border text-[16.71px] rounded-lg mr-[24px] uppercase'>Rent {slugData.type}</button>
                       <button> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                       </svg></button>
                     </div>
                   </div>
                   <div className="col-span-1 flex h-full">
-                    <svg onClick={() => setPlayButtonClicked(true)} className="m-auto cursor-pointer w-[85px] fill-none" viewBox="0 0 85 85">
+                    <svg onClick={() => setPlayButtonClicked(true)} className="m-auto cursor-pointer animate-pulse hover:animate-none hover:scale-125 hover:duration-500 w-[85px] fill-none" viewBox="0 0 85 85">
                       <circle cx="42.043" cy="42.043" r="42.043" fill="#fff" fillOpacity="0.54"></circle> <circle cx="42.043" cy="42.043" r="32.233" fill="#282827" fillOpacity="0.76"></circle>
                       <path fill="#fff" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.491" d="M36.126 30.831l17.44 11.212-17.44 11.212V30.83z"></path>
                     </svg>
@@ -128,9 +129,18 @@ const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
               </div>
             </div>
         }
-
-
       </div>
+
+      {
+        slugData.seasons && slugData.seasons.length > 0 ?
+          <div className='m-auto container'>
+            <SeasonTabs data={slugData.seasons} />
+          </div>
+          :
+          null
+      }
+
+
       <div className='mt-[73px] m-auto container'>
         <LandscapeSlider data={trending} title={'Hindi Movies'} />
       </div>

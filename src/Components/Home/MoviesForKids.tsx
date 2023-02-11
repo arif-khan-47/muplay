@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import ProtraitBottomTitle from "../Cards/ProtraitBottomTitle";
 import Link from "next/link";
+import Router from "next/router";
 
 const SlidePerWebView = 4;
 const LoadingWebElement:any = [];
@@ -20,7 +21,7 @@ for (let i = 0; i < SlidePerWebView; i++) {
 }
 
 function MoviesForKids({ data }: any) {
-    console.log('checking that data',data)
+    // console.log('checking that data',data)
     return (
         <div>
             <div className='text-white text-center text-[38px] font-bold'>
@@ -62,11 +63,13 @@ function MoviesForKids({ data }: any) {
                             data && data.length > 0 ?
                             data && data.length > 0 && data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
-                                    <Link href={`/${item.type}/${item.slug}`}>
+                                    {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
                                         <div className="hover:scale-105 mt-[46.31px] rounded-2xl hover:duration-200 cursor-pointer">
                                             <ProtraitBottomTitle className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} />
                                         </div>
-                                    </Link>
+                                        </div>
+                                    {/* </Link> */}
                                 </SwiperSlide>
                             ))
                             :

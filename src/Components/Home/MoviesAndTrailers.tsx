@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import LandscapeWithTitle from "../Cards/LandscapeWithTitle";
 import Link from "next/link";
+import Router from "next/router";
 
 
 const SlidePerWebView = 4;
@@ -61,11 +62,13 @@ function MoviesAndTrailers({ data }: any) {
                             data && data.length > 0?
                             data && data.length > 0 && data?.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
-                                    <Link href={`/${item.type}/${item.slug}`}>
+                                    {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
                                     <div className="hover:border-4 rounded-2xl hover:border-[#FF2A00] hover:duration-200 cursor-pointer">
                                         <LandscapeWithTitle className='my-auto' name={item?.name} thumbnail={item.thumbnail} duration={item.duration} genres={item?.genres} />
                                     </div>
-                                    </Link>
+                                    {/* </Link> */}
+                                    </div>
                                 </SwiperSlide>
                             ))
                             :

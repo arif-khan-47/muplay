@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import Router from 'next/router';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,8 +13,11 @@ import Link from "next/link";
 
 
 
+
+
+
 const SlidePerWebView = 6;
-const LoadingWebElement:any = [];
+const LoadingWebElement: any = [];
 
 for (let i = 0; i < SlidePerWebView; i++) {
     LoadingWebElement.push(i);
@@ -62,20 +65,22 @@ function PortraitSlider({ data, title }: any) {
                         {
                             data && data.length > 0 ?
                                 data && data.length > 0 && data.map((item: any, index: any) => (
-                                <SwiperSlide key={index}>
-                                    <Link href={`/${item.type}/${item.slug}`}>
-                                    <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
-                                        <div className="bg-cover bg-center h-[298.07px] w-full rounded-xl" style={{ backgroundImage: `url(${item.poster})`}}></div>
-                                    </div>
-                                    </Link>
-                                </SwiperSlide>
-                            ))
-                            :
-                            LoadingWebElement.map((item:any, index:any) => (
-                                <SwiperSlide key={index}>
-                                <div className='h-[298.07px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
-                                </SwiperSlide>
-                            ))
+                                    <SwiperSlide key={index}>
+                                        {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                                        <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
+                                            <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
+                                                <div className="bg-cover bg-center h-[298.07px] w-full rounded-xl" style={{ backgroundImage: `url(${item.poster})` }}></div>
+                                            </div>
+                                        </div>
+                                        {/* </Link> */}
+                                    </SwiperSlide>
+                                ))
+                                :
+                                LoadingWebElement.map((item: any, index: any) => (
+                                    <SwiperSlide key={index}>
+                                        <div className='h-[298.07px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
+                                    </SwiperSlide>
+                                ))
                         }
                     </Swiper>
                 </div>

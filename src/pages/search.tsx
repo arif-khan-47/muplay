@@ -4,6 +4,8 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { searching } from '../http/index';
 import { useRouter } from 'next/router';
+import { useDebounce } from 'use-debounce';
+
 
 
 
@@ -28,24 +30,34 @@ function Search() {
 
     const [trending, setTrending] = useState([])
     const [searchInput, setSearchInput] = useState('')
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const router = useRouter()
-    // console.log(searchInput)
 
 
-    // console.log(bgHero)
+    const [searchValue] = useDebounce(searchInput, 1000);
 
-    async function getSearchContent() {
-        // console.log('Getting all movies');
+    async function getSearchContent(value: string) {
         try {
-            const response = await searching(searchInput);
-            // console.log(response.data.data);
+            const response = await searching(value);
+            console.log(response);
             setData(response.data.data)
+            setLoading(false)
         } catch (error) {
-            // return 'Data not found';
+            setLoading(false)
         }
 
     }
+
+    useEffect(() => {
+        if (searchValue) {
+            getSearchContent(searchValue)
+        }
+
+    }, [searchValue])
+
+
+
     async function getAllTrends() {
         // console.log('Getting all movies');
         try {
@@ -60,12 +72,11 @@ function Search() {
 
     useEffect(() => {
         getAllTrends()
-        // getSearchContent()
     }, [])
 
     const handleSearchInput = (event: any) => {
-        getSearchContent()
         setSearchInput(event.target.value);
+        setLoading(true)
     };
 
 
@@ -91,17 +102,12 @@ function Search() {
                             </svg>
                         </div>
 
-
-
                         <div className='h-full w-[84%]'>
                             <input className='h-full text-[22.12px] bg-transparent focus:outline-none text-white w-full placeholder:text-[#CCCCCCB5]'
                                 defaultValue={searchInput}
                                 onChange={handleSearchInput}
                                 placeholder='Search for a Web Shows, Movie & Genre etc' type="text" name="" id="" />
                         </div>
-
-
-
 
                         <div className='h-full w-[8%] flex'>
                             <svg className='w-[20px] h-[29px] m-auto cursor-pointer fill-none' viewBox="0 0 20 29">
@@ -141,8 +147,8 @@ function Search() {
                         <div className='grid grid-cols-6 gap-3'>
                             {
                                 trending.map((item: any, index) => (
-                                    <Link href={`/${item.type}/${item.slug}`}>
-                                        <div key={index} className='h-[130px] w-full relative'>
+                                    <Link key={index} href={`/${item.type}/${item.slug}`}>
+                                        <div className='h-[130px] w-full relative'>
                                             <Image
                                                 src={item.thumbnail}
                                                 className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
@@ -157,31 +163,41 @@ function Search() {
                         </div>
                     </>
                     :
-                    <div className='grid grid-cols-6 gap-3'>
-                        {
-                            data && data.length > 0 ?
-                                data && data.length > 0 && data.map((item: any, index) => (
-                                    <Link href={`/${item.type}/${item.slug}`}>
-                                        <div key={index} className='h-[130px] w-full relative'>
-                                            <Image
-                                                src={item.thumbnail}
-                                                className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
-                                                layout='fill'
-                                                objectFit={'cover'}
-                                                alt={item.slug}
-                                            />
-                                        </div>
-                                    </Link>
+                    <>
+                        <div>
+                            {
+                                !loading && data && data.length === 0 && (
+                                    <p className='text-white text-center text-3xl'>No Data Found</p>
+                                )
+                            }
+                        </div>
+                        <div className='grid grid-cols-6 gap-3'>
+                            {loading ?
+                                divs.map((item: any, index: any) => (
+                                    <div key={index} className='col-span-1 h-[130px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
                                 ))
                                 :
-                                // <div className='text-white text-4xl text-center'>Searching...</div>
-                                <>
-                                    {divs.map((item:any, index:any) => (
-                                        <div key={index} className='col-span-1 h-[130px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
-                                    ))}
-                                </>
-                        }
-                    </div>
+                                data && data.length > 0 && (
+                                    data.map((item: any, index) => (
+                                        <Link key={index} href={`/${item.type}/${item.slug}`}>
+                                            <div className='h-[130px] w-full relative'>
+                                                <Image
+                                                    src={item.thumbnail}
+                                                    className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00] cursor-pointer'
+                                                    layout='fill'
+                                                    objectFit={'cover'}
+                                                    alt={item.slug}
+                                                />
+                                            </div>
+                                        </Link>))
+                                )
+                            }
+
+
+
+
+                        </div>
+                    </>
                 }
             </div>
         </>
