@@ -1,12 +1,12 @@
 import LandscapeSlider from '@/Components/TV/LandscapeSlider'
 import PortraitSlider from '@/Components/TV/PortraitSlider'
 import RectangleSlider from '@/Components/TV/RectangleSlider'
-import { getSinglePageData, getTrending } from '@/http'
+import { getSinglePageData, allMovies } from '@/http'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { NextPage, NextPageContext } from 'next';
 import SeasonTabs from '@/Components/Tabs/SeasonTabs'
+import ReactPlayer from 'react-player'
 
 
 
@@ -52,7 +52,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
   async function getAllTrends() {
     // console.log('Getting all movies');
     try {
-      const response = await getTrending();
+      const response = await allMovies();
       // console.log(response.data.data)
       setTrending(response.data.data)
     } catch (error) {
@@ -73,13 +73,14 @@ const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
       <div className='text-white'>
         {
           playButtonClicked ?
-            <div className="bg-cover bg-center h-screen bg-[#FF2A00] flex">
-              <svg onClick={() => setPlayButtonClicked(false)} className='w-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
+            <div className="bg-cover bg-center h-screen flex">
+              <svg onClick={() => setPlayButtonClicked(false)} className='w-10 z-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
                 <path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path>
               </svg>
-              <span className='m-auto text-3xl'>
+              {/* <span className='m-auto text-3xl'>
                 Video Player
-              </span>
+              </span> */}
+              <ReactPlayer url={slugData.source_link} controls={true} width='100%' height={'100%'} playing light/>
             </div>
             :
             <div className="bg-cover bg-center h-screen" style={{ backgroundImage: `url(${slugData.thumbnail})` }}>

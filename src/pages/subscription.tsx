@@ -1,9 +1,13 @@
+import Header from '@/Components/Shared/Header'
 import React from 'react'
 
 function Subscription() {
     return (
         <div>
             <div className="bg-cover bg-center h-full" style={{ backgroundImage: `url(https://res.cloudinary.com/dgyudczza/image/upload/v1676027129/muplay/Group_77_uwlio3.png)` }}>
+            <div className='container m-auto'>
+                <Header/>
+            </div>
                 <div className='px-5 lg:px-10 pt-[73px] pb-[104px]'>
                     <p className='text-[50.79px] mb-[79px] font-semibold text-white text-center'>Pricing table exanple</p>
 

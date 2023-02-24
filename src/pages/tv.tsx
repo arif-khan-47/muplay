@@ -1,9 +1,10 @@
 import TvHero from '../Components/TV/TvHero'
 import React, { useEffect, useState } from 'react'
-import { getTrending } from '../http/index'
+import { allMovies } from '../http/index'
 import PortraitSlider from '../Components/TV/PortraitSlider'
 import LandscapeSlider from '../Components/TV/LandscapeSlider'
 import RectangleSlider from '../Components/TV/RectangleSlider'
+import Header from '@/Components/Shared/Header'
 
 
 function Tv() {
@@ -15,7 +16,7 @@ function Tv() {
     async function getAllTrends() {
         // console.log('Getting all movies');
         try {
-            const response = await getTrending();
+            const response = await allMovies();
             // console.log(response)
 
             setTrending(response.data.data)
@@ -31,23 +32,26 @@ function Tv() {
 
     return (
         <>
+            <div className='bg-[#1D1D1D]'>
+                <Header/>
+            </div>
             <div>
-                <TvHero data={trending}/>
+                <TvHero data={trending} />
             </div>
             <div className='mt-[74px]'>
-            <PortraitSlider data={trending} title={'Engish Movie'}/>
+                <PortraitSlider data={trending} title={'Engish Movie'} />
             </div>
             <div className='mt-[82.93px]'>
-            <PortraitSlider data={trending} title={'Hindi Movies'}/>
+                <PortraitSlider data={trending} title={'Hindi Movies'} />
             </div>
             <div className='mt-[73px]'>
-            <LandscapeSlider data={trending} title={'Bangla Movies'}/>
+                <LandscapeSlider data={trending} title={'Bangla Movies'} />
             </div>
             <div className='mt-[85px]'>
-            <PortraitSlider data={trending} title={'Malyalam Movies'}/>
+                <PortraitSlider data={trending} title={'Malyalam Movies'} />
             </div>
             <div className='mt-[85px] mb-[88px]'>
-            <RectangleSlider data={trending} title={'Korean Movies'}/>
+                <RectangleSlider data={trending} title={'Korean Movies'} />
             </div>
         </>
     )
