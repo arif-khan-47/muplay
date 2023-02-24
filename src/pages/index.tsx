@@ -57,21 +57,21 @@ export default function Home() {
 
                     <div className="bg-cover bg-center h-[690px]" style={{ backgroundImage: `url(${bgHero})` }}>
                         <div className='h-full w-full absolute bg-gradient-to-l to-[#101010] via-transparent from-[#101010] '></div>
-                        <div className='px-5 lg:px-10 pt-[112px]'>
+                        <div className='px-5 lg:px-10 pt-[70px] lg:pt-[112px]'>
                             <ReviewOfWeek data={trending} />
                         </div>
                     </div>
 
-                    <div className='px-5 lg:px-10 pt-[78px]'>
+                    <div className='px-5 lg:px-10 mt-[50px] lg:mt-[78px]'>
                         <TopTen data={trending} />
                     </div>
-                    <div className='px-5 lg:px-10 mt-[83px]'>
+                    <div className='px-5 lg:px-10 mt-[50px] lg:mt-[83px]'>
                         <ToBeReleased data={trending} />
                     </div>
-                    <div className='px-5 lg:px-10 mt-[98px]'>
+                    <div className='px-5 lg:px-10 mt-[50px] lg:mt-[98px]'>
                         <MoviesForKids data={trending} />
                     </div>
-                    <div className='px-5 lg:px-10 mt-[95px] mb-[104px]'>
+                    <div className='px-5 lg:px-10 lg:mt-[95px] mt-[50px] mb-[104px]'>
                         <Genres />
                     </div>
                 </Layout>

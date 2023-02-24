@@ -21,9 +21,9 @@ function Footer() {
     return (
         <div className=' bg-[#232323]'>
             <div className='container m-auto'>
-                <div className='grid grid-cols-6 py-[44px] text-white'>
+                <div className='grid grid-cols-2 lg:grid-cols-6 py-[44px] text-white px-5 lg:px-0'>
                     <div className='col-span-2'>
-                        <div className='h-[50px] w-[150px] relative my-auto mb-[44.14px]'>
+                        <div className='h-[50px] w-[150px] relative my-auto mb-[44.14px] mx-auto lg:mx-0'>
                             <Image
                                 src={'https://res.cloudinary.com/dgyudczza/image/upload/v1677216559/muplay/Muplay_cv3hsy.png'}
                                 className='h-fit w-fit'
@@ -34,7 +34,7 @@ function Footer() {
 
                         </div>
 
-                        <div className='text-[16.51px] font-extralight text-gray-400 leading-loose'>
+                        <div className='text-[16.51px] font-extralight text-gray-400 leading-loose text-center lg:text-left'>
                             Address Street 13, London, Re4d3 Pz <br />
                             (+01) 06738383838 <br />
                             (+01) 12345678910 <br />
@@ -46,7 +46,7 @@ function Footer() {
                     <div className='col-span-1 mt-[32px]'>
                         <div className='mb-[32.58px] font-bold'>FIND A STORE</div>
                         {Navtool.map((link) => (
-                            <div key={link.name} className={`mb-[8.81px] cursor-pointer w-fit hover:text-[#FF2A00] text-gray-400 text-2xl lg:text-[16.51px] font-extralight`}>
+                            <div key={link.name} className={`mb-[8.81px] cursor-pointer w-fit hover:text-[#FF2A00] text-gray-400 lg:text-[16.51px] font-extralight`}>
                                 {/* <Link href={link.link}>{link.name}</Link> */}
                                 {link.name}
 
@@ -58,7 +58,7 @@ function Footer() {
                     <div className='col-span-1 mt-[32px]'>
                         <div className='mb-[32.58px] font-bold uppercase'>about us</div>
                         {Navtool2.map((link) => (
-                            <div key={link.name} className={`mb-[8.81px] cursor-pointer w-fit hover:text-[#FF2A00] text-gray-400 text-2xl lg:text-[16.51px] font-extralight`}>
+                            <div key={link.name} className={`mb-[8.81px] cursor-pointer w-fit hover:text-[#FF2A00] text-gray-400 lg:text-[16.51px] font-extralight`}>
                                 {/* <Link href={link.link}>{link.name}</Link> */}
                                 {link.name}
 
@@ -70,15 +70,15 @@ function Footer() {
 
 
                     <div className='col-span-2 mt-[32px]'>
-                        <div className='mb-[32.58px] font-bold uppercase'>about us</div>
+                        <div className='mb-[32.58px] font-bold uppercase text-center lg:text-left'>Newsletter</div>
 
-                        <div className={`mb-[27.52px] text-gray-400 text-2xl lg:text-[16.51px] font-extralight`}>
+                        <div className={`mb-[27.52px] text-gray-400 lg:text-[16.51px] font-extralight text-center lg:text-left`}>
                             Keep in Touch by signing Up for The Latest News, Offers and Styles
                         </div>
 
                         <input className='mb-[29px] w-full h-[44.04px] focus:outline-none bg-[#66666633] px-[27px]' placeholder='Your email address...' type="email" name="" id="" />
 
-                        <div className='flex justify-start gap-3'>
+                        <div className='flex lg:justify-start justify-center gap-3'>
                             <div className='w-10 fill-[#232323] bg-white hover:bg-[#FF2A00] cursor-pointer rounded-full'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                                     <path d="M21.95 5.005l-3.306-.004c-3.206 0-5.277 2.124-5.277 5.415v2.495H10.05v4.515h3.317l-.004 9.575h4.641l.004-9.575h3.806l-.003-4.514h-3.803v-2.117c0-1.018.241-1.533 1.566-1.533l2.366-.001.01-4.256z"></path>

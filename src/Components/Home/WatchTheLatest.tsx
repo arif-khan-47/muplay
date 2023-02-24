@@ -17,26 +17,28 @@ function WatchTheLatest({ data }: any) {
     // console.log(data)
   return (
     <div>
-      <div className='grid grid-cols-2 mx-5'>
-        <div className='col-span-1 text-white text-[37.5px]'>
+      <div className='grid lg:grid-cols-2 grid-cols-1 mx-5'>
+        <div className='col-span-1 text-white text-xl mb-10 lg:mb-0 lg:text-[37.5px] text-center lg:text-left'>
         Watch The Latest Cinema Releases On Mejane.Com
         </div>
         <div className='col-span-1 my-auto'>
-            <div className='flex justify-end text-white'>
-            <button className='border px-[48px] py-[18px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
+            <div className='flex lg:justify-end justify-center text-white'>
+            <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
+                <Link href={'/login'}>
             JOIN NOW
+                </Link>
             </button>
-            <button className='border px-[48px] py-[18px] bg-[#1D1D1D] rounded-xl'>
+            <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
             VIEW ALL
             </button>
 
             </div>
         </div>
       </div>
-      <div className="relative">
+      <div className="lg:relative">
                 <div className="absolute inset-0 flex items-center"><svg id="wlprev" className="w-[49px] fill-none cursor-pointer" viewBox="0 0 49 49"><circle cx="24.303" cy="24.915" r="24" fill="#CCC" fillOpacity="0.15"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M27.38 33.53l-7.384-7.385 7.384-7.384"></path></svg>
                 </div>
-                <div className="mx-[68px]">
+                <div className="lg:mx-[68px]">
                     <Swiper
                         cssMode={false}
                         // pagination={true}
@@ -53,8 +55,8 @@ function WatchTheLatest({ data }: any) {
                         breakpoints={
                             {
                                 0: {
-                                    slidesPerView: 1,
-                                    spaceBetween: 0,
+                                    slidesPerView: 2,
+                                    spaceBetween: 8,
                                 },
                                 1024: {
                                     slidesPerView: 6,

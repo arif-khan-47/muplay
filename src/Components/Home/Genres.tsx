@@ -31,11 +31,11 @@ function Genres() {
                 <p className='text-[18.18px] mb-[61px]'>We have addeed 10 new movies to Animation</p>
             </div>
 
-            <div className='grid grid-cols-6'>
+            <div className='grid lg:grid-cols-6 grid-cols-2'>
                 {
                     data.map((item, index) => (
                         <div className='col-span-1' key={index}>
-                            <div className='h-[212.93px] w-[94%] relative mx-auto cursor-pointer'>
+                            <div className='lg:h-[212.93px] h-[150px] w-[94%] mb-2 lg:mb-0 relative mx-auto cursor-pointer'>
                                 <Image
                                     src={item.img}
                                     className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00]'

@@ -24,16 +24,16 @@ function ToBeReleased({ data }: any) {
     // console.log(data)
     return (
         <div>
-            <div className='grid grid-cols-1 mx-[55px]'>
+            <div className='grid grid-cols-1 lg:mx-[55px] text-center lg:text-left'>
                 <div className='col-span-1 mb-[11.1px] text-white text-[37.5px] font-bold z-10'>
                 To Be Released
                     <div className="text-[16.34px] text-[#CCCCCCE5]">Stay updated about the latest upcoming movies of this month</div>
                 </div>
             </div>
-            <div className="relative">
+            <div className="lg:relative">
                 <div className="absolute inset-0 flex items-center"><svg id="ttprev" className="w-[44.83px] fill-none cursor-pointer" viewBox="0 0 49 49"><circle cx="24.303" cy="24.915" r="24" fill="#CCC" fillOpacity="0.15"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M27.38 33.53l-7.384-7.385 7.384-7.384"></path></svg>
                 </div>
-                <div className="mx-[55px]">
+                <div className="lg:mx-[55px]">
                     <Swiper
                         cssMode={false}
                         // pagination={true}
