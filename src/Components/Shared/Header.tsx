@@ -23,6 +23,7 @@ function Header() {
 
   return (
     <>
+    <div className='bg-[#1D1D1D]'>
       <div className='container m-auto z-50'>
         <div className='grid grid-cols-2 lg:grid-cols-5 pt-3 lg:pt-0'>
           <div className='col-span-2 lg:col-span-1 flex justify-end'>
@@ -110,6 +111,8 @@ function Header() {
           </div>
         </div>
       </div>
+                  
+                      </div>
     </>
   )
 }
