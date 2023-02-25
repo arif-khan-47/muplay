@@ -15,27 +15,27 @@ import Router from "next/router";
 
 function WatchTheLatest({ data }: any) {
     // console.log(data)
-  return (
-    <div>
-      <div className='grid lg:grid-cols-2 grid-cols-1 mx-5'>
-        <div className='col-span-1 text-white text-xl mb-10 lg:mb-0 lg:text-[37.5px] text-center lg:text-left'>
-        Watch The Latest Cinema Releases On Mejane.Com
-        </div>
-        <div className='col-span-1 my-auto'>
-            <div className='flex lg:justify-end justify-center text-white'>
-            <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
-                <Link href={'/login'}>
-            JOIN NOW
-                </Link>
-            </button>
-            <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
-            VIEW ALL
-            </button>
+    return (
+        <div>
+            <div className='grid lg:grid-cols-2 grid-cols-1 mx-5'>
+                <div className='col-span-1 text-white text-xl mb-10 lg:mb-0 lg:text-[37.5px] text-center lg:text-left'>
+                    Watch The Latest Cinema Releases
+                </div>
+                <div className='col-span-1 my-auto'>
+                    <div className='flex lg:justify-end justify-center text-white'>
+                        <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
+                            <Link href={'/login'}>
+                                JOIN NOW
+                            </Link>
+                        </button>
+                        <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
+                            VIEW ALL
+                        </button>
 
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>
-      <div className="lg:relative">
+            <div className="lg:relative">
                 <div className="absolute inset-0 flex items-center"><svg id="wlprev" className="w-[49px] fill-none cursor-pointer" viewBox="0 0 49 49"><circle cx="24.303" cy="24.915" r="24" fill="#CCC" fillOpacity="0.15"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M27.38 33.53l-7.384-7.385 7.384-7.384"></path></svg>
                 </div>
                 <div className="lg:mx-[68px]">
@@ -71,10 +71,10 @@ function WatchTheLatest({ data }: any) {
                             data.map((item: any, index: any) => (
                                 <SwiperSlide key={index}>
                                     {/* <Link href={`/${item.type}/${item.slug}`}> */}
-                                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
-                                    <div className="hover:scale-105 mt-[46.31px] rounded-2xl hover:duration-200 cursor-pointer">
-                                        <ProtraitBottomTitle className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres}/>
-                                    </div>
+                                    <div onClick={() => { Router.push(`/${item.type}/${item.slug}`).then(Router.reload) }}>
+                                        <div className="hover:scale-105 mt-[46.31px] rounded-2xl hover:duration-200 cursor-pointer">
+                                            <ProtraitBottomTitle className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} />
+                                        </div>
                                     </div>
                                     {/* </Link> */}
                                 </SwiperSlide>
@@ -85,8 +85,8 @@ function WatchTheLatest({ data }: any) {
                 <div className="absolute inset-y-0 flex items-center right-0"><svg id="wlnext" className="w-[49px] fill-none cursor-pointer" viewBox="0 0 49 49"> <circle cx="24" cy="24" r="24" fill="#CCC" fillOpacity="0.15" transform="matrix(-1 0 0 1 48.303 .915)"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M21.226 33.53l7.385-7.385-7.385-7.384"></path></svg>
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default WatchTheLatest

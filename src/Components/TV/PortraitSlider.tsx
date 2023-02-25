@@ -27,7 +27,7 @@ function PortraitSlider({ data, title }: any) {
     // console.log(data)
     return (
         <div className="px-10">
-            <div className='text-white text-[37.36px] mb-[39px] font-bold capitalize'>
+            <div className='text-white text-xl lg:text-[37.36px] mb-[39px] font-bold capitalize'>
                 {title}
             </div>
             <div className="">
@@ -50,8 +50,8 @@ function PortraitSlider({ data, title }: any) {
                         breakpoints={
                             {
                                 0: {
-                                    slidesPerView: 1,
-                                    spaceBetween: 0,
+                                    slidesPerView: 2,
+                                    spaceBetween: 8,
                                 },
                                 1024: {
                                     slidesPerView: SlidePerWebView,

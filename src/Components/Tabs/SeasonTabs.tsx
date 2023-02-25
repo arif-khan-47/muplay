@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import LandscapeSlider from '../TV/LandscapeSlider';
 
 const SeasonTabs = ({ data }: any) => {
-    console.log(data);
+    // console.log(data);
     const [selectedTab, setSelectedTab] = useState(data[0]._id);
     //  console.log(selectedTab);
     return (
-        <div>
+        <div className='mt-5 lg:mt-0'>
             <div className='flex gap-10 px-[64px]'>
                 {
                     data.map((item: any, index: any) => (

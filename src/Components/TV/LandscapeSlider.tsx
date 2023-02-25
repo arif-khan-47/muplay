@@ -24,7 +24,7 @@ function LandscapeSlider({ data, title }: any) {
     // console.log(data)
     return (
         <div className="px-10">
-            <div className='text-white text-[37.36px] mb-[39px] font-bold capitalize'>
+            <div className='text-white text-xl lg:text-[37.36px] mb-[39px] font-bold capitalize'>
                 {title}
             </div>
             <div className="">

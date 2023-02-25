@@ -1,24 +1,31 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const data = [
     {
-        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944489/muplay/Group_82_vvxy2q.png'
+        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944489/muplay/Group_82_vvxy2q.png',
+        link:'/action'
     },
     {
-        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944609/muplay/Group_82_tfjqqz.png'
+        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944609/muplay/Group_82_tfjqqz.png',
+        link:'/animation'
     },
     {
-        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944707/muplay/Group_82_rswrhg.png'
+        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944707/muplay/Group_82_rswrhg.png',
+        link:'/adventure'
     },
     {
-        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944946/muplay/Group_82_rkq0t8.png'
+        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675944946/muplay/Group_82_rkq0t8.png',
+        link:'/documentory'
     },
     {
-        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675945012/muplay/Group_82_zjg1bb.png'
+        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675945012/muplay/Group_82_zjg1bb.png',
+        link:'/drama'
     },
     {
-        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675945170/muplay/Group_82_sk4gw3.png'
+        img: 'https://res.cloudinary.com/dgyudczza/image/upload/v1675945170/muplay/Group_82_sk4gw3.png',
+        link:'/family'
     },
 ]
 
@@ -36,13 +43,15 @@ function Genres() {
                     data.map((item, index) => (
                         <div className='col-span-1' key={index}>
                             <div className='lg:h-[212.93px] h-[150px] w-[94%] mb-2 lg:mb-0 relative mx-auto cursor-pointer'>
-                                <Image
-                                    src={item.img}
-                                    className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00]'
-                                    layout='fill'
-                                    objectFit={'cover'}
-                                    alt='digital marketing agency in andheri'
-                                />
+                                <Link href={item.link}>
+                                    <Image
+                                        src={item.img}
+                                        className='h-fit w-fit rounded-xl hover:border-2 hover:border-[#FF2A00]'
+                                        layout='fill'
+                                        objectFit={'cover'}
+                                        alt='digital marketing agency in andheri'
+                                    />
+                                </Link>
 
                             </div>
                         </div>
