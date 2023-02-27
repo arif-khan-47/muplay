@@ -31,6 +31,20 @@ export const login = (data) => API.post("/auth/login", data);
 export const verifyOTP = (data) => API.post("/auth/verify-otp", data);
 
 
+// auth endpoints
+export const verifyOtpApiEndpoint = (data) => API.post("/auth/verify-otp", data);
+export const loginApiEndpoint = (data) => API.post("/auth/login", data);
+export const registerApiEndpoint = (data) => API.post("/auth/register", data);
+export const resetPassword = (id, token) => API.get(`/auth/reset-password/${id}/${token}`);
+export const resetPasswordConfirm = (id, data) => API.post(`/auth/reset-password/${id}`, data);
+export const forgotPassword = (data) => API.post("/auth/forgot-password", data);
+export const whoamiAuth = () => API.get("/auth/whoami");
+
+
+// category endpoints
+export const getAllContentEndpoint = (data) => API.get<IAllContentResponse>(`/content?${data || ''}`);
+export const getCategories = (data) => API.get(`/categories?${data || ''}`);
+
 // Header Endpoints 
 export const layoutData = () => API.get(`/settings`);
 
@@ -41,6 +55,7 @@ export const searching = (data) => API.get(`search?query=${data}`);
 
 // content endpoints
 export const allMovies = () => API.get("/content");
+export const getContect = (query) => API.get(`/content?${query}`);
 export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
 
 // subscriptions endpoint
@@ -68,20 +83,4 @@ export const getTrending = () => API.get(`/trending/`);
 export const splashInfo = () => API.get(`/settings/app`);
 
 
-// PUT 
-// export const updateProfile = (data) => API.put("/api/v1/update/profile", data)
-
-
-// API.interceptors.request.use(
-//     async (config) => {
-//         const accessToken = await AsyncStorage.getItem('token');
-//         if (token) {
-//             config.headers.Authorization = 'Bearer ' + accessToken;
-//         }
-//         return config;
-//     },
-//     (err) => {
-//         return Promise.reject(err);
-//     }
-// )
 export default API;

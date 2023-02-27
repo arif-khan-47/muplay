@@ -2,6 +2,7 @@ import LandscapeSlider from '@/Components/TV/LandscapeSlider'
 import PortraitSlider from '@/Components/TV/PortraitSlider'
 import RectangleSlider from '@/Components/TV/RectangleSlider'
 import { getSinglePageData, allMovies } from '@/http'
+import { IConfigData, ISessionData } from "../_app";
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { NextPage, NextPageContext } from 'next';
@@ -18,13 +19,15 @@ interface ISlugPageProps {
   }
 }
 
-interface ISlugDataProps {
+interface ISlugPageProps {
+  config: IConfigData;
+  userSession: ISessionData;
   slug: {
     slug: string
   }
 }
 
-const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
+const Movie: NextPage<ISlugPageProps> = ({ slug, userSession, config }): JSX.Element => {
   const [slugData, setslugData] = useState<any>([])
   const [isFavourite, setIsFavourite] = useState(true)
 
@@ -73,7 +76,10 @@ const Movie: NextPage<ISlugPageProps> = ({ slug }): JSX.Element => {
 
   return (
     <>
-      <Layout>
+      <Layout
+      userSession={userSession}
+      config={config?.data}
+      >
         <div className='text-white'>
           {
             playButtonClicked ?

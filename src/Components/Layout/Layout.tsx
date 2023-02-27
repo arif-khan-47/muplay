@@ -1,21 +1,39 @@
 import Header from '../Shared/Header'
 import Footer from '../Shared/Footer'
+import { NextPage } from 'next'
 import Head from 'next/head'
+import { IConfigData, ISessionData } from '../../pages/_app'
 
 
 
-const Layout = ({
+interface ILayoutProps {
+    hideHeader?: boolean;
+    hideFooter?: boolean;
+    children: React.ReactNode;
+    userSession: ISessionData;
+    categories?: any;
+    title?: string;
+    description?: string;
+    keywords?: string;
+    config: IConfigData['data']
+}
+
+const Layout: NextPage<ILayoutProps> = ({
     hideHeader = false,
     hideFooter = false,
     children,
-    title = "MU Play",
-    description = "If you're Looking for a Digital Marketing Agency in Andheri, You're in the right place. We offer Web Development and App Development Services."
+    userSession,
+    categories,
+    title,
+    description,
+    keywords,
+    config
 }) => {
 
     return (
         <>
             <Head>
-                <title>{title}</title>
+                <title>{title || config?.name}</title>
                 <meta name="description" content={description}></meta>
 
             </Head>

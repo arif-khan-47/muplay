@@ -1,18 +1,32 @@
 import Layout from '@/Components/Layout/Layout'
-import Header from '@/Components/Shared/Header'
 import React from 'react'
+import { NextPage, NextPageContext } from 'next'
+import { IConfigData, ISessionData } from './_app'
 
-function Subscription() {
+
+
+
+interface IPremiumPageProps {
+    config: IConfigData;
+    userSession: ISessionData;
+    // whoAmi: IWhoAmI;
+    // subscriptionPlans: ISubscriptionPlan[]
+}
+
+const Subscription:NextPage<IPremiumPageProps> = ({ config, userSession,}): JSX.Element => {
     return (
         <div>
-            <Layout>
+            <Layout 
+            userSession={userSession}
+            config={config?.data}
+            >
                 <div className="bg-cover bg-center h-full" style={{ backgroundImage: `url(https://res.cloudinary.com/dgyudczza/image/upload/v1676027129/muplay/Group_77_uwlio3.png)` }}>
                     <div className='px-5 lg:px-10 pt-[73px] pb-[104px]'>
-                        <p className='text-[50.79px] mb-[79px] font-semibold text-white text-center'>Pricing table exanple</p>
+                        <p className='text-[50.79px] mb-[79px] font-semibold text-white text-center'>Pricing table example</p>
 
-                        <div className='flex justify-center gap-20'>
+                        <div className='lg:flex lg:justify-center lg:gap-20'>
 
-                            <div className='h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex'>
+                            <div className='h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                 <div className='bg-white w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
                                     <div className='h-[150px] rounded-br-[100px] w-[189.03px] bg-gradient-to-t to-[#D41741] from-[#DC5A3D] flex '>
@@ -47,7 +61,7 @@ function Subscription() {
                                 </div>
                             </div>
 
-                            <div className='h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex'>
+                            <div className='h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                 <div className='bg-[#101010] w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
                                     <div className='h-[150px] rounded-br-[100px] w-[189.03px] bg-white flex '>
@@ -81,10 +95,10 @@ function Subscription() {
                                         </button>
                                     </div>
 
-                                </div>
+                                </div> 
                             </div>
 
-                            <div className='h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex'>
+                            <div className='h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                 <div className='bg-white w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
                                     <div className='h-[150px] rounded-br-[100px] w-[189.03px] bg-gradient-to-t to-[#D41741] from-[#DC5A3D] flex '>

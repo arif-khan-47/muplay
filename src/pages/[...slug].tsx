@@ -5,8 +5,7 @@ import { getSinglePageData, allMovies } from '@/http'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { NextPage, NextPageContext } from 'next';
-import SeasonTabs from '@/Components/Tabs/SeasonTabs'
-import ReactPlayer from 'react-player'
+import { IConfigData, ISessionData } from './_app'
 import Layout from '@/Components/Layout/Layout'
 
 
@@ -18,17 +17,24 @@ interface ISlugPageProps {
     }
 }
 
-interface ISlugDataProps {
-    slug: {
-        slug: string
-    }
+interface ISlugPageProps {
+    userSession: ISessionData;
+    trendingMovie: any;
+    // query: IQuery;
+    config: IConfigData;
+    // whoAmi: IWhoAmI | null
 }
 
-const DetailsPage: NextPage<ISlugPageProps> = ({ }): JSX.Element => {
+
+
+const DetailsPage: NextPage<ISlugPageProps> = ({ userSession, config  }): JSX.Element => {
 
     return (
         <>
-            <Layout>
+            <Layout
+            userSession={userSession}
+            config={config?.data}
+            >
                 <div className='text-white h-screen'>
                 </div>
             </Layout>

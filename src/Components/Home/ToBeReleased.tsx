@@ -14,7 +14,7 @@ import Link from "next/link";
 import Router from "next/router";
 
 const SlidePerWebView = 3;
-const LoadingWebElement:any = [];
+const LoadingWebElement: any = [];
 
 for (let i = 0; i < SlidePerWebView; i++) {
     LoadingWebElement.push(i);
@@ -26,7 +26,7 @@ function ToBeReleased({ data }: any) {
         <div>
             <div className='grid grid-cols-1 lg:mx-[55px] text-center lg:text-left'>
                 <div className='col-span-1 mb-[11.1px] text-white text-[37.5px] font-bold z-10'>
-                To Be Released
+                    To Be Released
                     <div className="text-[16.34px] text-[#CCCCCCE5]">Stay updated about the latest upcoming movies of this month</div>
                 </div>
             </div>
@@ -55,7 +55,7 @@ function ToBeReleased({ data }: any) {
                                 },
                                 1024: {
                                     slidesPerView: SlidePerWebView,
-                                    spaceBetween: 0,
+                                    spaceBetween: 8,
                                 }
 
 
@@ -63,24 +63,24 @@ function ToBeReleased({ data }: any) {
                         }
                     >
                         {
-                            data && data.length > 0?
-                            data && data.length > 0 && data.map((item: any, index: any) => (
-                                <SwiperSlide key={index}>
-                                    {/* <Link href={`/${item.type}/${item.slug}`}> */}
-                                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
-                                    <div className="hover:scale-105 hover:border-2 hover:border-[#FF2A00] my-10 mx-2 rounded-2xl hover:duration-200 cursor-pointer">
-                                        <ToBeReleasedCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index} thumbnail={item.thumbnail}/>
-                                    </div>
-                                    </div>
-                                    {/* </Link> */}
-                                </SwiperSlide>
-                            ))
-                            :
-                            LoadingWebElement.map((item:any, index:any) => (
-                                <SwiperSlide key={index}>
-                                <div className='h-[300px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
-                                </SwiperSlide>
-                            ))
+                            data && data.length > 0 ?
+                                data && data.length > 0 && data.map((item: any, index: any) => (
+                                    <SwiperSlide key={index}>
+                                        {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                                        <div onClick={() => { Router.push(`/${item.type}/${item.slug}`).then(Router.reload) }}>
+                                            <div className="hover:scale-105 hover:border-2 hover:border-[#FF2A00] my-10 mx-2 rounded-2xl hover:duration-200 cursor-pointer">
+                                                <ToBeReleasedCard className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} createdAt={item.createdAt} description={item.description} rating={item.rating} index={index} thumbnail={item.thumbnail} />
+                                            </div>
+                                        </div>
+                                        {/* </Link> */}
+                                    </SwiperSlide>
+                                ))
+                                :
+                                LoadingWebElement.map((item: any, index: any) => (
+                                    <SwiperSlide key={index}>
+                                        <div className='h-[300px] w-full bg-gray-800 animate-pulse rounded-xl'></div>
+                                    </SwiperSlide>
+                                ))
                         }
                     </Swiper>
                 </div>
