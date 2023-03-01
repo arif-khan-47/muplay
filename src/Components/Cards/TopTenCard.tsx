@@ -2,7 +2,7 @@ import Image from 'next/image'
 import moment from "moment";
 import React from 'react'
 
-function TopTenCard({ name, img, duration, genres, createdAt, description, rating, index }: any) {
+function TopTenCard({ name, img,  genres, description, rating, index }: any) {
     return (
         <>
             <div className='grid grid-cols-6 bg-[#131313] py-[6px] px-[8px] rounded-xl'>

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
+import EpisodeSlider from '../TV/EpisodeSlider';
 import LandscapeSlider from '../TV/LandscapeSlider';
 
 const SeasonTabs = ({ data }: any) => {
@@ -27,7 +28,7 @@ const SeasonTabs = ({ data }: any) => {
                         key={index}
                         style={{ display: selectedTab === item._id ? 'block' : 'none' }}
                     >
-                        <LandscapeSlider data={item.episodes} />
+                        <EpisodeSlider data={item.episodes} />
 
                     </div>
                 ))}

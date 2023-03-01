@@ -123,7 +123,9 @@ const Header: NextPage<IHeaderProps> = ({ userSession, config }) => {
             <div className={`${!open && 'hidden'} z-20 lg:block col-span-2 lg:col-span-3 bg-transparent mx-3 lg:mx-0 lg:my-auto`}>
               <div className="lg:flex lg:text-center gap-5 absolute lg:relative lg:bg-transparent border-b-2 lg:border-b-0 bg-[#1D1D1D] border-black left-0 right-0">
                 {Navtool.map((link) => (
-                  <div key={link.name} className={`${router.pathname === link.link ? 'lg:border-t-4 lg:border-[#FF2A00] text-[#FF2A00] lg:text-white lg:py-[30px]' : 'lg:py-[30px]'} my-6 lg:my-auto text-white text-base px-10 lg:px-0`}>
+                  // ${router.pathname === link.link ? 'lg:border-t-4 lg:border-[#FF2A00] text-[#FF2A00] lg:text-white lg:py-[30px]' : 'lg:py-[30px]'}
+                  <div key={link.name} className={`
+                  my-6 lg:my-auto text-white text-base px-10 lg:px-0`}>
                     <Link href={link.link}>{link.name}</Link>
                   </div>
                 ))

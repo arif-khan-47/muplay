@@ -64,9 +64,15 @@ function TvHero({ data }: any) {
 
 
                                                     <div className='flex'>
-                                                        <div className='text-white my-auto mr-[20px] text-[24.71px] font-bold'>€ 4,99</div>
-                                                        <button className='bg-[#FF2A00] py-[18px] px-[30px] border text-[16.71px] rounded-lg mr-[24px] uppercase'>Rent {item.type}</button>
-                                                        {/* {
+                                                        
+                                                        {
+                                                            item.content_offering_type === "BUY_OR_RENT"?
+                                                            <button className='bg-[#FF2A00] py-[9px] px-[15px] border text-[16.71px] rounded-lg uppercase'>Rent {item.type}</button>
+                                                            :
+                                                            <div></div>
+                                                            
+                                                        }
+                                                        {
                                                             isFavourite ?
                                                                 <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                                                                 </svg></button>
@@ -74,7 +80,7 @@ function TvHero({ data }: any) {
                                                                 <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-white" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                                                                 </svg></button>
 
-                                                        } */}
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="col-span-1 order-1 lg:order-3 flex h-full">
@@ -122,8 +128,12 @@ function TvHero({ data }: any) {
 
 
                                                     <div className='flex justify-center'>
-                                                        <div className='text-white my-auto mr-[20px] text-[18px] font-bold'>€ 4,99</div>
-                                                        <button className='bg-[#FF2A00] py-[9px] px-[15px] border text-[16.71px] rounded-lg uppercase'>Rent {item.type}</button>
+                                                       
+                                                        {
+                                                            item.content_offering_type === "BUY_OR_RENT"?
+                                                            <button className='bg-[#FF2A00] py-[9px] px-[15px] border text-[16.71px] rounded-lg uppercase'>Rent {item.type}</button>
+                                                            :null
+                                                        }
                                                         {/* {
                                                             isFavourite ?
                                                                 <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
