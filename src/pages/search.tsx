@@ -45,7 +45,7 @@ function Search() {
     async function getSearchContent(value: string) {
         try {
             const response = await searching(value);
-            console.log(response);
+            // console.log(response);
             setData(response.data.data)
             setLoading(false)
         } catch (error) {

@@ -9,6 +9,8 @@ const API = axios.create({
     // baseURL: 'https://api.shree.network/api',
 
     baseURL: 'https://cors-anywhere-969l.onrender.com/https://api.zezosoft.com/api',
+    // baseURL: 'https://cors-anywhere-969l.onrender.com/https://api.purplexott.com/api',
+
     // withCredentials: true,
     headers: {
         'Authorization': 'BearerToken eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmNzMxNWM5YjRmZDJjOGVhZGNjYzUiLCJyb2xlIjoidXNlciIsImlhdCI6MTY3NTMzMDkyOSwiZXhwIjoxNzA2ODg4NTI5LCJpc3MiOiJ6ZXpvLmluIn0.ZqHHkje24z1yMRxV14Tpd8hq7fRx5VuIZxiutJHsc8s',
@@ -41,8 +43,12 @@ export const forgotPassword = (data) => API.post("/auth/forgot-password", data);
 export const whoamiAuth = () => API.get("/auth/whoami");
 
 
+// section routes
+export const getSectionByCategory = (id) => API.get(`/section/list/${id}`);
+export const getSections = () => API.get(`/section`);
+
 // category endpoints
-export const getAllContentEndpoint = (data) => API.get<IAllContentResponse>(`/content?${data || ''}`);
+export const getAllContentEndpoint = (data) => API.get(`/content?${data || ''}`);
 export const getCategories = (data) => API.get(`/categories?${data || ''}`);
 
 // Header Endpoints 
@@ -63,8 +69,8 @@ export const getSubscriptions = () => API.get(`/subscriptions`);
 export const checkIsPrimium = () => API.get(`/subscription/check`);
 
 // payment endpoint
-export const checkout = (data) => API.post(`/payments/checkout`, data);
-export const verifyPayment = (data) => API.post(`/payments/verify`, data);
+export const checkout = (data, headers) => API.post(`/payments/checkout`, data, { headers });
+export const verifyPayment = (data, headers) => API.post(`/payments/verify`, data, { headers });
 
 // users endpoint
 export const deactivateAccount = () => API.delete(`/users`);

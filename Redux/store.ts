@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./Slices/authSlice";
 // import sectionSlice from "./Slices/sectionSlice";
-// import subscriptionSlice from "./Slices/subscriptionSlice";
+import subscriptionSlice from "./Slices/subscriptionSlice";
 // import playerSlice from "./Slices/playerSlice";
 // import detailsSlice from "./Slices/detailsSlice";
 // import seriesSlice from "./Slices/seriesSlice";
@@ -12,7 +12,7 @@ const store = configureStore({
   reducer: {
     auth: authSlice,
     // section: sectionSlice,
-    // subscription: subscriptionSlice,
+    subscription: subscriptionSlice,
     // player: playerSlice,
     // details: detailsSlice,
     // series: seriesSlice,

@@ -40,8 +40,6 @@ function Login() {
 
     async function signin() {
         setIsSubmitted(true)
-        console.log('clicked')
-
         try {
             // const response = await login({ phone });
             // try {

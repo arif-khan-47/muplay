@@ -85,7 +85,7 @@ const authOptions: NextAuthOptions = {
     signOut: "/auth/signout",
   },
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account }:any) {
       if (account && user) {
         return {
           ...token,

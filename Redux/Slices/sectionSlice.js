@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getSections } from '../../http'
+import { getSections } from '../../src/http/index'
 
 export const STATUS = Object.freeze({
     SECCESS: 'success',

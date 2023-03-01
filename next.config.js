@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['assets-shree.s3.ap-south-1.amazonaws.com', 'res.cloudinary.com','api-9vkxs.strapidemo.com', 'localhost:1337', 'localhost','zezoadmin.herokuapp.comhttps'],
+    domains: ['assets-shree.s3.ap-south-1.amazonaws.com', 'res.cloudinary.com','api-9vkxs.strapidemo.com', 'localhost:1337', 'localhost','zezoadmin.herokuapp.comhttps', 'assets-purplexott.s3.ap-south-1.amazonaws.com'],
     
   },
 }

@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 function TvHero({ data }: any) {
+
     const [isFavourite, setIsFavourite] = useState(false)
     return (
         <div>

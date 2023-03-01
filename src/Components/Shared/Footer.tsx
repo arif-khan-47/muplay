@@ -1,33 +1,15 @@
 import { layoutData } from '@/http'
+import { IConfigData } from '@/pages/_app'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-
-function Footer() {
-
-    const [data, setData] = useState<any>([])
-    // console.log(data)
-    const [social, setSocial] = useState<any>([])
-    const [logo, setLogo] = useState<any>('')
+import React from 'react'
 
 
-    async function getHeaderData() {
-        // console.log('Getting all movies');
-        try {
-            const response = await layoutData();
-            setSocial(response.data.data.social_links)
-            setLogo(response.data.data)
-            setData(response.data.data.webSettings.footer.menu)
-        } catch (error) {
-            console.log(error)
-        }
 
-    }
-
-    useEffect(() => {
-        getHeaderData()
-    }, [])
-
+interface iFooterProps {
+    config: IConfigData["data"]
+}
+const Footer = ({ config }: iFooterProps): JSX.Element => {
 
     return (
         <div className=' bg-[#232323]'>
@@ -36,11 +18,11 @@ function Footer() {
                     <div className='col-span-2'>
                         <div className='h-[50px] w-[150px] relative my-auto mb-[44.14px] mx-auto lg:mx-0'>
                             <Image
-                                src={logo.logo}
+                                src={config.logo}
                                 className='h-fit w-fit'
                                 layout='fill'
                                 objectFit={'contain'}
-                                alt={logo.name}
+                                alt={config.name}
                             />
 
                         </div>
@@ -56,7 +38,7 @@ function Footer() {
 
 
                     <div className='col-span-1 mt-[32px]'>
-                        {data && data.length > 0 && data.map((link:any, index:number) => {
+                        {config?.webSettings?.footer?.menu?.map((link:any, index:number) => {
                             if (index < 6) {
                                 return (
                                     <div key={index} className={`mb-[8.81px] cursor-pointer w-fit hover:text-[#FF2A00] text-gray-400 lg:text-[16.51px] font-extralight`}>
@@ -76,7 +58,7 @@ function Footer() {
                     </div>
 
                     <div className='col-span-1 mt-[32px]'>
-                        {data && data.length > 0 && data.map((link:any, index:number) => {
+                        {config?.webSettings?.footer?.menu?.map((link:any, index:number) => {
                             if (index > 6) {
                                 return (
                                     <div key={index} className={`mb-[8.81px] cursor-pointer w-fit hover:text-[#FF2A00] text-gray-400 lg:text-[16.51px] font-extralight`}>
@@ -109,7 +91,7 @@ function Footer() {
                         <div className='flex lg:justify-start justify-center gap-3'>
 
                         {
-                            social?.map((social:any, index:number) => {
+                            config?.social_links?.map((social:any, index:number) => {
                                 if (social.status) {
                                     return (
                                         <div key={index}>
