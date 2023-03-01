@@ -14,7 +14,7 @@ import { getContentFunc } from "../../../Redux/Slices/contentSlice";
 import axios from "axios";
 import { IWhoAmI } from "../my-account";
 import moment from "moment";
-import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
+// import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
 
 interface IWatchProps {
     userSession: ISessionData;
