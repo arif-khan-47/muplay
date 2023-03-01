@@ -154,7 +154,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
                         {
                             subscriptionPlans && subscriptionPlans.length > 0 && subscriptionPlans.slice(0, 1).map((plan: any, index: any) => {
                                 return (
-                                    <div>
+                                    <div key={index}>
                                         <div className='relative h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                             <div className='bg-white w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
@@ -166,7 +166,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
 
                                                 {plan.points.map((point: any, index: any) => {
                                                     return (
-                                                        <div className='flex justify-center gap-1 mb-[15px]'><svg className='my-auto w-[14px] h-[10px] fill-none' viewBox="0 0 14 10"><path stroke="#06AD03" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.44" d="M12.313.73L4.396 8.648l-3.6-3.6" ></path>
+                                                        <div key={index} className='flex justify-center gap-1 mb-[15px]'><svg className='my-auto w-[14px] h-[10px] fill-none' viewBox="0 0 14 10"><path stroke="#06AD03" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.44" d="M12.313.73L4.396 8.648l-3.6-3.6" ></path>
                                                         </svg>
                                                             {point}
                                                         </div>
@@ -201,7 +201,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
                                                     <p className='text-center w-[258px] text-[13.82px] mb-[20px] mx-auto'>{plan.description}</p>
                                                     {plan.points.map((point: any, index: any) => {
                                                     return (
-                                                        <div className='flex justify-center gap-1 mb-[15px]'><svg className='my-auto w-[14px] h-[10px] fill-none' viewBox="0 0 14 10"><path stroke="#06AD03" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.44" d="M12.313.73L4.396 8.648l-3.6-3.6" ></path>
+                                                        <div key={index} className='flex justify-center gap-1 mb-[15px]'><svg className='my-auto w-[14px] h-[10px] fill-none' viewBox="0 0 14 10"><path stroke="#06AD03" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.44" d="M12.313.73L4.396 8.648l-3.6-3.6" ></path>
                                                         </svg>
                                                             {point}
                                                         </div>
@@ -225,7 +225,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
                         {
                             subscriptionPlans && subscriptionPlans.length > 0 && subscriptionPlans.slice(2, 3).map((plan: any, index: any) => {
                                 return (
-                                    <div>
+                                    <div key={index}>
                                         <div className='relative h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                             <div className='bg-white w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
@@ -237,7 +237,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
 
                                                 {plan.points.map((point: any, index: any) => {
                                                     return (
-                                                        <div className='flex justify-center gap-1 mb-[15px]'><svg className='my-auto w-[14px] h-[10px] fill-none' viewBox="0 0 14 10"><path stroke="#06AD03" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.44" d="M12.313.73L4.396 8.648l-3.6-3.6" ></path>
+                                                        <div key={index} className='flex justify-center gap-1 mb-[15px]'><svg className='my-auto w-[14px] h-[10px] fill-none' viewBox="0 0 14 10"><path stroke="#06AD03" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.44" d="M12.313.73L4.396 8.648l-3.6-3.6" ></path>
                                                         </svg>
                                                             {point}
                                                         </div>

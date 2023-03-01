@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { getAllContentEndpoint, searchContentEndpoint } from '../../http'
+import { getAllContentEndpoint, searching } from '../../src/http'
 
 export const STATUS = Object.freeze({
     SECCESS: 'success',
@@ -187,7 +187,7 @@ export function searchContent(query: string) {
     return async (dispatch: any) => {
         dispatch(setStatusContent('loading'))
         try {
-            const { data } = await searchContentEndpoint(query)
+            const { data } = await searching(query)
             dispatch(setSearchResult(data.data))
             dispatch(setStatusContent(STATUS.SECCESS))
         } catch (error) {
