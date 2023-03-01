@@ -13,21 +13,24 @@ import ProtraitBottomTitle from "../Cards/ProtraitBottomTitle";
 import Link from "next/link";
 import Router from "next/router";
 
-function WatchTheLatest({ data }: any) {
-    // console.log(data)
+function WatchTheLatest({ data, title, userSession }: any) {
+    console.log(userSession)
     return (
         <div>
             <div className='grid lg:grid-cols-2 grid-cols-1 mx-5'>
                 <div className='col-span-1 text-white text-xl mb-10 lg:mb-0 lg:text-[37.5px] text-center lg:text-left'>
-                    Watch The Latest Cinema Releases
+                    {title}
                 </div>
                 <div className='col-span-1 my-auto'>
                     <div className='flex lg:justify-end justify-center text-white'>
-                        <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
-                            <Link href={'/login'}>
-                                JOIN NOW
-                            </Link>
-                        </button>
+                        {
+                            userSession ? null:
+                                <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
+                                    <Link href={'/login'}>
+                                        JOIN NOW
+                                    </Link>
+                                </button> 
+                        }
                         <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
                             VIEW ALL
                         </button>

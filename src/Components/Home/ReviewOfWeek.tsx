@@ -22,13 +22,13 @@ for (let i = 0; i < SlidePerWebView; i++) {
 
 
 
-function ReviewOfWeek({ data }: any) {
+function ReviewOfWeek({ data, title }: any) {
     // console.log(data)
   return (
     <div>
       <div className='grid grid-cols-1 mx-5 text-center lg:text-left'>
         <div className='col-span-1 mb-[55px] text-white text-[37.5px] font-bold z-10'>
-        Review of The Week
+        {title}
         <div className="text-base lg:text-[24.5px] lg:mt-[18px] lg:leading-snug">Congratulations <span className="text-[#FF2A00]">Diana Prince</span> You Have Been Selected As Reviewer Of The Week And Earned 6 Moviepoints!</div>
         </div>
       </div>

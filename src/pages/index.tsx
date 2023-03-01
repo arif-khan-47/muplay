@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { allMovies, getAllContentEndpoint } from '../http/index'
+import { allMovies, getAllContentEndpoint, getSections } from '../http/index'
 import Hero from '../Components/Home/Hero'
 import MoviesAndTrailers from '@/Components/Home/MoviesAndTrailers'
 import WatchTheLatest from '@/Components/Home/WatchTheLatest'
@@ -8,92 +8,133 @@ import TopTen from '@/Components/Home/TopTen'
 import ToBeReleased from '@/Components/Home/ToBeReleased'
 import MoviesForKids from '@/Components/Home/MoviesForKids'
 import { NextPage } from "next";
+import { IWhoAmI } from "./my-account";
 import Genres from '@/Components/Home/Genres'
 import Header from '@/Components/Shared/Header'
 import { IConfigData, ISessionData } from "./_app";
-
 import Layout from '@/Components/Layout/Layout'
 import axios from 'axios'
 import { getSession } from 'next-auth/react'
+import ContinueWatching from '@/Components/Cards/ContinueWatching'
 
 
 interface IIndexProps {
-    userSession: ISessionData;
-    content: IAllContentResponse;
-    continueWatching: any;
-    config: IConfigData;
-    // whoAmi: IWhoAmI
-  }
-const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, config }): JSX.Element => {
-    const [trending, setTrending] = useState([])
-    const [bgHero, setBgHero] = useState('')
-    const [heroContent, setHeroContent] = useState([])
-    // console.log(bgHero)
+  userSession: ISessionData;
+  content: IAllContentResponse;
+  continueWatching: any;
+  config: IConfigData;
+  whoAmi: IWhoAmI
+}
+const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, config, whoAmi }): JSX.Element => {
+  const [trending, setTrending] = useState([])
+  const [bgHero, setBgHero] = useState('')
+  const [sections, setSections] = useState<any>([]);
 
-    async function getAllTrends() {
-        // console.log('Getting all movies');
-        try {
-            const response = await allMovies();
-            // console.log(response.data.data)
-            setHeroContent(response.data.data[0])
-            setBgHero(response.data.data[0].thumbnail)
-            setTrending(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
 
+  async function getAllTrends() {
+    try {
+      const response = await allMovies();
+      setBgHero(response.data.data[0].thumbnail)
+      setTrending(response.data.data)
+    } catch (error) {
+      console.log(error)
     }
 
-    useEffect(() => {
-        getAllTrends()
-    }, [])
+  }
+
+  useEffect(() => {
+    getAllTrends()
+  }, [])
 
 
 
-    return (
-        <>
 
-            <div>
-                <Layout
-                      userSession={userSession}
-                      config={config?.data || false}
-                >
 
-                    <div className=''>
-                        <Hero data={trending} />
-                    </div>
 
-                    <div className='px-5 mb-[93px]'>
-                        <MoviesAndTrailers data={trending} />
-                    </div>
-                    <div className='px-5 mb-[83px]'>
-                        <WatchTheLatest data={trending} />
-                    </div>
+  // fetch section data
+  const fetchSectionData = async () => {
+    try {
+      const { data, status } = await getSections()
+      if (status === 200) {
+        setSections(data.data);
+      }
+    } catch (error) { }
+  }
 
-                    <div className="bg-cover bg-center h-[690px]" style={{ backgroundImage: `url(${bgHero})` }}>
-                        <div className='h-full w-full absolute bg-gradient-to-l to-[#101010] via-transparent from-[#101010] '></div>
-                        <div className='px-5 lg:px-10 pt-[70px] lg:pt-[112px]'>
-                            <ReviewOfWeek data={trending} />
-                        </div>
-                    </div>
+  useEffect(() => {
+    fetchSectionData();
+    return () => { }
+  }, [])
 
-                    <div className='px-5 lg:px-10 mt-[50px] lg:mt-[78px]'>
-                        <TopTen data={trending} />
-                    </div>
-                    <div className='px-5 lg:px-10 mt-[50px] lg:mt-[83px]'>
-                        <ToBeReleased data={trending} />
-                    </div>
-                    <div className='px-5 lg:px-10 mt-[50px] lg:mt-[98px]'>
-                        <MoviesForKids data={trending} />
-                    </div>
-                    <div className='px-5 lg:px-10 lg:mt-[95px] mt-[50px] mb-[104px]'>
-                        <Genres />
-                    </div>
-                </Layout>
+
+
+  return (
+    <>
+
+      <div>
+        <Layout
+          userSession={userSession}
+          config={config?.data || false}
+        >
+
+          <div className=''>
+            <Hero data={content.data} />
+          </div>
+
+          {
+            continueWatching && continueWatching?.data?.length > 0 && <ContinueWatching
+              title="Continue Watching"
+              data={continueWatching?.data}
+              userSession={userSession}
+              whoAmi={whoAmi}
+            />
+          }
+          <div className='px-5 mb-[93px]'>
+            <MoviesAndTrailers data={trending} />
+          </div>
+
+
+
+          {
+            sections && sections.length > 0 && sections.map((section: any, index: number) => {
+              return (
+          <div className='px-5 mb-[83px]'>
+            <WatchTheLatest userSession={userSession} title={section.title} data={section.content} />
+          </div>
+            )
+          })}
+
+          <div className="bg-cover bg-center h-[690px]" style={{ backgroundImage: `url(${bgHero})` }}>
+            <div className='h-full w-full absolute bg-gradient-to-l to-[#101010] via-transparent from-[#101010] '></div>
+            <div className='px-5 lg:px-10 pt-[70px] lg:pt-[112px]'>
+              <ReviewOfWeek data={content.data} title={`Popular on ${config?.data?.name}`}/>
             </div>
+          </div>
 
-        </>
-    )
+          <div className='px-5 lg:px-10 mt-[50px] lg:mt-[78px]'>
+            <TopTen data={trending} />
+          </div>
+          <div className='px-5 lg:px-10 mt-[50px] lg:mt-[83px]'>
+            <ToBeReleased data={trending} />
+          </div>
+
+          
+          <div className='px-5 lg:px-10 mt-[50px] lg:mt-[98px]'>
+            <MoviesForKids data={trending}/>
+          </div>
+
+
+
+
+
+          <div className='px-5 lg:px-10 lg:mt-[95px] mt-[50px] mb-[104px]'>
+            <Genres />
+          </div>
+        </Layout>
+      </div>
+
+    </>
+  )
 }
 export default Home;
 
