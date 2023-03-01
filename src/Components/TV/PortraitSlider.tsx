@@ -68,6 +68,8 @@ function PortraitSlider({ data, title }: any) {
                                     <SwiperSlide key={index}>
                                         {/* <Link href={`/${item.type}/${item.slug}`}> */}
                                         <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
+                                        {/* <div onClick={() => {Router.push(`/watch/${item.slug}`).then(Router.reload)}}> */}
+
                                             <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
                                                 <div className="bg-cover bg-center h-[298.07px] w-full rounded-xl" style={{ backgroundImage: `url(${item.poster})` }}></div>
                                             </div>

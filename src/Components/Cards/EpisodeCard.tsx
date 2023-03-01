@@ -48,7 +48,7 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
         router.push(`/watch/${slug}?episode=${item._id}`).then(() => router.reload())
         return;
       } else {
-        router.push('/premium')
+        router.push('/subscription')
         return;
       }
     } else {
@@ -139,7 +139,7 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
                       </div>
                       <div className="absolute top-1.5 right-2">
                         {item._id === activeEpisode &&
-                          <div className="bg-red-500 rounded-full py-0.5 px-2 text-sm">
+                          <div className="bg-[#FF2A00] rounded-full py-0.5 px-2 text-sm">
                             Now Playing
                           </div>}
                       </div>

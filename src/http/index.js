@@ -15,7 +15,7 @@ const API = axios.create({
     headers: {
         'Authorization': 'BearerToken eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmNzMxNWM5YjRmZDJjOGVhZGNjYzUiLCJyb2xlIjoidXNlciIsImlhdCI6MTY3NTMzMDkyOSwiZXhwIjoxNzA2ODg4NTI5LCJpc3MiOiJ6ZXpvLmluIn0.ZqHHkje24z1yMRxV14Tpd8hq7fRx5VuIZxiutJHsc8s',
 
-        "x-requested-with":"",
+        "x-requested-with": "",
         'Content-Type': "application/json",
         'Accept': "application/json",
         "Access-Control-Allow-Headers": "X-Requested-With, content-type",
@@ -43,6 +43,12 @@ export const forgotPassword = (data) => API.post("/auth/forgot-password", data);
 export const whoamiAuth = () => API.get("/auth/whoami");
 
 
+// history endpoints
+
+export const addToHistoryEndpoint = (data, headers) => API.post(`/history`, data, { headers });
+export const updateHistoryEndpoint = (data, headers) => API.put(`/history`, data, { headers });
+export const getHistory = () => API.get(`/history`);
+
 // section routes
 export const getSectionByCategory = (id) => API.get(`/section/list/${id}`);
 export const getSections = () => API.get(`/section`);
@@ -63,6 +69,8 @@ export const searching = (data) => API.get(`search?query=${data}`);
 export const allMovies = () => API.get("/content");
 export const getContect = (query) => API.get(`/content?${query}`);
 export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
+export const getContentSignCookieEndPoint = (id, query) => api.get(`/content/stream/${id}?type=${query}`);
+
 
 // subscriptions endpoint
 export const getSubscriptions = () => API.get(`/subscriptions`);
@@ -76,10 +84,10 @@ export const verifyPayment = (data, headers) => API.post(`/payments/verify`, dat
 export const deactivateAccount = () => API.delete(`/users`);
 
 // watchtime endpoint
-export const addWatchTime = (data) => API.post(`/watchtime`, data);
+export const addWatchTime = (data, headers) => API.post(`/watchtime`, data, { headers });
 
 // view count endpoint
-export const countView = (data) => API.post(`/views/count`, data);
+export const countView = (data, headers) => API.post(`/views/count`, data, { headers });
 
 // trending endpoint
 export const getTrending = () => API.get(`/trending/`);

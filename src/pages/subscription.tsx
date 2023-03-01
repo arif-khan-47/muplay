@@ -155,7 +155,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
                             subscriptionPlans && subscriptionPlans.length > 0 && subscriptionPlans.slice(0, 1).map((plan: any, index: any) => {
                                 return (
                                     <div key={index}>
-                                        <div className='relative h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
+                                        <div className='relative mb-10 lg:mb-0 h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                             <div className='bg-white w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
                                                 <div className='h-[150px] rounded-br-[100px] w-[189.03px] bg-gradient-to-t to-[#D41741] from-[#DC5A3D] flex '>
@@ -190,7 +190,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
                             subscriptionPlans && subscriptionPlans.length > 0 && subscriptionPlans.slice(1, 2).map((plan: any, index: any) => {
                                 return (
                                     <>
-                                        <div className='h-[575px] relative w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
+                                        <div className='h-[575px] mb-10 lg:mb-0 relative w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                             <div className='bg-[#101010] w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
                                                 <div className='h-[150px] rounded-br-[100px] w-[189.03px] bg-white flex '>
@@ -226,7 +226,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
                             subscriptionPlans && subscriptionPlans.length > 0 && subscriptionPlans.slice(2, 3).map((plan: any, index: any) => {
                                 return (
                                     <div key={index}>
-                                        <div className='relative h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
+                                        <div className='relative mb-10 lg:mb-0 h-[575px] w-[322px] bg-gradient-to-t to-white from-[#DC5C3C] rounded-tl-[100px] rounded-br-[100px] flex mx-auto lg:mx-0'>
                                             <div className='bg-white w-[315px] h-[568px] overflow-hidden  rounded-tl-[100px] rounded-br-[100px] m-auto'>
 
                                                 <div className='h-[150px] rounded-br-[100px] w-[189.03px] bg-gradient-to-t to-[#D41741] from-[#DC5A3D] flex '>

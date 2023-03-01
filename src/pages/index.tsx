@@ -98,7 +98,7 @@ const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, c
           {
             sections && sections.length > 0 && sections.map((section: any, index: number) => {
               return (
-          <div className='px-5 mb-[83px]'>
+          <div key={index} className='px-5 mb-[83px]'>
             <WatchTheLatest userSession={userSession} title={section.title} data={section.content} />
           </div>
             )
@@ -196,7 +196,7 @@ export interface IAllContentResponse {
         duration: number,
         source_link: string,
         source_type: 'HLS' | 'MP4',
-        content_offering_type: 'FREE' | 'PREMIUM',
+        content_offering_type: 'FREE' | 'PREMIUM' | 'BUY_OR_RENT',
         thumbnail: string,
         createdAt: string,
         updatedAt: string,
@@ -207,7 +207,7 @@ export interface IAllContentResponse {
       updatedAt: string,
     }[] | null,
     type: 'series' | 'movie' | 'live_stream',
-    content_offering_type: 'FREE' | 'PREMIUM',
+    content_offering_type: 'FREE' | 'PREMIUM' | 'BUY_OR_RENT',
     updated_by: string,
     created_by: string,
     createdAt: string,
