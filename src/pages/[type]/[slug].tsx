@@ -3,7 +3,7 @@ import PortraitSlider from '@/Components/TV/PortraitSlider'
 import RectangleSlider from '@/Components/TV/RectangleSlider'
 import { getSinglePageData, allMovies, getAllContentEndpoint, getTrending } from '@/http'
 import { IConfigData, ISessionData } from "../_app";
-import {IAllContentResponse} from '../index'
+import { IAllContentResponse } from '../index'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { NextPage, NextPageContext } from 'next';
@@ -41,7 +41,6 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
   const [slugData, setslugData] = useState<any>([])
   const [isFavourite, setIsFavourite] = useState(true)
 
-  // console.log(slugData)
 
   async function slugDataAllMovies(slug: string) {
 
@@ -63,13 +62,10 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
   }, [])
 
   const [trending, setTrending] = useState([])
-  // console.log(bgHero)
 
   async function getAllTrends() {
-    // console.log('Getting all movies');
     try {
       const response = await allMovies();
-      // console.log(response.data.data)
       setTrending(response.data.data)
     } catch (error) {
       console.log(error)
@@ -162,36 +158,26 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
 
                         </div>
                       </div>
-                      <div className='col-span-1 text-white mt-[50px] lg:mt-[98px] lg:order-3 order-2'>
+                      <div className='col-span-1 text-white mt-[50px] lg:mt-[98px] lg:order-2 order-2'>
                         <p className='font-semibold leading-tight text-xl lg:text-[40.71px] uppercase mb-[8px] lg:mb-[16px]'>
-                          {contentDetails.name}
                           {
-                            contentDetails.type === 'series' && query.episode && <>
-                              <h1 className="font-bold">
-                                {episodeData?.name}
-                              </h1>
-                            </>
+                            contentDetails.type === 'series' && query.episode ?
+                              episodeData?.name
+                              :
+                              contentDetails.name
                           }
                         </p>
 
+                        <div className='flex gap-3'>
+                          {contentDetails.genres?.map((slugData: any, index: any) => (
+                            <div key={index} className='bg-[#1D1D1D] border-[#CCCCCCB5] border w-fit text-[9.23px] rounded-full py-[3.5px] px-[11px] lg:mb-[42.58px] mb-[20px]'>
+                              {slugData.name}
+                            </div>
+                          ))}
+                        </div>
 
 
-
-
-
-                        {contentDetails.genres?.map((slugData: any, index: any) => (
-                          <div key={index} className='bg-[#1D1D1D] border-[#CCCCCCB5] border w-fit text-[9.23px] rounded-full py-[3.5px] px-[11px] lg:mb-[42.58px] mb-[20px]'>
-                            {contentDetails.name}
-                          </div>
-                        ))}
-
-
-                        {
-                          contentDetails.type === 'series' ? query.episode && <>
-                            <p className="text-[12.07px] mb-[33px]">{episodeData.description?.length > 300 ? contentDetails.description.substring(0, 300) + '...' : contentDetails.description}</p>
-                          </> : <p className="text-[12.07px] mb-[33px]">{contentDetails.description?.length > 300 ? contentDetails.description.substring(0, 300) + '...' : contentDetails.description}</p>
-                        }
-
+                       <p className="text-[12.07px] mb-[33px]">{contentDetails.description?.length > 300 ? contentDetails.description.substring(0, 300) + '...' : contentDetails.description}</p>
 
 
                         <div className='flex lg:justify-start justify-center'>
@@ -214,12 +200,12 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
 
                         </div>
                       </div>
-                    <div className="col-span-1 flex h-full lg:order-3 order-1 pt-[84px] lg:pt-0">
-                      <svg onClick={() => setPlayButtonClicked(true)} className="m-auto cursor-pointer animate-pulse hover:animate-none hover:scale-125 hover:duration-500 w-[85px] fill-none" viewBox="0 0 85 85">
-                        <circle cx="42.043" cy="42.043" r="42.043" fill="#fff" fillOpacity="0.54"></circle> <circle cx="42.043" cy="42.043" r="32.233" fill="#282827" fillOpacity="0.76"></circle>
-                        <path fill="#fff" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.491" d="M36.126 30.831l17.44 11.212-17.44 11.212V30.83z"></path>
-                      </svg>
-                    </div>
+                      <div className="col-span-1 flex h-full lg:order-3 order-1 pt-[84px] lg:pt-0">
+                        <svg onClick={() => setPlayButtonClicked(true)} className="m-auto cursor-pointer animate-pulse hover:animate-none hover:scale-125 hover:duration-500 w-[85px] fill-none" viewBox="0 0 85 85">
+                          <circle cx="42.043" cy="42.043" r="42.043" fill="#fff" fillOpacity="0.54"></circle> <circle cx="42.043" cy="42.043" r="32.233" fill="#282827" fillOpacity="0.76"></circle>
+                          <path fill="#fff" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.491" d="M36.126 30.831l17.44 11.212-17.44 11.212V30.83z"></path>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -235,18 +221,21 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
             :
             null
         } */}
+        <div className='mt-[73px] m-auto container'>
         {
-                                    contentDetails?.seasons && contentDetails?.seasons?.length > 0 && <>
-                                        <EpisodeCard
-                                            title={"Episodes"}
-                                            data={activeSeason.episodes}
-                                            userSession={userSession}
-                                            whoAmi={whoAmi}
-                                            slug={contentDetails.slug}
-                                            activeEpisode={query.episode}
-                                        />
-                                        </>
+          contentDetails?.seasons && contentDetails?.seasons?.length > 0 && <>
+            <EpisodeCard
+              title={"Episodes"}
+              data={activeSeason.episodes}
+              userSession={userSession}
+              whoAmi={whoAmi}
+              slug={contentDetails.slug}
+              activeEpisode={query.episode}
+              />
+          </>
         }
+        
+                </div>
 
 
         <div className='mt-[73px] m-auto container'>

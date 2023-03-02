@@ -45,7 +45,6 @@ function Search() {
     async function getSearchContent(value: string) {
         try {
             const response = await searching(value);
-            // console.log(response);
             setData(response.data.data)
             setLoading(false)
         } catch (error) {
@@ -64,10 +63,8 @@ function Search() {
 
 
     async function getAllTrends() {
-        // console.log('Getting all movies');
         try {
             const response = await allMovies();
-            // console.log(response)
             setTrending(response.data.data)
         } catch (error) {
             console.log(error)

@@ -20,12 +20,14 @@ function ToBeRealeasedCard({ name, img, duration, genres, createdAt, description
                 </div>
                 <div className='relative col-span-4 pl-[20px] text-white'>
                         <div className='text-[17.77px] mb-[12px] mt-[13px]'>{name.length > 20 ? name.substring(0, 20) + '...' : name}</div>
-
+                        <div className='flex gap-1 flex-wrap'>
                     {genres?.map((item: any, index: any) => (
                         <div key={index} className='bg-[#FF2A00] w-fit mb-[12px] text-[8.66px] rounded-full py-[3px] px-[10px]'>
                             {item.name}
                         </div>
                     ))}
+                    
+                                            </div>
                     <p className='text-[10.01px]'>{description.length > 100 ? description.substring(0, 100) + '...' : description}</p>
                 </div>
             </div>

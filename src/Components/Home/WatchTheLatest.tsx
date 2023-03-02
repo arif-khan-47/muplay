@@ -9,12 +9,11 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation, Autoplay } from "swiper";
-import ProtraitBottomTitle from "../Cards/ProtraitBottomTitle";
+import ProtraitBottomTitle2 from "../Cards/ProtraitBottomTitle2";
 import Link from "next/link";
 import Router from "next/router";
 
-function WatchTheLatest({ data, title, userSession }: any) {
-    console.log(userSession)
+function WatchTheLatest({ data, title, userSession, id }: any) {
     return (
         <div>
             <div className='grid lg:grid-cols-2 grid-cols-1 mx-5'>
@@ -24,16 +23,18 @@ function WatchTheLatest({ data, title, userSession }: any) {
                 <div className='col-span-1 my-auto'>
                     <div className='flex lg:justify-end justify-center text-white'>
                         {
-                            userSession ? null:
-                                <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
-                                    <Link href={'/login'}>
+                            userSession ? null :
+                                <Link href={'/login'}>
+                                    <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
                                         JOIN NOW
-                                    </Link>
-                                </button> 
+                                    </button>
+                                </Link>
                         }
-                        <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
-                            VIEW ALL
-                        </button>
+                        <Link href={`/catagories/${id}`}>
+                            <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
+                                VIEW ALL
+                            </button>
+                        </Link>
 
                     </div>
                 </div>
@@ -76,7 +77,7 @@ function WatchTheLatest({ data, title, userSession }: any) {
                                     {/* <Link href={`/${item.type}/${item.slug}`}> */}
                                     <div onClick={() => { Router.push(`/${item.type}/${item.slug}`).then(Router.reload) }}>
                                         <div className="hover:scale-105 mt-[46.31px] rounded-2xl hover:duration-200 cursor-pointer">
-                                            <ProtraitBottomTitle className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} />
+                                            <ProtraitBottomTitle2 className='my-auto' name={item.name} img={item.poster} duration={item.duration} genres={item.genres} />
                                         </div>
                                     </div>
                                     {/* </Link> */}

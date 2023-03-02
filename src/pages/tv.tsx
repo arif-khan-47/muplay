@@ -22,13 +22,10 @@ const Tv: NextPage<IIndexProps> = ({ userSession, content, continueWatching, con
 
   const [trending, setTrending] = useState([])
 
-  // console.log(trending)
 
   async function getAllTrends() {
-    // console.log('Getting all movies');
     try {
       const response = await allMovies();
-      // console.log(response)
 
       setTrending(response.data.data)
     } catch (error) {

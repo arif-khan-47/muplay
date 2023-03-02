@@ -99,7 +99,9 @@ const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, c
             sections && sections.length > 0 && sections.map((section: any, index: number) => {
               return (
           <div key={index} className='px-5 mb-[83px]'>
-            <WatchTheLatest userSession={userSession} title={section.title} data={section.content} />
+            <>
+            <WatchTheLatest userSession={userSession} title={section.title} data={section.content} id={section._id}/>
+            </>
           </div>
             )
           })}

@@ -66,19 +66,6 @@ function Login() {
     }
 
     async function submitOtp() {
-        // try {
-        //     const response = await verifyOTP({ hash, phone, otp })
-        //     console.log(response.data)
-
-        //     try {
-        //         setAccessToken(response.data.accessToken)
-        //         setRefreshToken(response.data.refreshToken)
-        //     } catch (error) {
-        //         console.log(error)
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        // }
         try {
             setIsLoading(true);
             const values = {

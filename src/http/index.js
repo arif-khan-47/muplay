@@ -71,6 +71,11 @@ export const getContect = (query) => API.get(`/content?${query}`);
 export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
 export const getContentSignCookieEndPoint = (id, query) => api.get(`/content/stream/${id}?type=${query}`);
 
+//Add remove and get Favourite 
+export const getFavorite = () => API.get("/content");
+
+
+
 
 // subscriptions endpoint
 export const getSubscriptions = () => API.get(`/subscriptions`);

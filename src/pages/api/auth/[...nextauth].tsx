@@ -101,9 +101,6 @@ const authOptions: NextAuthOptions = {
       const expiryTime: number = parseInt(REFRESH_TOKEN_EXPIRY)
       
       if (expiryTime > 0) {
-        // If the token is still valid, just return it.
-        console.log('Call refreshAccessToken')
-        // If the call arrives after 1 hours have passed, we allow to refresh the token.
         token = refreshAccessToken(token) as any
         return token;
       }

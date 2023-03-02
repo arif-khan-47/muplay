@@ -2,7 +2,8 @@ import Image from 'next/image'
 import moment from "moment";
 import React from 'react'
 
-function TopTenCard({ name, img,  genres, description, rating, index }: any) {
+function TopTenCard({ name, img, genres, description, rating, index, content_offering_type, type }: any) {
+    // console.log(genres)
     return (
         <>
             <div className='grid grid-cols-6 bg-[#131313] py-[6px] px-[8px] rounded-xl'>
@@ -30,20 +31,24 @@ function TopTenCard({ name, img,  genres, description, rating, index }: any) {
                         </div>
                     </div>
 
-                    {genres?.map((item: any, index: any) => (
-                        <div key={index} className='bg-[#FF2A00] w-fit mb-[8px] text-[8.72px] rounded-full py-[3px] px-[10px]'>
-                            {item.name}
-                        </div>
-                    ))}
+                    <div className='flex flex-wrap gap-1'>
+                        {genres?.map((item: any, index: any) => (
+                            <div key={index} className='bg-[#FF2A00] w-fit mb-[8px] text-[8.72px] rounded-full py-[3px] px-[10px]'>
+                                {item.name}
+                            </div>
+                        ))}
+
+                    </div>
                     <p className='text-[10.24px]'>{description.length > 100 ? description.substring(0, 100) + '...' : description}</p>
                     <div className='absolute bottom-0 left-0 pl-[20px] pb-[5px]'>
-
-                        <div className='text-[10.25px] py-[10px] border px-[21px] rounded-lg'>
-                            Rent Movie
-                        </div>
+                        {
+                            content_offering_type === "BUY_OR_RENT" ?
+                                <button className='text-[10.25px] py-[10px] border px-[21px] rounded-lg'>Rent {type}</button>
+                                : null
+                        }
                     </div>
                     <div className='absolute bottom-0 right-0 pr-[20px] text-[35.49px] text-[#FF2A00]'>
-                        {index+1}
+                        {index + 1}
                     </div>
                 </div>
             </div>

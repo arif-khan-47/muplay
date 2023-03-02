@@ -1,6 +1,6 @@
 import Layout from "../../Components/Layout/Layout";
 import { getSession } from "next-auth/react";
-import { getAllContentEndpoint, getCategories} from "../../http";
+import { getAllContentEndpoint, getCategories, getSectionByCategory } from "../../http";
 import { IConfigData, ISessionData } from "../_app";
 import { NextPage, NextPageContext } from "next";
 import { useEffect, useState } from "react";
@@ -15,22 +15,21 @@ interface ICategoryPageProps {
     config: IConfigData;
     userSession: ISessionData;
     query: {
-        category: string;
+        catagories: string;
     }
 }
 
 const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query }): JSX.Element => {
+    // console.log(query.catagories)
     const router = useRouter();
     const [categoryData, setCategoryData] = useState<IAllContentResponse['data']>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [page, setPage] = useState<number>(1);
-    const [category, setCategory] = useState<{
-        _id: string;
-        name: string;
-        slug: string;
-        description: string;
-    }>();
-    // console.log(category)
+    const [category, setCategory] = useState<any>();
+    const [data, setData] = useState<IAllContentResponse['data']>([]);
+
+    console.log(category)
+
     // generate href for slider
     const generateUrl = (item: any) => {
         const type = item.type.toLowerCase();
@@ -81,9 +80,12 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
 
     const getCategoriesFunc = async () => {
         try {
-            const { data, status } = await getCategories(`id=${query.category}`);
+            const { data, status } = await getSectionByCategory(`${query.catagories}`);
             if (status === 200) {
+                // console.log(data.data)
                 setCategory(data.data);
+                setData(data.data.content);
+
             }
         } catch (error) {
 
@@ -91,7 +93,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     }
 
     useEffect(() => {
-        getDataByCategory(query.category, page);
+        getDataByCategory(query.catagories, page);
         getCategoriesFunc();
         return () => {
             setCategoryData([]);
@@ -101,7 +103,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     }, []);
 
     useEffect(() => {
-        getDataByCategoryQuery(query.category, 1);
+        getDataByCategoryQuery(query.catagories, 1);
         getCategoriesFunc();
         return () => {
             setCategoryData([]);
@@ -113,7 +115,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     // get more data
     const getMoreData = async () => {
         setPage(page + 1)
-        getDataByCategory(query.category, page);
+        getDataByCategory(query.catagories, page);
     }
 
     return (
@@ -121,60 +123,49 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
             userSession={userSession}
             config={config.data || false}
         >
-            <div className="w-[94%] mx-auto mt-10">
-                <h1 className="text-xl font-semibold">
+            <div className="container px-10 mt-10">
+                <div className="text-2xl text-white font-semibold">
                     {
-                        category && category.name
+                        category && category.title
                     }
-                </h1>
+                </div>
                 <p className="mt-2 text-sm">
                     {
                         category && category.description
                     }
                 </p>
             </div>
-            <InfiniteScroll
-                dataLength={categoryData.length}
-                next={getMoreData}
-                hasMore={true}
-                loader={<h4></h4>}
-            >
-                <div className="w-[95%] mx-auto mt-4">
-                    <div className='flex flex-wrap'>
+
+                <div className="container m-auto mt-4">
+                    <div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mx-5 lg:mx-0'>
+
                         {
-                            <>
-                                {
-                                    loading ? loadingData.map((item, index) => {
-                                        return (
-                                            <div key={index} className='lg:w-1/5 w-1/2 p-1.5'>
-                                                <div className='relative'>
-                                                    <div className='animate-pulse aspect-video w-full object-cover rounded cursor-pointer bg-gray-600'>
+                            loading ? loadingData.map((item, index) => {
+                                return (
+                                    <div key={index} className='col-span-1'>
+                                        <div className='relative'>
+                                            <div className='aspect-video mx-auto w-[100%] my-auto rounded cursor-pointer bg-gray-600'>
 
-                                                    </div>
-                                                </div>
                                             </div>
-                                        )
-                                    }) : categoryData && categoryData.length > 0 && categoryData.map((item, index) => {
-                                        return (
-                                            <div key={index} className='lg:w-1/5 w-1/2 p-1.5'>
-                                                <div
-                                                    className='relative hover:transform hover:scale-110 hover:z-50 z-10 transition-all duration-5   00'>
-                                                    <img
-                                                        onClick={() => handleSliderClick(item)}
-                                                        src={item.thumbnail}
-                                                        className='aspect-video w-full object-cover rounded cursor-pointer bg-gray-600'
-                                                    />
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-
-                            </>
+                                        </div>
+                                    </div>
+                                )
+                            }) : data && data.length > 0 && data.map((item: any, index: any) => {
+                                return (
+                                    <div key={index} className='col-span-1'>
+                                        <div className='hover:scale-110 duration-500'>
+                                            <img
+                                                onClick={() => handleSliderClick(item)}
+                                                src={item.thumbnail}
+                                                className='aspect-video mx-auto w-[100%] my-auto rounded cursor-pointer bg-gray-600'
+                                            />
+                                        </div>
+                                    </div>
+                                )
+                            })
                         }
                     </div>
                 </div>
-            </InfiniteScroll>
         </Layout>
     )
 };
@@ -185,6 +176,7 @@ export default CategoryPage;
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
     const query = context.query;
+    console.log(query)
     if (!session) {
         return {
             props: {
