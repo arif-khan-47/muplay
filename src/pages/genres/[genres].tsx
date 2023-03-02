@@ -15,7 +15,7 @@ interface ICategoryPageProps {
     config: IConfigData;
     userSession: ISessionData;
     query: {
-        category: string;
+        genres: string;
     }
 }
 
@@ -30,7 +30,6 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
         slug: string;
         description: string;
     }>();
-    // console.log(category)
     // generate href for slider
     const generateUrl = (item: any) => {
         const type = item.type.toLowerCase();
@@ -81,7 +80,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
 
     const getCategoriesFunc = async () => {
         try {
-            const { data, status } = await getCategories(`id=${query.category}`);
+            const { data, status } = await getCategories(`id=${query.genres}`);
             if (status === 200) {
                 setCategory(data.data);
             }
@@ -91,7 +90,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     }
 
     useEffect(() => {
-        getDataByCategory(query.category, page);
+        getDataByCategory(query.genres, page);
         getCategoriesFunc();
         return () => {
             setCategoryData([]);
@@ -101,7 +100,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     }, []);
 
     useEffect(() => {
-        getDataByCategoryQuery(query.category, 1);
+        getDataByCategoryQuery(query.genres, 1);
         getCategoriesFunc();
         return () => {
             setCategoryData([]);
@@ -113,7 +112,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     // get more data
     const getMoreData = async () => {
         setPage(page + 1)
-        getDataByCategory(query.category, page);
+        getDataByCategory(query.genres, page);
     }
 
     return (
@@ -122,50 +121,49 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
             config={config.data || false}
         >
             <div className="w-[94%] mx-auto mt-10">
-                <h1 className="text-xl font-semibold">
+                <h1 className="text-2xl text-white font-semibold">
                     {
                         category && category.name
                     }
                 </h1>
-                <p className="mt-2 text-sm">
+                <p className="mt-2 text-lg text-white">
                     {
                         category && category.description
                     }
                 </p>
             </div>
-            <InfiniteScroll
+            {/* <InfiniteScroll
                 dataLength={categoryData.length}
                 next={getMoreData}
                 hasMore={true}
                 loader={<h4></h4>}
-            >
-                <div className="w-[95%] mx-auto mt-4">
-                    <div className='flex flex-wrap'>
+            > */}
+                  <div className="container m-auto mt-4">
+                    <div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mx-5 lg:mx-0'>
                         {
                             <>
                                 {
                                     loading ? loadingData.map((item, index) => {
                                         return (
-                                            <div key={index} className='lg:w-1/5 w-1/2 p-1.5'>
-                                                <div className='relative'>
-                                                    <div className='animate-pulse aspect-video w-full object-cover rounded cursor-pointer bg-gray-600'>
+                                            <div key={index} className='col-span-1'>
+                                        <div className='relative'>
+                                            <div className='aspect-video mx-auto w-[100%] my-auto rounded cursor-pointer bg-gray-600'>
 
-                                                    </div>
-                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
                                         )
                                     }) : categoryData && categoryData.length > 0 && categoryData.map((item, index) => {
                                         return (
-                                            <div key={index} className='lg:w-1/5 w-1/2 p-1.5'>
-                                                <div
-                                                    className='relative hover:transform hover:scale-110 hover:z-50 z-10 transition-all duration-5   00'>
-                                                    <img
-                                                        onClick={() => handleSliderClick(item)}
-                                                        src={item.thumbnail}
-                                                        className='aspect-video w-full object-cover rounded cursor-pointer bg-gray-600'
-                                                    />
-                                                </div>
-                                            </div>
+                                            <div key={index} className='col-span-1'>
+                                        <div className='hover:scale-110 duration-500'>
+                                            <img
+                                                onClick={() => handleSliderClick(item)}
+                                                src={item.thumbnail}
+                                                className='aspect-video mx-auto w-[100%] my-auto rounded cursor-pointer bg-gray-600'
+                                            />
+                                        </div>
+                                    </div>
                                         )
                                     })
                                 }
@@ -174,7 +172,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
                         }
                     </div>
                 </div>
-            </InfiniteScroll>
+            {/* </InfiniteScroll> */}
         </Layout>
     )
 };

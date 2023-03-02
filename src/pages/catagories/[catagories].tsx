@@ -28,7 +28,6 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
     const [category, setCategory] = useState<any>();
     const [data, setData] = useState<IAllContentResponse['data']>([]);
 
-    console.log(category)
 
     // generate href for slider
     const generateUrl = (item: any) => {
