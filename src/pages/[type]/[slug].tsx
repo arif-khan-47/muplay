@@ -1,7 +1,7 @@
 import LandscapeSlider from '@/Components/TV/LandscapeSlider'
 import PortraitSlider from '@/Components/TV/PortraitSlider'
 import RectangleSlider from '@/Components/TV/RectangleSlider'
-import { getSinglePageData, allMovies, getAllContentEndpoint, getTrending, addFavorite } from '@/http'
+import { getSinglePageData, allMovies, getAllContentEndpoint, getTrending, addFavorite, getSections } from '@/http'
 import { IConfigData, ISessionData } from "../_app";
 import { IAllContentResponse } from '../index'
 import Image from 'next/image'
@@ -16,8 +16,7 @@ import EpisodeCard from '@/Components/Cards/EpisodeCard';
 import moment from 'moment';
 import { IWhoAmI } from '../my-account';
 import { toast } from 'react-hot-toast';
-// import VideoPlayer from '@/Components/VideoPlayer/VideoPlayer';
-// import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import WatchTheLatest from '@/Components/Home/WatchTheLatest';
 
 
 
@@ -40,24 +39,25 @@ interface ISlugPageProps {
 
 const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDetails, trendingMovie, query, episodeData, whoAmi }): JSX.Element => {
   const [slugData, setslugData] = useState<any>([])
+  const [sections, setSections] = useState<any>([]);
   async function handleFavorite(id: string) {
     // console.log(id)
     try {
       const res = await addFavorite({ id });
-      
-        console.log(res)
-        toast.success("Added to Favorite.", {
-          style: {
-            border: '1px solid #FF2A00',
-            padding: '16px',
-            color: '#FF2A00',
-            backgroundColor:'#1D1D1D'
-          },
-          iconTheme: {
-            primary: '#FF2A00',
-            secondary: '#1D1D1D',
-          },
-        });
+
+      console.log(res)
+      toast.success("Added to Favorite.", {
+        style: {
+          border: '1px solid #FF2A00',
+          padding: '16px',
+          color: '#FF2A00',
+          backgroundColor: '#1D1D1D'
+        },
+        iconTheme: {
+          primary: '#FF2A00',
+          secondary: '#1D1D1D',
+        },
+      });
 
     } catch (error: any) {
       // console.log(error.response.data.error.message)
@@ -66,7 +66,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
           border: '1px solid #FF2A00',
           padding: '16px',
           color: '#FF2A00',
-          backgroundColor:'#1D1D1D'
+          backgroundColor: '#1D1D1D'
         },
         iconTheme: {
           primary: '#FF2A00',
@@ -76,6 +76,20 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
     }
   }
 
+ // fetch section data
+ const fetchSectionData = async () => {
+  try {
+    const { data, status } = await getSections()
+    if (status === 200) {
+      setSections(data.data);
+    }
+  } catch (error) { }
+}
+
+useEffect(() => {
+  fetchSectionData();
+  return () => { }
+}, [])
 
   async function slugDataAllMovies(slug: string) {
 
@@ -161,9 +175,9 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                 <svg onClick={() => setPlayButtonClicked(false)} className='w-5 lg:w-10 z-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
                   <path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path>
                 </svg>
-                {/* <span className='m-auto text-3xl'>
+                <span className='m-auto text-3xl'>
                 Video Player
-              </span> */}
+              </span>
                 {/* <VideoPlayer
                     contentData={contentDetails}
                     sourceUrl={contentDetails.source_link}
@@ -173,6 +187,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                 //type="application/x-mpegURL"
                 //type=""
                 /> */}
+
               </div>
               :
               <div className="bg-cover bg-center h-[500px] lg:h-[690px]" style={{ backgroundImage: `url(${contentDetails.thumbnail})` }}>
@@ -212,7 +227,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                         </div>
 
 
-                       <p className="text-[12.07px] mb-[33px]">{contentDetails.description?.length > 300 ? contentDetails.description.substring(0, 300) + '...' : contentDetails.description}</p>
+                        <p className="text-[12.07px] mb-[33px]">{contentDetails.description?.length > 300 ? contentDetails.description.substring(0, 300) + '...' : contentDetails.description}</p>
 
 
                         <div className='flex lg:justify-start justify-center'>
@@ -223,10 +238,14 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                               <div></div>
 
                           }
-                          
+                          {
+                            userSession ?
                               <button onClick={() => handleFavorite(contentDetails._id)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                               </svg></button>
-                              
+                              :
+                              <div></div>
+                          }
+
 
                         </div>
                       </div>
@@ -251,38 +270,41 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
             :
             null
         } */}
-        <div className='mt-[73px] m-auto container'>
-        {
-          contentDetails?.seasons && contentDetails?.seasons?.length > 0 && <>
-            <EpisodeCard
-              title={"Episodes"}
-              data={activeSeason.episodes}
-              userSession={userSession}
-              whoAmi={whoAmi}
-              slug={contentDetails.slug}
-              activeEpisode={query.episode}
+        <div className='mt-[60px] mb-[70px] m-auto container'>
+          {
+            contentDetails?.seasons && contentDetails?.seasons?.length > 0 && <>
+              <EpisodeCard
+                title={"Episodes"}
+                data={activeSeason.episodes}
+                userSession={userSession}
+                whoAmi={whoAmi}
+                slug={contentDetails.slug}
+                activeEpisode={query.episode}
               />
-          </>
-        }
-        
-                </div>
+            </>
+          }
 
+        </div>
 
-        <div className='mt-[73px] m-auto container'>
-          <LandscapeSlider data={trending} title={'Hindi Movies'} />
-        </div>
-        <div className='mt-[82.93px] m-auto container'>
-          <PortraitSlider data={trending} title={'hindi Movies'} />
-        </div>
-        <div className='mt-[73px] m-auto container'>
+        {
+            sections && sections.length > 0 && sections.map((section: any, index: number) => {
+              return (
+          <div key={index} className='px-5 mb-[40px] lg:mb-[83px]'>
+            <>
+            {/* <WatchTheLatest userSession={userSession} title={section.title} data={section.content} id={section._id}/> */}
+            <PortraitSlider data={section.content} title={section.title} />
+            </>
+          </div>
+            )
+          })}
+
+        {/* <div className='mt-[73px] m-auto container'>
           <LandscapeSlider data={trending} title={'Top Movies'} />
         </div>
-        <div className='mt-[82.93px] m-auto container'>
-          <PortraitSlider data={trending} title={'popular Movies'} />
-        </div>
+        
         <div className='mt-[85px] mb-[88px] m-auto container'>
           <RectangleSlider data={trending} title={'latest & trending'} />
-        </div>
+        </div> */}
       </Layout>
     </>
   )

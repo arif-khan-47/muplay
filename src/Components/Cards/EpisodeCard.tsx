@@ -84,11 +84,11 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
   return (
     <div className="2xl:container mx-auto">
       <div>
-        <Title
-          className="ml-5 xl:ml-10"
+        {/* <Title
+          className="ml-5 xl:ml-10 text-[#FF2A00]"
         >
           {title}
-        </Title>
+        </Title> */}
         {/* <div className="flex gap-5 overflow-scroll scrollbar-hide mt-4"> */}
         {/* <OwlCarousel
             responsive={responsive}

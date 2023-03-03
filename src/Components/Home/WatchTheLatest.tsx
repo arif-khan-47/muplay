@@ -16,22 +16,24 @@ import Router from "next/router";
 function WatchTheLatest({ data, title, userSession, id }: any) {
     return (
         <div>
-            <div className='grid lg:grid-cols-2 grid-cols-1 mx-5'>
-                <div className='col-span-1 text-white text-xl mb-10 lg:mb-0 lg:text-[37.5px] text-center lg:text-left'>
+            <div className='grid lg:grid-cols-2 grid-cols-2 lg:mx-5'>
+                <div className='col-span-1 text-white text-xl my-auto lg:text-[37.5px]'>
+                    <div className="my-auto">
                     {title}
+                    </div>
                 </div>
                 <div className='col-span-1 my-auto'>
                     <div className='flex lg:justify-end justify-center text-white'>
                         {
                             userSession ? null :
                                 <Link href={'/login'}>
-                                    <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
+                                    <button className='border lg:px-[48px] text-xs lg:text-base px-[16px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl mr-[13.12px]'>
                                         JOIN NOW
                                     </button>
                                 </Link>
                         }
                         <Link href={`/catagories/${id}`}>
-                            <button className='border lg:px-[48px] px-[24px] lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
+                            <button className='border lg:px-[48px] px-[16px] text-xs lg:text-base lg:py-[18px] py-[9px] bg-[#1D1D1D] rounded-xl'>
                                 VIEW ALL
                             </button>
                         </Link>

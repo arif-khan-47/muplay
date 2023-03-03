@@ -1,6 +1,6 @@
 // import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import { getSession } from "next-auth/react";
-import { getAllContentEndpoint, getTrending } from "../../http";
+import { getAllContentEndpoint, getSections, getTrending } from "../../http";
 import Layout from "../../Components/Layout/Layout";
 import Card from "../../Components/Cards/EpisodeCard";
 import { IConfigData, ISessionData } from "../_app";
@@ -14,6 +14,7 @@ import { getContentFunc } from "../../../Redux/Slices/contentSlice";
 import axios from "axios";
 import { IWhoAmI } from "../my-account";
 import moment from "moment";
+import LandscapeSlider from "@/Components/TV/LandscapeSlider";
 // import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
 
 interface IWatchProps {
@@ -43,6 +44,20 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
     }
 
     const [open, setOpen] = useState(false);
+    const [sections, setSections] = useState<any>([]);
+    const fetchSectionData = async () => {
+        try {
+            const { data, status } = await getSections()
+            if (status === 200) {
+                setSections(data.data);
+            }
+        } catch (error) { }
+    }
+
+    useEffect(() => {
+        fetchSectionData();
+        return () => { }
+    }, [])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -82,13 +97,16 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
                 //type="application/x-mpegURL"
                 //type=""
                 /> */}
+                <span className='m-auto text-3xl'>
+                Video Player
+              </span>
                 <div className="mx-5 xl:mx-10 my-5">
                     <div className="text-xl md:text-4xl font-bold text-white mb-1">
                         {contentDetails.name}
                     </div>
                     {
                         contentDetails.type === 'series' && query.episode && <>
-                            <h1 className="font-bold">
+                            <h1 className="font-bold text-white">
                                 {episodeData?.name}
                             </h1>
                         </>
@@ -148,9 +166,9 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
                         contentDetails?.type === 'series' && <>
                             <div className="mx-auto">
                                 <div className="text-white my-5 px-10 cursor-pointer"
-                                //onClick={handleClickOpen}
+                                // onClick={handleClickOpen}
                                 >
-                                    <p className="font-bold opacity-80 bg-customred rounded w-fit px-4 py-1.5">
+                                    <p className="font-bold opacity-80 bg-customred rounded w-fit px-5 text-2xl py-1.5 text-[#FF2A00]">
                                         Season {activeSeasonNumber}
                                     </p>
                                 </div>
@@ -171,6 +189,17 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
                             </div>
                         </>
                     }
+                    {
+                        sections && sections.length > 0 && sections.map((section: any, index: number) => {
+                            return (
+                                <div key={index} className='px-5 mt-[35px] lg:mt-[70px] mb-[40px] lg:mb-[83px]'>
+                                    <>
+                                        {/* <WatchTheLatest userSession={userSession} title={section.title} data={section.content} id={section._id}/> */}
+                                        <LandscapeSlider data={section.content} title={section.title} />
+                                    </>
+                                </div>
+                            )
+                        })}
                 </>
             </div>
         </Layout>

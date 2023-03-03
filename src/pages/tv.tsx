@@ -33,6 +33,7 @@ const Tv: NextPage<IIndexProps> = ({ userSession, content, continueWatching, con
     }
 
   }
+  
 
   useEffect(() => {
     getAllTrends()
@@ -45,7 +46,7 @@ const Tv: NextPage<IIndexProps> = ({ userSession, content, continueWatching, con
         config={config?.data || false}
       >
         <div>
-          <TvHero data={trending} />
+          <TvHero userSession={userSession} data={trending} />
         </div>
         <div className='mt-[74px]'>
           <PortraitSlider data={trending} title={'Engish Movie'} />

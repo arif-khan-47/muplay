@@ -78,7 +78,7 @@ const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, c
         >
 
           <div className=''>
-            <Hero data={content.data} />
+            <Hero userSession={userSession} data={content.data} />
           </div>
 
           {
@@ -98,7 +98,7 @@ const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, c
           {
             sections && sections.length > 0 && sections.map((section: any, index: number) => {
               return (
-          <div key={index} className='px-5 mb-[83px]'>
+          <div key={index} className='px-5 mb-[40px] lg:mb-[83px]'>
             <>
             <WatchTheLatest userSession={userSession} title={section.title} data={section.content} id={section._id}/>
             </>
@@ -129,7 +129,7 @@ const Home: NextPage<IIndexProps> = ({ userSession, content, continueWatching, c
 
 
 
-          <div className='px-5 lg:px-10 lg:mt-[95px] mt-[50px] mb-[104px]'>
+          <div className='px-5 lg:px-10 lg:mt-[95px] mt-[40px] mb-[104px]'>
             <Genres />
           </div>
         </Layout>

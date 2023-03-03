@@ -14,7 +14,7 @@ import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { addFavorite } from "@/http";
 
-function TvHero({ data }: any) {
+function TvHero({ data, userSession }: any) {
 
     // const [isFavourite, setIsFavourite] = useState(false)
     async function handleFavorite(id: number) {
@@ -110,9 +110,13 @@ function TvHero({ data }: any) {
                                                             <div></div>
                                                             
                                                         }
-                                                        
-                                                                <button onClick={() => handleFavorite(item._id)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
+                                                        {userSession?
+                                                            <button onClick={() => handleFavorite(item._id)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                                                                 </svg></button>
+                                                                :
+                                                                <div></div>
+
+                                                        }
 
                                                         
                                                     </div>

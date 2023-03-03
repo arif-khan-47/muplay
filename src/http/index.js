@@ -74,8 +74,8 @@ export const getContentSignCookieEndPoint = (id, query) => api.get(`/content/str
 //Add remove and get Favourite 
 export const getFavorite = (data, headers) => API.get("/favorite", data, { headers });
 export const addFavorite = (id) => API.post("/favorite",id);
-export const delFavorite = () => API.delete("/favorite");
 
+export const delFavorite = (id) => API.delete(`/favorite/${id}`);
 
 
 
