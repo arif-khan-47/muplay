@@ -23,7 +23,7 @@ function WatchTheLatest({ data, title, userSession, id }: any) {
                     </div>
                 </div>
                 <div className='col-span-1 my-auto'>
-                    <div className='flex lg:justify-end justify-center text-white'>
+                    <div className='flex justify-end text-white'>
                         {
                             userSession ? null :
                                 <Link href={'/login'}>
