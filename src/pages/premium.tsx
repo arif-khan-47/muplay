@@ -1,21 +1,69 @@
-import React, { useState } from 'react'
-import Layout from '@/Components/Layout/Layout'
-import { NextPage, NextPageContext } from 'next'
-import { IConfigData, ISessionData } from './_app'
-// import { Button } from '@mui/material'
+import { Button } from '@mui/material'
 import axios from 'axios'
+import { NextPage, NextPageContext } from 'next'
 import { getSession } from 'next-auth/react'
+import React, { useState } from 'react'
+import Layout from '../Components/Layout/Layout'
 import { checkout, getSubscriptions, verifyPayment } from '../http'
-// import { IWhoAmI } from './my-account'
+import { IWhoAmI } from './my-account'
+import { IConfigData, ISessionData } from './_app'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
-import { IAllContentResponse } from '../pages/index'
 
+export function PlanSelectCircleIcon() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            className="circle-yellow-icon"
+        >
+            <defs>
+                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                    <path
+                        fill="#FFF"
+                        d="M9 0c4.968 0 9 4.032 9 9s-4.032 9-9 9-9-4.032-9-9 4.032-9 9-9zm0 2C5.141 2 2 5.141 2 9s3.141 7 7 7 7-3.141 7-7-3.141-7-7-7z"
+                    ></path>
+                </symbol>
+            </defs>
+            <path
+                fill="#FFF"
+                d="M9 0c4.968 0 9 4.032 9 9s-4.032 9-9 9-9-4.032-9-9 4.032-9 9-9zm0 2C5.141 2 2 5.141 2 9s3.141 7 7 7 7-3.141 7-7-3.141-7-7-7z"
+            ></path>
+        </svg>
+    );
+}
 
-interface IVerifyPayment {
-    order_id: string;
-    payment_id: string;
-    signature: string;
+export function PlanSelectedCircleIcon() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="23"
+            className="circle-yellow-icon"
+        >
+            <defs>
+                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 23">
+                    <g fill="none" fillRule="evenodd" transform="translate(0 .6)">
+                        <circle cx="10.8" cy="10.8" r="9.6" fill="#494039"></circle>
+                        <path
+                            fill="#FFF"
+                            fillRule="nonzero"
+                            d="M10.8 0c5.962 0 10.8 4.838 10.8 10.8 0 5.962-4.838 10.8-10.8 10.8C4.838 21.6 0 16.762 0 10.8 0 4.838 4.838 0 10.8 0zm4.754 8.662a.888.888 0 00-1.269.01l-4.302 4.31-2.07-2.07a.896.896 0 00-1.269 0l-.08.081a.896.896 0 000 1.27l2.78 2.78a.896.896 0 001.27 0l5.021-5.03a.896.896 0 000-1.27z"
+                        ></path>
+                    </g>
+                </symbol>
+            </defs>
+            <g fill="none" fillRule="evenodd" transform="translate(0 .6)">
+                <circle cx="10.8" cy="10.8" r="9.6" fill="#494039"></circle>
+                <path
+                    fill="#FFF"
+                    fillRule="nonzero"
+                    d="M10.8 0c5.962 0 10.8 4.838 10.8 10.8 0 5.962-4.838 10.8-10.8 10.8C4.838 21.6 0 16.762 0 10.8 0 4.838 4.838 0 10.8 0zm4.754 8.662a.888.888 0 00-1.269.01l-4.302 4.31-2.07-2.07a.896.896 0 00-1.269 0l-.08.081a.896.896 0 000 1.27l2.78 2.78a.896.896 0 001.27 0l5.021-5.03a.896.896 0 000-1.27z"
+                ></path>
+            </g>
+        </svg>
+    );
 }
 
 export enum SubscriptionPlanDuration {
@@ -40,20 +88,19 @@ export interface ISubscriptionPlan {
 interface IPremiumPageProps {
     config: IConfigData;
     userSession: ISessionData;
-    //    whoAmi: IWhoAmI;
+    whoAmi: IWhoAmI;
     subscriptionPlans: ISubscriptionPlan[]
 }
 
-const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscriptionPlans }): JSX.Element => {
+const PremiumPage: NextPage<IPremiumPageProps> = ({ config, userSession, whoAmi, subscriptionPlans }): JSX.Element => {
     const headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Authorization": `Bearer ${userSession?.accessToken}`
     }
     const router = useRouter()
-    // const [selectedId, setSelectedId] = useState<string>(subscriptionPlans[0]?._id)
+    const [selectedId, setSelectedId] = useState<string>(subscriptionPlans[0]?._id)
     const [loading, setLoading] = useState<boolean>(false)
-
 
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
@@ -87,7 +134,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
             image: config.data.logo,
             order_id: data.id,
             handler: async (response: any) => {
-                const sendData: IVerifyPayment = {
+                const sendData: any = {
                     order_id: response.razorpay_order_id,
                     payment_id: response.razorpay_payment_id,
                     signature: response.razorpay_signature
@@ -128,7 +175,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
         }
         setLoading(true)
         try {
-            const response = await checkout({ subscriptionId: selectedId, provider: "cashfree" }, headers)
+            const response = await checkout({ subscriptionId: selectedId,  provider: "razorpay" }, headers)
             const { data: { data, rozerpay_api_key } } = response
             const item = subscriptionPlans.find(plan => plan._id === selectedId)
             if (response.status === 201) {
@@ -145,7 +192,7 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
     return (
         <Layout
             userSession={userSession}
-            config={config?.data}
+            config={config.data}
         >
             <div className="bg-cover bg-center h-full" style={{ backgroundImage: `url(https://res.cloudinary.com/dgyudczza/image/upload/v1676027129/muplay/Group_77_uwlio3.png)` }}>
                 <div className='px-5 lg:px-10 pt-[73px] pb-[104px]'>
@@ -263,11 +310,11 @@ const Subscription: NextPage<IPremiumPageProps> = ({ config, userSession, subscr
             </div>
 
         </Layout>
-
     )
 }
 
-export default Subscription
+export default PremiumPage
+
 // whoami
 async function getWhoami(session: ISessionData) {
     console.log("🚀 ~ file: premium.tsx:58 ~ getWhoami ~ req", session)

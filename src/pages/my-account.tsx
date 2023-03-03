@@ -7,7 +7,7 @@ import { IConfigData, ISessionData } from './_app'
 import { NextRequest } from 'next/server'
 import axios from 'axios'
 import Link from 'next/link'
-import { ISubscriptionPlan, SubscriptionPlanDuration } from './subscription'
+import { ISubscriptionPlan, SubscriptionPlanDuration } from './premium'
 import moment from 'moment'
 
 export interface IWhoAmI {
@@ -87,7 +87,7 @@ const MyAccount: NextPage<IMyAccountProps> = ({ config, userSession, whoAmi }): 
                                 </p>
                             </div>
                         </div>) : (<div className='mt-5 w-full'>
-                            <Link href={`/subscription`}>
+                            <Link href={`/premium`}>
                                     <div
                                         className='bg-[#FF2A00] px-4 py-5 rounded-xl w-full flex justify-between items-center cursor-pointer'>
                                         <p className='mx-auto text-white'>

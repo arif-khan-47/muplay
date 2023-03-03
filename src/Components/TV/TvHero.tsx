@@ -11,10 +11,48 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
+import { addFavorite } from "@/http";
 
 function TvHero({ data }: any) {
 
-    const [isFavourite, setIsFavourite] = useState(false)
+    // const [isFavourite, setIsFavourite] = useState(false)
+    async function handleFavorite(id: number) {
+        // console.log(id)
+        try {
+          const res = await addFavorite({ id });
+          
+            console.log(res)
+            toast.success("Added to Favorite.", {
+              style: {
+                border: '1px solid #FF2A00',
+                padding: '16px',
+                color: '#FF2A00',
+                backgroundColor:'#1D1D1D'
+              },
+              iconTheme: {
+                primary: '#FF2A00',
+                secondary: '#1D1D1D',
+              },
+            });
+    
+        } catch (error: any) {
+          // console.log(error.response.data.error.message)
+          toast.success(error.response.data.error.message, {
+            style: {
+              border: '1px solid #FF2A00',
+              padding: '16px',
+              color: '#FF2A00',
+              backgroundColor:'#1D1D1D'
+            },
+            iconTheme: {
+              primary: '#FF2A00',
+              secondary: '#1D1D1D',
+            },
+          });
+        }
+      }
+     
     return (
         <div>
             <Swiper
@@ -72,15 +110,11 @@ function TvHero({ data }: any) {
                                                             <div></div>
                                                             
                                                         }
-                                                        {
-                                                            isFavourite ?
-                                                                <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
-                                                                </svg></button>
-                                                                :
-                                                                <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-white" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
+                                                        
+                                                                <button onClick={() => handleFavorite(item._id)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                                                                 </svg></button>
 
-                                                        }
+                                                        
                                                     </div>
                                                 </div>
                                                 <div className="col-span-1 order-1 lg:order-3 flex h-full">

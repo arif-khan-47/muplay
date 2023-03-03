@@ -48,7 +48,7 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
         router.push(`/watch/${slug}?episode=${item._id}`).then(() => router.reload())
         return;
       } else {
-        router.push('/subscription')
+        router.push('/premium')
         return;
       }
     } else {

@@ -8,12 +8,12 @@ const API = axios.create({
     // baseURL : process.env.REACT_APP_BASEURL,
     // baseURL: 'https://api.shree.network/api',
 
-    baseURL: 'https://cors-anywhere-969l.onrender.com/https://api.zezosoft.com/api',
+    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
     // baseURL: 'https://cors-anywhere-969l.onrender.com/https://api.purplexott.com/api',
 
     // withCredentials: true,
     headers: {
-        'Authorization': 'BearerToken eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmNzMxNWM5YjRmZDJjOGVhZGNjYzUiLCJyb2xlIjoidXNlciIsImlhdCI6MTY3NTMzMDkyOSwiZXhwIjoxNzA2ODg4NTI5LCJpc3MiOiJ6ZXpvLmluIn0.ZqHHkje24z1yMRxV14Tpd8hq7fRx5VuIZxiutJHsc8s',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmNzMxNWM5YjRmZDJjOGVhZGNjYzUiLCJyb2xlIjoidXNlciIsImlhdCI6MTY3NzU4NDg4MSwiZXhwIjoxNzA5MTQyNDgxLCJpc3MiOiJ6ZXpvLmluIn0.a-pP6pwbgHHennRKs9__Y7P5HtDZXRUqVgiUcfmmfRo',
 
         "x-requested-with": "",
         'Content-Type': "application/json",
@@ -72,7 +72,10 @@ export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
 export const getContentSignCookieEndPoint = (id, query) => api.get(`/content/stream/${id}?type=${query}`);
 
 //Add remove and get Favourite 
-export const getFavorite = () => API.get("/content");
+export const getFavorite = (data, headers) => API.get("/favorite", data, { headers });
+export const addFavorite = (id) => API.post("/favorite",id);
+export const delFavorite = () => API.delete("/favorite");
+
 
 
 
@@ -81,9 +84,10 @@ export const getFavorite = () => API.get("/content");
 export const getSubscriptions = () => API.get(`/subscriptions`);
 export const checkIsPrimium = () => API.get(`/subscription/check`);
 
-// payment endpoint
-export const checkout = (data, headers) => API.post(`/payments/checkout`, data, { headers });
-export const verifyPayment = (data, headers) => API.post(`/payments/verify`, data, { headers });
+// payment endpoints
+  export const checkout = (data, headers) => API.post(`/payments/checkout`, data, { headers });
+
+  export const verifyPayment = (data, headers) => API.post(`/payments/verify`, data, { headers });
 
 // users endpoint
 export const deactivateAccount = () => API.delete(`/users`);

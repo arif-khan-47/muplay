@@ -11,8 +11,47 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
 import Link from "next/link";
 import Router from "next/router";
+import { toast } from "react-hot-toast";
+import { addFavorite } from "@/http";
 
 function Hero({ data }: any) {
+
+  async function handleFavorite(id: number) {
+    // console.log(id)
+    try {
+      const res = await addFavorite({ id });
+      
+        console.log(res)
+        toast.success("Added to Favorite.", {
+          style: {
+            border: '1px solid #FF2A00',
+            padding: '16px',
+            color: '#FF2A00',
+            backgroundColor:'#1D1D1D'
+          },
+          iconTheme: {
+            primary: '#FF2A00',
+            secondary: '#1D1D1D',
+          },
+        });
+
+    } catch (error: any) {
+      // console.log(error.response.data.error.message)
+      toast.success(error.response.data.error.message, {
+        style: {
+          border: '1px solid #FF2A00',
+          padding: '16px',
+          color: '#FF2A00',
+          backgroundColor:'#1D1D1D'
+        },
+        iconTheme: {
+          primary: '#FF2A00',
+          secondary: '#1D1D1D',
+        },
+      });
+    }
+  }
+ 
   return (
     <>
       <Swiper
@@ -45,7 +84,7 @@ function Hero({ data }: any) {
                                 <button className='bg-[#FF2A00] py-[12px] lg:py-[23.5px] px-[23px] lg:px-[46.5px] rounded-xl mr-[17.44px]'>WATCH NOW</button>
                               </div>
                               {/* </Link> */}
-                              <button className='bg-[#1D1D1D] border py-[12px] lg:py-[23.5px] px-[23px] lg:px-[46.5px] rounded-xl'>FAVORITE</button>
+                              <button onClick={() => handleFavorite(item._id)} className='bg-[#1D1D1D] border py-[12px] lg:py-[23.5px] px-[23px] lg:px-[46.5px] rounded-xl'>FAVORITE</button>
                             </div>
                           </div>
                         </div>

@@ -138,7 +138,7 @@ const CategoryPage: NextPage<ICategoryPageProps> = ({ config, userSession, query
                 hasMore={true}
                 loader={<h4></h4>}
             > */}
-                  <div className="container m-auto mt-4">
+                  <div className="container m-auto my-4">
                     <div className='grid grid-cols-2 lg:grid-cols-5 gap-3 mx-5 lg:mx-0'>
                         {
                             <>

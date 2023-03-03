@@ -1,7 +1,7 @@
 import LandscapeSlider from '@/Components/TV/LandscapeSlider'
 import PortraitSlider from '@/Components/TV/PortraitSlider'
 import RectangleSlider from '@/Components/TV/RectangleSlider'
-import { getSinglePageData, allMovies, getAllContentEndpoint, getTrending } from '@/http'
+import { getSinglePageData, allMovies, getAllContentEndpoint, getTrending, addFavorite } from '@/http'
 import { IConfigData, ISessionData } from "../_app";
 import { IAllContentResponse } from '../index'
 import Image from 'next/image'
@@ -15,6 +15,7 @@ import { getSession } from 'next-auth/react';
 import EpisodeCard from '@/Components/Cards/EpisodeCard';
 import moment from 'moment';
 import { IWhoAmI } from '../my-account';
+import { toast } from 'react-hot-toast';
 // import VideoPlayer from '@/Components/VideoPlayer/VideoPlayer';
 // import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
@@ -39,7 +40,41 @@ interface ISlugPageProps {
 
 const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDetails, trendingMovie, query, episodeData, whoAmi }): JSX.Element => {
   const [slugData, setslugData] = useState<any>([])
-  const [isFavourite, setIsFavourite] = useState(true)
+  async function handleFavorite(id: string) {
+    // console.log(id)
+    try {
+      const res = await addFavorite({ id });
+      
+        console.log(res)
+        toast.success("Added to Favorite.", {
+          style: {
+            border: '1px solid #FF2A00',
+            padding: '16px',
+            color: '#FF2A00',
+            backgroundColor:'#1D1D1D'
+          },
+          iconTheme: {
+            primary: '#FF2A00',
+            secondary: '#1D1D1D',
+          },
+        });
+
+    } catch (error: any) {
+      // console.log(error.response.data.error.message)
+      toast.success(error.response.data.error.message, {
+        style: {
+          border: '1px solid #FF2A00',
+          padding: '16px',
+          color: '#FF2A00',
+          backgroundColor:'#1D1D1D'
+        },
+        iconTheme: {
+          primary: '#FF2A00',
+          secondary: '#1D1D1D',
+        },
+      });
+    }
+  }
 
 
   async function slugDataAllMovies(slug: string) {
@@ -188,15 +223,10 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                               <div></div>
 
                           }
-                          {
-                            isFavourite ?
-                              <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
+                          
+                              <button onClick={() => handleFavorite(contentDetails._id)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-none" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
                               </svg></button>
-                              :
-                              <button onClick={() => setIsFavourite(!isFavourite)} className='hover:scale-110 duration-300'> <svg className="w-[55px] fill-white" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="27.5" fill="#282827"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.064" d="M36.64 21.203a5.676 5.676 0 00-8.029 0l-1.094 1.094-1.094-1.094a5.678 5.678 0 00-8.03 8.03l1.095 1.093 8.029 8.03 8.03-8.03 1.093-1.094a5.677 5.677 0 000-8.029v0z"></path>
-                              </svg></button>
-
-                          }
+                              
 
                         </div>
                       </div>
