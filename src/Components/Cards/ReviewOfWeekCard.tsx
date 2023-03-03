@@ -40,20 +40,21 @@ function ReviewOfWeekCard({ name, img, duration, genres, createdAt, description,
                     <p className='lg:block hidden text-[10.24px]'>{description.length > 500 ? description.substring(0, 500) + '...' : description}</p>
 
                     <div className='absolute bottom-0 left-0 pl-[20px] pb-[5px]'>
-                    {/* <Link href={`/${item.type}/${item.slug}`}> */}
-                    <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
-                        <div className='text-[9.98px] py-[12.5px] border px-[28px] cursor-pointer rounded-xl'>
-                            WATCH NOW
+                        {/* <Link href={`/${item.type}/${item.slug}`}> */}
+                        <div onClick={() => { Router.push(`/${item.type}/${item.slug}`).then(Router.reload) }}>
+                            <div className='text-[9.98px] py-[12.5px] border px-[28px] cursor-pointer rounded-xl'>
+                                WATCH NOW
+                            </div>
                         </div>
-                        </div>
-                            {/* </Link> */}
+                        {/* </Link> */}
                     </div>
                     <div className='absolute bottom-0 right-0 lg:pr-[20px] pb-[5px]'>
-
-                    <div className='flex gap-1 my-auto py-[6px] bg-[#D9D9D933] px-[20px] rounded-full'>
-                        <svg className='w-[15px] fill-none' viewBox="0 0 16 15"><path fill="#EFC900" d="M8 0l1.796 5.528h5.813l-4.703 3.416 1.796 5.528L8 11.056l-4.702 3.416 1.796-5.528L.392 5.528h5.812L8 0z"></path></svg>
-                       <p className='my-auto text-[15px]'>{rating}</p>
-                    </div>
+                        <div className='hidden lg:block my-auto'>
+                            <div className='flex gap-1  py-[6px] bg-[#D9D9D933] px-[20px] rounded-full'>
+                                <svg className='w-[15px] fill-none' viewBox="0 0 16 15"><path fill="#EFC900" d="M8 0l1.796 5.528h5.813l-4.703 3.416 1.796 5.528L8 11.056l-4.702 3.416 1.796-5.528L.392 5.528h5.812L8 0z"></path></svg>
+                                <p className='my-auto text-[15px]'>{rating}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

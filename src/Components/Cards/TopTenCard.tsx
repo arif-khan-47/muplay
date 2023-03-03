@@ -47,7 +47,7 @@ function TopTenCard({ name, img, genres, description, rating, index, content_off
                                 : null
                         }
                     </div>
-                    <div className='absolute bottom-0 right-0 pr-[20px] text-[35.49px] text-[#FF2A00]'>
+                    <div className='absolute bottom-0 right-0 pr-[20px] text-[30px] lg:text-[35.49px] text-[#FF2A00]'>
                         {index + 1}
                     </div>
                 </div>
