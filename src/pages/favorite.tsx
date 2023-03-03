@@ -108,7 +108,7 @@ function Favorite({ favorite, userSession, config }: any) {
                             //     :
                             favorite && favorite.length > 0 && favorite.map((item: any, index: any) => {
                                 return (
-                                    <div key={index} className='col-span-1 relative z-30'>
+                                    <div key={index} className='col-span-1 relative z-10'>
                                         <div className='absolute right-1 top-1 hover:scale-125 duration-500 bg-red-600 rounded-full p-1 cursor-pointer' onClick={() => handleDelFavorite(item._id)}>
                                             <svg className='w-6 stroke-white fill-none' viewBox="0 0 24 24"><g strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M10 12v5M14 12v5M4 7h16M6 10v8a3 3 0 003 3h6a3 3 0 003-3v-8M9 5a2 2 0 012-2h2a2 2 0 012 2v2H9V5z"></path></g></svg>
                                         </div>
