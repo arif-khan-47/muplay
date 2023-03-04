@@ -22,7 +22,7 @@ function TvHero({ data, userSession }: any) {
         try {
           const res = await addFavorite({ id });
           
-            console.log(res)
+            // console.log(res)
             toast.success("Added to Favorite.", {
               style: {
                 border: '1px solid #FF2A00',

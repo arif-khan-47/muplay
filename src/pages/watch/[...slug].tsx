@@ -15,6 +15,7 @@ import axios from "axios";
 import { IWhoAmI } from "../my-account";
 import moment from "moment";
 import LandscapeSlider from "@/Components/TV/LandscapeSlider";
+import ReactPlayer from "react-player";
 // import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
 
 interface IWatchProps {
@@ -97,9 +98,14 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
                 //type="application/x-mpegURL"
                 //type=""
                 /> */}
-                <span className='m-auto text-3xl'>
-                Video Player
-              </span>
+                <div className=''>
+              <ReactPlayer
+              url={contentDetails.source_link || null}
+              controls={true}
+              height='100%'
+              width={'100%'}
+              />
+              </div> 
                 <div className="mx-5 xl:mx-10 my-5">
                     <div className="text-xl md:text-4xl font-bold text-white mb-1">
                         {contentDetails.name}
