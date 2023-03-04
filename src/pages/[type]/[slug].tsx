@@ -17,6 +17,9 @@ import moment from 'moment';
 import { IWhoAmI } from '../my-account';
 import { toast } from 'react-hot-toast';
 import WatchTheLatest from '@/Components/Home/WatchTheLatest';
+import VideoPlayer from '@/Components/VideoPlayer/VideoPlayer';
+import videojs from 'video.js';
+
 
 
 
@@ -76,20 +79,20 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
     }
   }
 
- // fetch section data
- const fetchSectionData = async () => {
-  try {
-    const { data, status } = await getSections()
-    if (status === 200) {
-      setSections(data.data);
-    }
-  } catch (error) { }
-}
+  // fetch section data
+  const fetchSectionData = async () => {
+    try {
+      const { data, status } = await getSections()
+      if (status === 200) {
+        setSections(data.data);
+      }
+    } catch (error) { }
+  }
 
-useEffect(() => {
-  fetchSectionData();
-  return () => { }
-}, [])
+  useEffect(() => {
+    fetchSectionData();
+    return () => { }
+  }, [])
 
   async function slugDataAllMovies(slug: string) {
 
@@ -169,30 +172,33 @@ useEffect(() => {
         keywords={`${contentDetails && contentDetails.tags?.length > 0 && contentDetails.tags?.map((tag: string) => tag)}`}
       >
         <div className='text-white'>
+
           {
             playButtonClicked ?
-              <div className="flex lg:h-[690px] h-[350px] w-full">
-                <svg onClick={() => setPlayButtonClicked(false)} className='w-5 lg:w-10 z-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
+              <div className="lg:h-[690px] h-[350px] w-full">
+                {/* <svg onClick={() => setPlayButtonClicked(false)} className='w-5 lg:w-10 z-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
                   <path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path>
-                </svg>
-                 <div className=''>
-              <ReactPlayer 
-              url={contentDetails.source_link}
-              controls={true}
-              height='100%'
-              width={'100%'}
-              />
-              </div> 
-              
-                {/* <VideoPlayer
-                    contentData={contentDetails}
-                    sourceUrl={contentDetails.source_link}
-                    userSession={userSession}
-                    isTrailer={query.trailer ? true : false}
-                    episode={episodeData || null}
+                </svg> */}
+                {/* <div className=''>
+                  <ReactPlayer
+                    url={contentDetails.source_link}
+                    controls={true}
+                    height='100%'
+                    width={'100%'}
+                  />
+                </div> */}
+                <VideoPlayer
+                  contentData={contentDetails}
+                  sourceUrl={contentDetails.source_link}
+                  userSession={userSession}
+                  isTrailer={query.trailer ? true : false}
+                  episode={episodeData || null}
                 //type="application/x-mpegURL"
                 //type=""
-                /> */}
+                />
+                
+
+
 
               </div>
               :
@@ -293,14 +299,14 @@ useEffect(() => {
         </div>
 
         {
-            sections && sections.length > 0 && sections.map((section: any, index: number) => {
-              return (
-          <div key={index} className='px-5 mb-[40px] lg:mb-[83px]'>
-            <>
-            {/* <WatchTheLatest userSession={userSession} title={section.title} data={section.content} id={section._id}/> */}
-            <PortraitSlider data={section.content} title={section.title} />
-            </>
-          </div>
+          sections && sections.length > 0 && sections.map((section: any, index: number) => {
+            return (
+              <div key={index} className='px-5 mb-[40px] lg:mb-[83px]'>
+                <>
+                  {/* <WatchTheLatest userSession={userSession} title={section.title} data={section.content} id={section._id}/> */}
+                  <PortraitSlider data={section.content} title={section.title} />
+                </>
+              </div>
             )
           })}
 

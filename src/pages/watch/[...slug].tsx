@@ -16,6 +16,7 @@ import { IWhoAmI } from "../my-account";
 import moment from "moment";
 import LandscapeSlider from "@/Components/TV/LandscapeSlider";
 import ReactPlayer from "react-player";
+import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
 // import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
 
 interface IWatchProps {
@@ -89,7 +90,7 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
             keywords={`${contentDetails && contentDetails.tags?.length > 0 && contentDetails.tags?.map((tag: string) => tag)}`}
         >
             <div className="m-auto">
-                {/* <VideoPlayer
+                <VideoPlayer
                     contentData={contentDetails}
                     sourceUrl={contentDetails.source_link}
                     userSession={userSession}
@@ -97,14 +98,14 @@ const Watch: NextPage<IWatchProps> = ({ userSession, contentDetails, trendingMov
                     episode={episodeData || null}
                 //type="application/x-mpegURL"
                 //type=""
-                /> */}
+                />
                 <div className=''>
-              <ReactPlayer
+              {/* <ReactPlayer
               url={contentDetails.source_link || null}
               controls={true}
               height='100%'
               width={'100%'}
-              />
+              /> */}
               </div> 
                 <div className="mx-5 xl:mx-10 my-5">
                     <div className="text-xl md:text-4xl font-bold text-white mb-1">

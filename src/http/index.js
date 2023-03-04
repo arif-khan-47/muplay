@@ -69,12 +69,11 @@ export const searching = (data) => API.get(`search?query=${data}`);
 export const allMovies = () => API.get("/content");
 export const getContect = (query) => API.get(`/content?${query}`);
 export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
-export const getContentSignCookieEndPoint = (id, query) => api.get(`/content/stream/${id}?type=${query}`);
+export const getContentSignCookieEndPoint = (id, query) => API.get(`/content/stream/${id}?type=${query}`);
 
 //Add remove and get Favourite 
 export const getFavorite = (data, headers) => API.get("/favorite", data, { headers });
 export const addFavorite = (id) => API.post("/favorite",id);
-
 export const delFavorite = (id) => API.delete(`/favorite/${id}`);
 
 
