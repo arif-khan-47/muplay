@@ -7,7 +7,6 @@ import { IConfigData, ISessionData } from "../_app";
 import { NextPage, NextPageContext } from "next";
 import { IAllContentResponse, IEpisodeContentResponse } from "..";
 import { useDispatch, useSelector } from "react-redux";
-// import TrailersCard from "../../components/Card/Trailers";
 import EpisodeCard from "../../Components/Cards/EpisodeCard";
 import { useEffect, useState } from "react";
 import { getContentFunc } from "../../../Redux/Slices/contentSlice";
@@ -17,7 +16,6 @@ import moment from "moment";
 import LandscapeSlider from "@/Components/TV/LandscapeSlider";
 import ReactPlayer from "react-player";
 import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
-// import VideoPlayer from "@/Components/VideoPlayer/VideoPlayer";
 
 interface IWatchProps {
     userSession: ISessionData;
