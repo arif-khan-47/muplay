@@ -250,7 +250,7 @@ const Header: NextPage<IHeaderProps> = ({ userSession, config }) => {
                       <div className="absolute z-30 top-16 right-0">
                         <ul tabIndex={0} className={`${dropdown ? '' : 'hidden'} p-4 shadow bg-white w-52 rounded`}>
 
-                          <Link href="/">
+                          <Link href="/my-account">
                             <div className="flex gap-3 items-center">
                               <div className="w-10 h-10 rounded relative shadow-md">
                                 <Image

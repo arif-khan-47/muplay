@@ -4,6 +4,8 @@ import { SessionProvider } from "next-auth/react";
 import store from "../../Redux/store"
 import { Provider } from 'react-redux'
 import { Toaster } from 'react-hot-toast';
+import NextNProgress from "nextjs-progressbar";
+
 
 
 
@@ -98,14 +100,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           // Re-fetches session when window is focused
           refetchOnWindowFocus={true}
         >
-
-
-
-
-
-
-
-
+          <NextNProgress
+            color="#FF2A00"
+            startPosition={0.3}
+            stopDelayMs={200}
+            height={4}
+            showOnShallow={true}
+          />
           <Component {...pageProps} />
 
         </SessionProvider>
