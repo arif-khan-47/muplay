@@ -31,15 +31,15 @@ function ToBeReleased({ data }: any) {
                 </div>
             </div>
             <div className="lg:relative">
-                <div className="absolute inset-0 flex items-center"><svg id="ttprev" className="w-[44.83px] fill-none cursor-pointer" viewBox="0 0 49 49"><circle cx="24.303" cy="24.915" r="24" fill="#CCC" fillOpacity="0.15"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M27.38 33.53l-7.384-7.385 7.384-7.384"></path></svg>
+                <div className="absolute inset-0 flex items-center"><svg id="trprev" className="w-[44.83px] fill-none cursor-pointer" viewBox="0 0 49 49"><circle cx="24.303" cy="24.915" r="24" fill="#CCC" fillOpacity="0.15"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M27.38 33.53l-7.384-7.385 7.384-7.384"></path></svg>
                 </div>
                 <div className="lg:mx-[55px]">
                     <Swiper
                         cssMode={false}
                         // pagination={true}
                         navigation={{
-                            prevEl: '#ttprev',
-                            nextEl: '#ttnext'
+                            prevEl: '#trprev',
+                            nextEl: '#trnext'
                         }}
                         modules={[Navigation, Autoplay]}
                         className="mySwiper"
@@ -84,7 +84,7 @@ function ToBeReleased({ data }: any) {
                         }
                     </Swiper>
                 </div>
-                <div className="absolute inset-y-0 flex items-center right-0"><svg id="ttnext" className="w-[44.83px] fill-none cursor-pointer" viewBox="0 0 49 49"> <circle cx="24" cy="24" r="24" fill="#CCC" fillOpacity="0.15" transform="matrix(-1 0 0 1 48.303 .915)"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M21.226 33.53l7.385-7.385-7.385-7.384"></path></svg>
+                <div className="absolute inset-y-0 flex items-center right-0"><svg id="trnext" className="w-[44.83px] fill-none cursor-pointer" viewBox="0 0 49 49"> <circle cx="24" cy="24" r="24" fill="#CCC" fillOpacity="0.15" transform="matrix(-1 0 0 1 48.303 .915)"></circle><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.462" d="M21.226 33.53l7.385-7.385-7.385-7.384"></path></svg>
                 </div>
             </div>
         </div>

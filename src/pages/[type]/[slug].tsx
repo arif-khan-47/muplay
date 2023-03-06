@@ -19,6 +19,7 @@ import { toast } from 'react-hot-toast';
 import WatchTheLatest from '@/Components/Home/WatchTheLatest';
 import VideoPlayer from '@/Components/VideoPlayer/VideoPlayer';
 import videojs from 'video.js';
+import MoviesAndTrailers from '@/Components/Home/MoviesAndTrailers';
 
 
 
@@ -43,6 +44,8 @@ interface ISlugPageProps {
 const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDetails, trendingMovie, query, episodeData, whoAmi }): JSX.Element => {
   const [slugData, setslugData] = useState<any>([])
   const [sections, setSections] = useState<any>([]);
+  // console.log(contentDetails)
+
   async function handleFavorite(id: string) {
     // console.log(id)
     try {
@@ -196,7 +199,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                 //type="application/x-mpegURL"
                 //type=""
                 />
-                
+
 
 
 
@@ -282,6 +285,50 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
             :
             null
         } */}
+
+        {/* {
+          contentDetails.seasons && contentDetails.seasons.length > 0 ?
+            <div className='m-auto container'>
+              <div className='mt-5 lg:mt-0'>
+                <div className='flex gap-10 px-[64px]'>
+                  {
+                    contentDetails.seasons && contentDetails.seasons.length > 0 &&  contentDetails.seasons.map((item: any, index: any) => (
+                      <div key={index}>
+                        <div className={`text-[22.89px] ${selectedTab === item._id ? 'text-[#FF2A00]' : 'text-white'} font-bold cursor-pointer mr-[20px]`}
+                          onClick={() => setSelectedTab(item._id)}>
+                          {item.name}
+                        </div>
+                      </div>
+
+                    ))
+                  }
+                </div>
+                <div>
+                  {data.map((item: any, index: any) => (
+                    <div className='mt-[37px]'
+                      key={index}
+                      style={{ display: selectedTab === item._id ? 'block' : 'none' }}
+                    >
+                      <EpisodeCard
+                        title={"Episodes"}
+                        data={activeSeason.episodes}
+                        userSession={userSession}
+                        whoAmi={whoAmi}
+                        slug={contentDetails.slug}
+                        activeEpisode={query.episode}
+                      />
+
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            :
+            null
+        } */}
+
+
+
         <div className='mt-[60px] mb-[70px] m-auto container'>
           {
             contentDetails?.seasons && contentDetails?.seasons?.length > 0 && <>
@@ -293,6 +340,9 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                 slug={contentDetails.slug}
                 activeEpisode={query.episode}
               />
+        <div className='px-5 mb-[93px]'>
+            <MoviesAndTrailers data={contentDetails} />
+          </div>
             </>
           }
 

@@ -157,7 +157,7 @@ export interface IEpisodeContentResponse {
   // get continue watching
   async function getContinueWatching(session: ISessionData) {
     try {
-      const response = await axios.get(`https://cors-anywhere-969l.onrender.com/https://api.zezosoft.com/api/history`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/history`, {
         withCredentials: true,
         headers: {
           "Authorization": `Bearer ${session?.accessToken}`
