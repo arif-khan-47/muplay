@@ -14,7 +14,7 @@ import { IConfigData } from './_app';
 
 
 
-function Login() {
+function Login({config}:any) {
 
     const router = useRouter();
 
@@ -95,6 +95,12 @@ function Login() {
 
     return (
         <div>
+            <Head>
+        <title>
+          {config.data.name} | Login
+        </title>
+        <link rel="shortcut icon" href={config.data.favicon} />
+      </Head>
             <div className={`bg-right-top lg:bg-cover h-screen`} style={{ backgroundImage: `url(${bgimg})` }}>
                 <div className='px-5 lg:px-10 grid lg:grid-cols-2 h-[100%]'>
                     <div className='lg:col-span-1 hidden lg:block'></div>
