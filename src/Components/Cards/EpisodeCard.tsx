@@ -56,31 +56,6 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
     }
   }
 
-
-  const responsive = {
-    0: {
-      items: 3,
-      nav: false,
-      dots: false,
-      margin: 10,
-      stagePadding: 20,
-    },
-    600: {
-      items: 5,
-      nav: false,
-      dots: false,
-      margin: 10,
-      stagePadding: 20,
-    },
-    1000: {
-      items: 5,
-      nav: false,
-      loop: false,
-      dots: false,
-      margin: 20,
-      stagePadding: 40,
-    }
-  }
   return (
     <div className="2xl:container mx-auto">
       <div>
@@ -109,7 +84,7 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
                 spaceBetween: 20,
               },
               "@1.50": {
-                slidesPerView: 5,
+                slidesPerView: 4,
                 spaceBetween: 20,
               },
             }}
@@ -120,7 +95,7 @@ const EpisodeCard = ({ title, data, link, userSession, whoAmi, slug, activeEpiso
                   <SwiperSlide tag="li" key={index}>
                     <div
                       onClick={() => handlePlayUrl(item, slug)}
-                      key={index} className={`relative w-full h-36 rounded-lg aspect-video overflow-hidden scrollbar-hide item cursor-pointer`}>
+                      key={index} className={`relative w-full h-36 lg:h-44 rounded-lg aspect-video overflow-hidden scrollbar-hide item cursor-pointer`}>
                       <a>
                         <Image
                           src={item.thumbnail}

@@ -24,7 +24,7 @@ function EpisodeSlider({ data, title }: any) {
     // console.log(data)
     return (
         <div className="px-10">
-            <div className='text-white text-xl lg:text-[37.36px] mb-[39px] font-bold capitalize'>
+            <div className='text-white text-xl lg:text-[37.36px] font-bold capitalize'>
                 {title}
             </div>
             <div className="">
@@ -63,7 +63,7 @@ function EpisodeSlider({ data, title }: any) {
                             data && data.length > 0 ?
                                 data && data.length > 0 && data.map((item: any, index: any) => (
                                     <SwiperSlide key={index}>
-                                        <div className="hover:scale-105 rounded-2xl hover:duration-200 cursor-pointer">
+                                        <div className="hover:scale-105 py-5 rounded-2xl hover:duration-200 cursor-pointer">
                                             {/* <Link href={`/${item.type}/${item.slug}`}> */}
                                             <div onClick={() => {Router.push(`/${item.type}/${item.slug}`).then(Router.reload)}}>
                                                 <div className="bg-cover bg-center h-[211px] w-full rounded-xl" style={{ backgroundImage: `url(${item.thumbnail})` }}></div>

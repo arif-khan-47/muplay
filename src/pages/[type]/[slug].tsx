@@ -1,28 +1,50 @@
-import LandscapeSlider from '@/Components/TV/LandscapeSlider'
 import PortraitSlider from '@/Components/TV/PortraitSlider'
-import RectangleSlider from '@/Components/TV/RectangleSlider'
 import { getSinglePageData, allMovies, getAllContentEndpoint, getTrending, addFavorite, getSections } from '@/http'
 import { IConfigData, ISessionData } from "../_app";
 import { IAllContentResponse } from '../index'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NextPage, NextPageContext } from 'next';
-import SeasonTabs from '@/Components/Tabs/SeasonTabs'
-import ReactPlayer from 'react-player'
 import Layout from '@/Components/Layout/Layout'
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import EpisodeCard from '@/Components/Cards/EpisodeCard';
-import moment from 'moment';
 import { IWhoAmI } from '../my-account';
 import { toast } from 'react-hot-toast';
-import WatchTheLatest from '@/Components/Home/WatchTheLatest';
 import VideoPlayer from '@/Components/VideoPlayer/VideoPlayer';
-import videojs from 'video.js';
-import MoviesAndTrailers from '@/Components/Home/MoviesAndTrailers';
+// import Card from "../components/Card/Card";
+// import { HiPlay } from "react-icons/hi";
+// import TrailersCard from "../components/Card/Trailers";
+import { useDispatch, useSelector } from "react-redux";
+import qs from 'qs';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { IconButton } from "@mui/material";
+// import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from "next/router";
+import { RootState } from "../../../Redux/store";
+import { getContentFunc } from "../../../Redux/Slices/contentSlice";
+import moment from "moment";
 
 
+interface IQuery {
+  slug: {
+      [key: string]: string;
+  }
+}
 
+interface IDetailsProps {
+  userSession: ISessionData;
+  trendingMovie: any;
+  query: IQuery;
+  config: IConfigData;
+  whoAmi: IWhoAmI | null
+}
 
 interface ISlugPageProps {
   trendingMovie: any;
@@ -42,10 +64,14 @@ interface ISlugPageProps {
 }
 
 const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDetails, trendingMovie, query, episodeData, whoAmi }): JSX.Element => {
+  const dispatch = useDispatch();
+  const { singleContent } = useSelector((state: RootState) => state.content);
+  const [activeSeason, setActiveSeason] = React.useState<any>([]);
+  const [activeSeasonNumber, setActiveSeasonNumber] = React.useState(1);
   const [slugData, setslugData] = useState<any>([])
   const [sections, setSections] = useState<any>([]);
-  // console.log(contentDetails)
-
+  const router = useRouter()
+  
   async function handleFavorite(id: string) {
     // console.log(id)
     try {
@@ -136,8 +162,6 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
   const [playButtonClicked, setPlayButtonClicked] = useState(false)
 
 
-  const [activeSeason, setActiveSeason] = useState<any>([]);
-  const [activeSeasonNumber, setActiveSeasonNumber] = useState(1);
 
   // handle season change
   const handleSeasonChange = (season: any, index: number) => {
@@ -147,6 +171,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
   }
 
   const [open, setOpen] = useState(false);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -164,6 +189,65 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
       }
     }
   }, [contentDetails])
+  // handle play 
+  const handlePlayUrl = (item: IAllContentResponse['data'][0]) => {
+    if (!userSession) {
+        router.push('/login');
+        return;
+    }
+    console.log(item)
+
+    if (item.type === 'series') {
+      if (item.content_offering_type === 'PREMIUM') {
+          if (whoAmi?.isPremium.status) {
+              if (item.seasons) {
+                  if (item.seasons.length > 0) {
+                      if (item.seasons[0].episodes) {
+                          if (item.seasons[0].episodes.length > 0) {
+                              router.push(`/watch/${item.slug}?episode=${item?.seasons[0]?.episodes[0]?._id}`)
+                              return;
+                          }
+                      }
+                  }
+              }
+          } else {
+              router.push('/premium')
+              return;
+          }
+      }
+      if (item.content_offering_type === 'FREE') {
+          if (item.seasons) {
+              if (item.seasons.length > 0) {
+                  if (item.seasons[0].episodes) {
+                      if (item.seasons[0].episodes.length > 0) {
+                          router.push(`/watch/${item.slug}?episode=${item?.seasons[0]?.episodes[0]?._id}`)
+                          return;
+                      }
+                  }
+              }
+          }
+      }
+      router.push(`/watch/${item.slug}`)
+      return;
+  } else {
+      if (item.content_offering_type === 'PREMIUM') {
+          if (whoAmi?.isPremium.status) {
+              router.push(`/watch/${item.slug}`)
+              return;
+          } else {
+              router.push('/premium')
+              return;
+          }
+      }
+      if (item.content_offering_type === 'FREE') {
+          router.push(`/watch/${item.slug}`)
+          return;
+      }
+      router.push(`/watch/${item.slug}`)
+      return;
+  }
+}
+
 
   return (
     <>
@@ -176,35 +260,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
       >
         <div className='text-white'>
 
-          {
-            playButtonClicked ?
-              <div className="lg:h-[690px] w-full">
-                {/* <svg onClick={() => setPlayButtonClicked(false)} className='w-5 lg:w-10 z-10 absolute m-10 stroke-white fill-white cursor-pointer' viewBox="0 0 1024 1024">
-                  <path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path>
-                </svg> */}
-                {/* <div className=''>
-                  <ReactPlayer
-                    url={contentDetails.source_link}
-                    controls={true}
-                    height='100%'
-                    width={'100%'}
-                  />
-                </div> */}
-                <VideoPlayer
-                  contentData={contentDetails}
-                  sourceUrl={contentDetails.source_link}
-                  userSession={userSession}
-                  isTrailer={query.trailer ? true : false}
-                  episode={episodeData || null}
-                //type="application/x-mpegURL"
-                //type=""
-                />
 
-
-
-
-              </div>
-              :
               <div className="bg-cover bg-center h-[500px] lg:h-[690px]" style={{ backgroundImage: `url(${contentDetails.thumbnail})` }}>
                 <div className="bg-black/75 h-full w-full">
                   <div className='absolute lg:h-full w-1/2 bg-gradient-to-r from-[#101010] via-[#101010] to-transparent'>
@@ -264,8 +320,14 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
 
                         </div>
                       </div>
-                      <div className="col-span-1 flex h-full lg:order-3 order-1 pt-[84px] lg:pt-0">
+                      {/* <div className="col-span-1 flex h-full lg:order-3 order-1 pt-[84px] lg:pt-0">
                         <svg onClick={() => setPlayButtonClicked(true)} className="m-auto cursor-pointer animate-pulse hover:animate-none hover:scale-125 hover:duration-500 w-[85px] fill-none" viewBox="0 0 85 85">
+                          <circle cx="42.043" cy="42.043" r="42.043" fill="#fff" fillOpacity="0.54"></circle> <circle cx="42.043" cy="42.043" r="32.233" fill="#282827" fillOpacity="0.76"></circle>
+                          <path fill="#fff" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.491" d="M36.126 30.831l17.44 11.212-17.44 11.212V30.83z"></path>
+                        </svg>
+                      </div> */}
+                      <div className="col-span-1 flex h-full lg:order-3 order-1 pt-[84px] lg:pt-0">
+                        <svg onClick={() => handlePlayUrl(contentDetails)} className="m-auto cursor-pointer animate-pulse hover:animate-none hover:scale-125 hover:duration-500 w-[85px] fill-none" viewBox="0 0 85 85">
                           <circle cx="42.043" cy="42.043" r="42.043" fill="#fff" fillOpacity="0.54"></circle> <circle cx="42.043" cy="42.043" r="32.233" fill="#282827" fillOpacity="0.76"></circle>
                           <path fill="#fff" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.491" d="M36.126 30.831l17.44 11.212-17.44 11.212V30.83z"></path>
                         </svg>
@@ -274,60 +336,7 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                   </div>
                 </div>
               </div>
-          }
         </div>
-
-        {/* {
-          contentDetails.seasons && contentDetails.seasons.length > 0 ?
-            <div className='m-auto container'>
-              <SeasonTabs data={contentDetails.seasons} />
-            </div>
-            :
-            null
-        } */}
-
-        {/* {
-          contentDetails.seasons && contentDetails.seasons.length > 0 ?
-            <div className='m-auto container'>
-              <div className='mt-5 lg:mt-0'>
-                <div className='flex gap-10 px-[64px]'>
-                  {
-                    contentDetails.seasons && contentDetails.seasons.length > 0 &&  contentDetails.seasons.map((item: any, index: any) => (
-                      <div key={index}>
-                        <div className={`text-[22.89px] ${selectedTab === item._id ? 'text-[#FF2A00]' : 'text-white'} font-bold cursor-pointer mr-[20px]`}
-                          onClick={() => setSelectedTab(item._id)}>
-                          {item.name}
-                        </div>
-                      </div>
-
-                    ))
-                  }
-                </div>
-                <div>
-                  {data.map((item: any, index: any) => (
-                    <div className='mt-[37px]'
-                      key={index}
-                      style={{ display: selectedTab === item._id ? 'block' : 'none' }}
-                    >
-                      <EpisodeCard
-                        title={"Episodes"}
-                        data={activeSeason.episodes}
-                        userSession={userSession}
-                        whoAmi={whoAmi}
-                        slug={contentDetails.slug}
-                        activeEpisode={query.episode}
-                      />
-
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            :
-            null
-        } */}
-
-
 
         <div className='mt-[60px] mb-[70px] m-auto container'>
           {
@@ -340,9 +349,6 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                 slug={contentDetails.slug}
                 activeEpisode={query.episode}
               />
-        {/* <div className='px-5 mb-[93px]'>
-            <MoviesAndTrailers data={contentDetails} />
-          </div> */}
             </>
           }
 
@@ -359,30 +365,12 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
               </div>
             )
           })}
-
-        {/* <div className='mt-[73px] m-auto container'>
-          <LandscapeSlider data={trending} title={'Top Movies'} />
-        </div>
-        
-        <div className='mt-[85px] mb-[88px] m-auto container'>
-          <RectangleSlider data={trending} title={'latest & trending'} />
-        </div> */}
       </Layout>
     </>
   )
 }
 
 export default Movie
-
-
-// export async function getServerSideProps(context: NextPageContext) {
-//   const slug = context.query
-//   return {
-//     props: {
-//       slug
-//     },
-//   }
-// }
 
 
 export interface IEpisodeContentResponse {
@@ -403,160 +391,6 @@ export interface IEpisodeContentResponse {
   }
 }
 
-// // all content response type
-// export interface IAllContentResponse {
-//   message: string;
-//   data: {
-//     _id: string,
-//     name: string,
-//     slug: string,
-//     u_age: string,
-//     description: string,
-//     duration: string,
-//     rating: number,
-//     source_link: string | null,
-//     source_type: 'HLS' | 'MP4' | 'LIVE_STREAM_HLS'
-//     trailer_source_link: string | null,
-//     trailer_source_type: 'HLS' | 'MP4',
-//     language: {
-//       _id: string,
-//       name: string,
-//     }[] | null,
-//     cast: {
-//       _id: string,
-//       name: string,
-//       avatar: string | null,
-//       type: string,
-//     }[] | null,
-//     poster: string,
-//     thumbnail: string,
-//     tags: string[],
-//     seasons: {
-//       _id: string,
-//       name: string,
-//       content_id: string,
-//       order: number,
-//       episodes: {
-//         _id: string,
-//         name: string,
-//         description: string,
-//         duration: number,
-//         source_link: string,
-//         source_type: 'HLS' | 'MP4',
-//         content_offering_type: 'FREE' | 'PREMIUM',
-//         thumbnail: string,
-//         createdAt: string,
-//         updatedAt: string,
-//       }[] | null,
-//       status: boolean,
-//       created_by: string,
-//       createdAt: string,
-//       updatedAt: string,
-//     }[] | null,
-//     type: 'series' | 'movie' | 'live_stream',
-//     content_offering_type: 'FREE' | 'PREMIUM',
-//     updated_by: string,
-//     created_by: string,
-//     createdAt: string,
-//     updatedAt: string,
-//     category: {
-//       _id: string,
-//       name: string,
-//     }[] | null,
-//     genres: {
-//       _id: string,
-//       name: string,
-//     }[] | null,
-//   }[];
-//   meta: {
-//     pagination: {
-//       page: number;
-//       pageSize: number;
-//       pageCount: number;
-//       total: number;
-//     },
-//     report: {
-//       total: number;
-//       totalPublic: number;
-//       totalPrivate: number;
-//     }
-//   } | null;
-// }
-
-// // get all content
-// async function getAllContent() {
-//   try {
-//     const { data, status } = await getAllContentEndpoint();
-//     if (status === 200) {
-//       return data;
-//     }
-//   } catch (error) {
-//     return [];
-//   }
-// }
-// // get continue watching
-// async function getContinueWatching(session: ISessionData) {
-//   try {
-//     const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/history`, {
-//       withCredentials: true,
-//       headers: {
-//         "Authorization": `Bearer ${session?.accessToken}`
-//       }
-//     });
-//     if (response.status === 200) {
-//       return response.data;
-//     }
-//   } catch (error) {
-//     return null;
-//   }
-// }
-// // whoami
-// async function getWhoami(session: ISessionData) {
-//   try {
-//     const { data, status } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/whoami`, {
-//       withCredentials: true,
-//       headers: {
-//         Authorization: `Bearer ${session?.accessToken}`
-//       }
-//     });
-//     if (status === 200) {
-//       return data.data
-//     }
-//   } catch (error) {
-//     return null;
-//   }
-// }
-
-
-// export async function getServerSideProps(context: any) {
-//   const slug = context.query
-//   const session = await getSession(context);
-//   const continueWatching = await getContinueWatching(session as any);
-//   const whoAmi = await getWhoami(session as any)
-//   if (!session) {
-//     const content = await getAllContent();
-//     return {
-//       props: {
-//         userSession: session,
-//         slug,
-//         content: content,
-//         whoAmi: null,
-//         continueWatching: continueWatching,
-//       },
-//     };
-//   } else {
-//     const content = await getAllContent();
-//     return {
-//       props: {
-//         slug,
-//         userSession: session,
-//         content: content,
-//         whoAmi: whoAmi,
-//         continueWatching: continueWatching,
-//       },
-//     };
-//   }
-// }
 
 // get trending movies
 async function getTrendingMovies() {

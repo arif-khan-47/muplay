@@ -10,7 +10,7 @@ export const STATUS = Object.freeze({
 })
 
 interface IContentState {
-    singleContent: {
+    singleContent:any| {
         _id: string,
         name: string,
         slug: string,

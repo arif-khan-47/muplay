@@ -4,7 +4,7 @@ import EpisodeSlider from '../TV/EpisodeSlider';
 import LandscapeSlider from '../TV/LandscapeSlider';
 
 const SeasonTabs = ({ data }: any) => {
-    // console.log(data);
+    console.log('ssssss',data);
     const [selectedTab, setSelectedTab] = useState(data[0]._id);
     //  console.log(selectedTab);
     return (

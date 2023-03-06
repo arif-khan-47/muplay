@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getContect } from '../../http'
+import { getContect } from '../../src/http/index'
 
 export const STATUS = Object.freeze({
     SECCESS: 'success',
