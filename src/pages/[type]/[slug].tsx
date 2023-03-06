@@ -340,9 +340,9 @@ const Movie: NextPage<ISlugPageProps> = ({ slug, config, userSession, contentDet
                 slug={contentDetails.slug}
                 activeEpisode={query.episode}
               />
-        <div className='px-5 mb-[93px]'>
+        {/* <div className='px-5 mb-[93px]'>
             <MoviesAndTrailers data={contentDetails} />
-          </div>
+          </div> */}
             </>
           }
 
