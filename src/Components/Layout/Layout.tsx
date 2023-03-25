@@ -64,7 +64,12 @@ const Layout: NextPage<ILayoutProps> = ({
 
             {
                 !hideFooter && <footer>
+                    <div className='lg:block hidden'>
                     <Footer config={config} />
+                    </div>
+                    <div className='bg-black h-20 sticky'>
+
+                    </div>
                 </footer>
             }
         </>

@@ -93,6 +93,7 @@ interface IPremiumPageProps {
 }
 
 const PremiumPage: NextPage<IPremiumPageProps> = ({ config, userSession, whoAmi, subscriptionPlans }): JSX.Element => {
+    console.log(subscriptionPlans)
     const headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -197,7 +198,7 @@ const PremiumPage: NextPage<IPremiumPageProps> = ({ config, userSession, whoAmi,
             <div className="bg-cover bg-center h-full" style={{ backgroundImage: `url(https://res.cloudinary.com/dgyudczza/image/upload/v1676027129/muplay/Group_77_uwlio3.png)` }}>
                 <div className='px-5 lg:px-10 pt-[73px] pb-[104px]'>
                     <p className='text-[50.79px] mb-[79px] font-semibold text-white text-center'>Pricing table example</p>
-                    <div className='lg:flex lg:justify-center lg:gap-20'>
+                    <div className='lg:flex lg:flex-wrap lg:justify-center lg:gap-20'>
                         {
                             subscriptionPlans && subscriptionPlans.length > 0 && subscriptionPlans.slice(0, 1).map((plan: any, index: any) => {
                                 return (
